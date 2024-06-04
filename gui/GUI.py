@@ -54,8 +54,15 @@ class GUI:
                 mesh.local.position = coord
                 self.spheres.append(mesh)
                 self.scene.add(mesh)
+
             self.camera.show_object(self.scene)
 
+            for wall in self.sim.get_walls():
+                import numpy as np
+                geometry = gfx.Geometry(positions=wall.astype(np.float32), colors=[[1, 0, 0, 1]])
+                material = gfx.LineSegmentMaterial(thickness=6, color_mode="face")
+                line = gfx.Line(geometry, material)
+                self.scene.add(line)
     def animate(self):
         self.sim.step()
         if not self.d3:
