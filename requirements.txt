@@ -1,0 +1,4 @@
+pygfx
+glfw
+numpy
+numba
