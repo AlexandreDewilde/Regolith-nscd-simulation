@@ -33,7 +33,7 @@ class Simulation:
         self.walls = np.array(walls).astype(np.float64) if walls is not None else np.array([[[0,0,0], [0,1,0]]]).astype(np.float64)
         rho = 1000
         self.d3 = d3
-        self.iM = (1/(np.pi*rho*self.__radius**2)).reshape(-1,1)
+        self.iM = (1/(np.pi*rho*10*self.__radius**2)).reshape(-1,1)
 
         self.kn = 2e7
         self.gn= 10000
@@ -75,7 +75,7 @@ class Simulation:
         return self.__speeds.astype(np.float32)
 
     def get_walls(self) -> np.array:
-        return self.walls
+        return self.walls.astype(np.float32)
 
     @staticmethod
     @jit(nopython=True)
@@ -91,7 +91,7 @@ class Simulation:
                     vj = speeds[j]
                     dv = vi - vj
                     vn = np.dot(dv, normal)
-                    fn = kn * (-dst + radius[i] + radius[j]) ** 1.5 - gn * vn
+                    fn = kn * (radius[i] + radius[j] - dst) ** 1.5 - gn * vn
                     if fn > 0:
                         fi = fn * normal
                         f[i] += fi
@@ -119,8 +119,7 @@ class Simulation:
 
                     fn = kn * (radius[i] - dst) ** 1.5 - vn * gn
                     if fn > 0:
-                        fi = fn * normal
-                        f[i] += fi
+                        f[i] += fn * normal
         return f
 
     def velocity_verlet(self) -> None:
@@ -128,10 +127,10 @@ class Simulation:
         Update the positions and speeds of the particles using the velocity verlet algorithm
         """
         f = self.solve_contacts(self.__positions, self.__speeds, self.__radius, self.kn, self.gn) + self.solve_contacts_wall(self.__positions, self.__speeds, self.__radius, self.walls, self.kn, self.gn)
-        self.__speeds += 0.5 * self.dt * f * self.iM
+        self.__speeds += self.dt * f * self.iM
         self.__positions += self.dt * self.__speeds
-        f = self.solve_contacts(self.__positions, self.__speeds, self.__radius, self.kn, self.gn) + self.solve_contacts_wall(self.__positions, self.__speeds, self.__radius, self.walls, self.kn, self.gn)
-        self.__speeds += 0.5 * self.dt * f * self.iM
+        # f = self.solve_contacts(self.__positions, self.__speeds, self.__radius, self.kn, self.gn) + self.solve_contacts_wall(self.__positions, self.__speeds, self.__radius, self.walls, self.kn, self.gn)
+        # self.__speeds += 0.5 * self.dt * f * self.iM
 
     def step(self) -> None:
         """
