@@ -22,6 +22,10 @@ radius = np.random.uniform(0.5,0.5*0.5,(100,1))
 dt = 0.5*(4*0.5*0.5**2.5*np.pi*3/(3*1e4))**0.5
 
 sim = Simulation(positions, speeds, radius, d3=False)
+sim.add_wall(np.array([[0, 0, 0],[20, 0, 0]]))
+sim.add_wall(np.array([[20, 0, 0],[20,20, 0]]))
+sim.add_wall(np.array([[0, 20, 0],[20, 20, 0]]))
+sim.add_wall(np.array([[0, 0, 0],[0, 20, 0]]))
 gui = GUI(sim, bound=(0, 20, 0, 20), d3=True)
 
 gui.run()
