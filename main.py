@@ -17,15 +17,60 @@ def random_initial_conditions(n, R, xmin, xmax, ymin, ymax):
 
 
 positions = random_initial_conditions(100, 0.5, 0, 20, 0, 20)
-speeds = np.random.uniform(-6,6,(100,2))
+speeds = np.random.uniform(-6,6,(100,3))
 radius = np.random.uniform(0.5,0.5*0.5,(100,1))
 dt = 0.5*(4*0.5*0.5**2.5*np.pi*3/(3*1e4))**0.5
 
-sim = Simulation(positions, speeds, radius, d3=False)
-sim.add_wall(np.array([[0, 0, 0],[20, 0, 0]]))
-sim.add_wall(np.array([[20, 0, 0],[20,20, 0]]))
-sim.add_wall(np.array([[0, 20, 0],[20, 20, 0]]))
-sim.add_wall(np.array([[0, 0, 0],[0, 20, 0]]))
+rho = 1e4
+iM = (1/(np.pi*rho*radius**3)).reshape(-1,1)
+
+sim = Simulation(positions, speeds, radius, iM=iM, d3=False)
+sim.add_rectangle(
+    np.array([
+        [0, 0, -10],
+        [0, 0, 10],
+        [0, 20, 10],
+        [0, 20, -10]
+    ])
+)
+
+sim.add_rectangle(
+    np.array([
+        [0, 0, -10],
+        [0, 0, 10],
+        [20, 0, 10],
+        [20, 0, -10]
+    ])
+)
+
+sim.add_rectangle(
+    np.array([
+        [0, 20, -10],
+        [0, 20, 10],
+        [20, 20, 10],
+        [20, 20, -10]
+    ])
+)
+
+sim.add_rectangle(
+    np.array([
+        [20, 0, -10],
+        [20, 0, 10],
+        [20, 20, 10],
+        [20, 20, -10]
+    ])
+)
+
+sim.add_rectangle(
+    np.array([
+        [0, 0, -10],
+        [0, 20, -10],
+        [20, 20, -10],
+        [20, 0, -10]
+    ])
+
+)
+
 gui = GUI(sim, bound=(0, 20, 0, 20), d3=True)
 
 gui.run()
