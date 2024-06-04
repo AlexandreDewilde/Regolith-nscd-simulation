@@ -3,14 +3,33 @@ from wgpu.gui.auto import WgpuCanvas, run
 
 
 class GUI:
-    def __init__(self, sim, bound=(-10, 10, -10, 10), d3=False):
+    def __init__(
+            self,
+            sim,
+            bound=(-10, 10, -10, 10),
+            d3=False,
+            show_fps=True,
+            wall_color=(1, 0, 0, 1),
+            particle_color=(0, 1, 1, 1),
+            background_color=(1, 1, 1, 1),
+            wall_thickness=2
+            ):
         self.sim = sim
         self.bound = bound
-        self.size = (bound[1] - bound[0], bound[3] - bound[2])
+        self.show_fps = show_fps
         self.d3 = d3
+        self.wall_color = wall_color
+        self.particle_color = particle_color
+        self.background_color = background_color
+        self.wall_thickness = wall_thickness
+
+        self.size = (bound[1] - bound[0], bound[3] - bound[2])
+
         self.init_scene()
-        self.add_light()
-        self.add_fps()
+        # self.add_light()
+
+        if self.show_fps:
+            self.add_fps()
         self.init_sim()
 
     def init_scene(self):
@@ -25,44 +44,55 @@ class GUI:
         else:
             self.camera = gfx.OrthographicCamera(*self.size)
             self.camera.show_rect(*self.bound)
-        self.scene.add(gfx.Background(None, gfx.BackgroundMaterial("#ffffff")))
+        self.scene.add(gfx.Background(None, gfx.BackgroundMaterial(self.background_color)))
 
     def add_fps(self):
         self.stats = gfx.Stats(viewport=self.renderer)
 
     def add_light(self):
-        self.scene.add(gfx.AmbientLight(intensity=0.8))
+        self.scene.add(gfx.AmbientLight(intensity=0.2))
 
     def init_sim(self):
-        w, h = self.canvas.get_logical_size()
-
-        pos = self.sim.get_positions()
-
         if not self.d3:
-            sizes = 2 * self.sim.get_radius() * min(w, h) / min(self.size)
-            self.geometry = gfx.Geometry(positions=pos, sizes=sizes)
-            material = gfx.PointsMaterial(color=(0, 1, 1, 1), size_mode="vertex", pick_write=True)
-            points = gfx.Points(self.geometry, material)
-            self.scene.add(points)
+            self.init_sim_2d()
         else:
-            sizes = self.sim.get_radius()
-            self.spheres = []
-            for coord, size in zip(pos, sizes):
-                geometry = gfx.sphere_geometry(radius=size)
-                material = gfx.MeshPhongMaterial(color=(0, 1, 1, 1))
-                mesh = gfx.Mesh(geometry, material)
-                mesh.local.position = coord
-                self.spheres.append(mesh)
-                self.scene.add(mesh)
+            self.init_sim_3d()
 
-            self.camera.show_object(self.scene)
+    def init_sim_2d(self):
+        w, h = self.canvas.get_logical_size()
+        pos = self.sim.get_positions()
+        sizes = 2 * self.sim.get_radius() * min(w, h) / min(self.size)
+        self.geometry = gfx.Geometry(positions=pos, sizes=sizes)
+        material = gfx.PointsMaterial(color=self.particle_color, size_mode="vertex", pick_write=True)
+        points = gfx.Points(self.geometry, material)
+        self.scene.add(points)
 
-            for wall in self.sim.get_walls():
-                import numpy as np
-                geometry = gfx.Geometry(positions=wall.astype(np.float32), colors=[[1, 0, 0, 1]])
-                material = gfx.LineSegmentMaterial(thickness=6, color_mode="face")
-                line = gfx.Line(geometry, material)
-                self.scene.add(line)
+        for wall in self.sim.get_walls():
+            geometry = gfx.Geometry(positions=wall, colors=[self.wall_color])
+            material = gfx.LineSegmentMaterial(thickness=self.wall_thickness, color_mode="face")
+            line = gfx.Line(geometry, material)
+            self.scene.add(line)
+
+    def init_sim_3d(self):
+        pos = self.sim.get_positions()
+        sizes = self.sim.get_radius()
+        self.spheres = []
+        for coord, size in zip(pos, sizes):
+            geometry = gfx.sphere_geometry(radius=size)
+            material = gfx.MeshPhongMaterial(color=self.particle_color)
+            mesh = gfx.Mesh(geometry, material)
+            mesh.local.position = coord
+            self.spheres.append(mesh)
+            self.scene.add(mesh)
+
+        self.camera.show_object(self.scene)
+
+        for wall in self.sim.get_walls():
+            geometry = gfx.Geometry(positions=wall, colors=[self.wall_color])
+            material = gfx.LineSegmentMaterial(thickness=self.wall_thickness, color_mode="face")
+            line = gfx.Line(geometry, material)
+            self.scene.add(line)
+
     def animate(self):
         self.sim.step()
         if not self.d3:
