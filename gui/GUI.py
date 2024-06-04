@@ -9,19 +9,21 @@ class GUI:
             bound=(-10, 10, -10, 10),
             d3=False,
             show_fps=True,
-            wall_color=(1, 0, 0, 1),
+            line_color=(1, 0, 0, 1),
+            rectangle_color=(0, 1, 0, 0.6),
             particle_color=(0, 1, 1, 1),
             background_color=(1, 1, 1, 1),
-            wall_thickness=2
+            line_thickness=2
             ):
         self.sim = sim
         self.bound = bound
         self.show_fps = show_fps
         self.d3 = d3
-        self.wall_color = wall_color
+        self.line_color = line_color
+        self.rectangle_color = rectangle_color
         self.particle_color = particle_color
         self.background_color = background_color
-        self.wall_thickness = wall_thickness
+        self.line_thickness = line_thickness
 
         self.size = (bound[1] - bound[0], bound[3] - bound[2])
 
@@ -67,9 +69,9 @@ class GUI:
         points = gfx.Points(self.geometry, material)
         self.scene.add(points)
 
-        for wall in self.sim.get_walls():
-            geometry = gfx.Geometry(positions=wall, colors=[self.wall_color])
-            material = gfx.LineSegmentMaterial(thickness=self.wall_thickness, color_mode="face")
+        for line in self.sim.get_lines():
+            geometry = gfx.Geometry(positions=line, colors=[self.line_color])
+            material = gfx.LineSegmentMaterial(thickness=self.line_thickness, color_mode="face")
             line = gfx.Line(geometry, material)
             self.scene.add(line)
 
@@ -87,11 +89,19 @@ class GUI:
 
         self.camera.show_object(self.scene)
 
-        for wall in self.sim.get_walls():
-            geometry = gfx.Geometry(positions=wall, colors=[self.wall_color])
-            material = gfx.LineSegmentMaterial(thickness=self.wall_thickness, color_mode="face")
+        for line in self.sim.get_lines():
+            geometry = gfx.Geometry(positions=line, colors=[self.line_color])
+            material = gfx.LineSegmentMaterial(thickness=self.line_thickness, color_mode="face")
             line = gfx.Line(geometry, material)
             self.scene.add(line)
+
+        for rectangle in self.sim.get_rectangles():
+
+            rect = gfx.Mesh(
+                gfx.Geometry(positions=rectangle, indices=[[0, 1, 2, 3]]),
+                gfx.MeshPhongMaterial(color=self.rectangle_color)
+            )
+            self.scene.add(rect)
 
     def animate(self):
         self.sim.step()
