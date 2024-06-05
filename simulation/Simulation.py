@@ -138,7 +138,7 @@ class Simulation:
 
     @staticmethod
     @jit(nopython=True)
-    def jacobi(contacts, positions, velocities, omega, radius, iM, I, restitution_wall, dt):
+    def gauss_seidel(contacts, positions, velocities, omega, radius, iM, I, restitution_wall, dt):
         while 1:
             if contacts[0].type == -1 :
                 break
@@ -154,6 +154,6 @@ class Simulation:
         self.generate_tree(self.__positions)
         self.__velocities += self.g * self.dt
         self.contacts = detect_contacts(self.__positions, self.__velocities, self.__radius, self.lines, self.rectangles, self.meshes_positions, self.meshes_faces, self.dt)
-        self.jacobi(self.contacts, self.__positions, self.__velocities, self.__omega, self.__radius, self.iM, self.I, self.restitution_wall, self.dt)
+        self.gauss_seidel(self.contacts, self.__positions, self.__velocities, self.__omega, self.__radius, self.iM, self.I, self.restitution_wall, self.dt)
         self.__positions += self.__velocities * self.dt
         self.t += self.dt
