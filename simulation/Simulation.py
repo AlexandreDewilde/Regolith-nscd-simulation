@@ -3,6 +3,7 @@ from typing import Annotated
 import numpy as np
 from numpy.typing import NDArray
 from numba import jit
+import trimesh
 
 from .contact import solve_contacts, detect_contacts
 
@@ -18,6 +19,7 @@ class Simulation:
                 mu: Annotated[float, "Friction coefficient"] = 0.3,
                 lines: Annotated[list, "list of boundary lines"] = None,
                 rectangles: Annotated[list, "list of boundary rectangles"] = None,
+                meshes: Annotated[list, "list of meshes"] = None,
                 restitution_wall: Annotated[float, "restitution coefficient"] = 0,
                 restitution_particles: Annotated[float, "restitution coefficient"] = 0,
                 dt: Annotated[float, "time step"] = 0.01,
@@ -68,6 +70,16 @@ class Simulation:
         self.restitution_particles = restitution_particles
         self.mu = mu
 
+        self.meshes = meshes if meshes is not None else []
+        self.meshes_positions = [np.ascontiguousarray(mesh.vertices, dtype=np.float64) for mesh in self.meshes]
+        self.meshes_faces = [np.ascontiguousarray(mesh.faces, dtype=np.int32) for mesh in self.meshes]
+
+    def add_mesh(self, mesh, scale, position) -> None:
+        mesh.apply_transform(trimesh.transformations.scale_and_translate(scale, -mesh.centroid * scale + position))
+        self.meshes.append(mesh)
+
+        self.meshes_positions.append(np.ascontiguousarray(mesh.vertices, dtype=np.float64))
+        self.meshes_faces.append(np.ascontiguousarray(mesh.faces, dtype=np.int32))
 
     def add_grain(self,
                 position: NDArray,
@@ -115,6 +127,9 @@ class Simulation:
     def get_rectangles(self) -> np.array:
         return self.rectangles.astype(np.float32)
 
+    def get_meshes(self) -> list[trimesh.Trimesh]:
+        return self.meshes
+
     @staticmethod
     @jit(nopython=True)
     def generate_tree(positions):
@@ -138,7 +153,7 @@ class Simulation:
         """
         self.generate_tree(self.__positions)
         self.__velocities += self.g * self.dt
-        self.contacts = detect_contacts(self.__positions, self.__velocities, self.__radius, self.lines, self.rectangles, self.dt)
+        self.contacts = detect_contacts(self.__positions, self.__velocities, self.__radius, self.lines, self.rectangles, self.meshes_positions, self.meshes_faces, self.dt)
         self.jacobi(self.contacts, self.__positions, self.__velocities, self.__omega, self.__radius, self.iM, self.I, self.restitution_wall, self.dt)
         self.__positions += self.__velocities * self.dt
         self.t += self.dt
