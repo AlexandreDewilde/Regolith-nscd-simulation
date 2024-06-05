@@ -2,3 +2,4 @@ pygfx
 glfw
 numpy
 numba
+trimesh
