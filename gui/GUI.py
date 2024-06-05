@@ -90,6 +90,12 @@ class GUI:
             line = gfx.Line(geometry, material)
             self.scene.add(line)
 
+        for i, mesh in enumerate(self.sim.meshes):
+            geometry = gfx.geometry_from_trimesh(mesh)
+            material = gfx.material_from_trimesh(mesh)
+            mesh = gfx.Mesh(geometry, material)
+            self.scene.add(mesh)
+
     def init_sim_3d(self):
         pos = self.sim.get_positions()
         sizes = self.sim.get_radius()
