@@ -1,4 +1,4 @@
-from numba import jit, int64, float64
+from numba import jit, int64, float64, int32
 from numba.experimental import jitclass
 import numpy as np
 
@@ -6,14 +6,16 @@ import numpy as np
 CONTACT_PARTICLE_PARTICLE = 1
 CONTACT_PARTICLE_LINE = 2
 CONTACT_PARTICLE_RECTANGLE = 3
+CONTACT_PARTICLE_MESH = 4
 
-@jitclass([("i", int64), ("j", int64), ("type", int64), ("normal", float64[:])])
+@jitclass([("i", int64), ("j", int64), ("type", int64), ("normal", float64[:]), ("mesh_idx", int32)])
 class Contact:
     def __init__(self, i, j, normal, type=CONTACT_PARTICLE_PARTICLE):
         self.i = i
         self.j = j
         self.normal = normal
         self.type = type
+        self.mesh_idx = -1
 
 @jit(nopython=True)
 def solve_contacts(positions, velocities, omega, radius, imass, inertia, contacts, restitution_wall, dt):
@@ -25,7 +27,9 @@ def solve_contacts(positions, velocities, omega, radius, imass, inertia, contact
         if contact.type == CONTACT_PARTICLE_LINE:
             velocities[i] = velocities[i] - (1 + restitution_wall) * np.dot(velocities[i], contact.normal) / np.dot(contact.normal, contact.normal) * contact.normal
         elif contact.type == CONTACT_PARTICLE_RECTANGLE:
-            velocities[i] = velocities[i] - (1 + restitution_wall) * np.dot(velocities[i], contact.normal) * contact.normal
+            velocities[i] = velocities[i] - (1 + restitution_wall) * np.dot(velocities[i], contact.normal) * contact.normal / np.dot(contact.normal, contact.normal)
+        elif contact.type == CONTACT_PARTICLE_MESH:
+            velocities[i] = velocities[i] - (1 + restitution_wall) * np.dot(velocities[i], contact.normal) * contact.normal / np.dot(contact.normal, contact.normal)
         else :
             #contact with particle
             xj = positions[j]
@@ -69,13 +73,14 @@ def solve_contacts(positions, velocities, omega, radius, imass, inertia, contact
     return impulses
 
 @jit(nopython=True)
-def detect_contacts(positions, velocities, radius, lines, rectangles, dt):
+def detect_contacts(positions, velocities, radius, lines, rectangles, meshes_positions, meshes_faces, dt):
     detection_range = np.mean(velocities) * dt
     contacts = []
     for i in range(len(radius)):
         detect_contact_particles(i, positions, radius, detection_range, contacts)
         detect_contact_lines(i, positions[i], radius[i], lines, detection_range, contacts)
         detect_contact_rectangle(i, positions[i], radius[i], rectangles, detection_range, contacts)
+        detect_contact_meshes(i, positions[i], radius[i], meshes_positions, meshes_faces, detection_range, contacts)
     if not contacts:
         contacts.append(Contact(-1, -1, np.zeros(3), -1))
 
@@ -141,6 +146,39 @@ def detect_contact_rectangle(i, xi, rad, rectangles, detection_range, contacts):
             contacts.append(Contact(i, k, normal, CONTACT_PARTICLE_RECTANGLE))
 
 @jit(nopython=True)
+def detect_contact_meshes(i, xi, rad, meshes_positions, meshes_faces, detection_range, contacts):
+    for k, (faces, positions) in enumerate(zip(meshes_faces, meshes_positions)):
+        for j, face in enumerate(faces):
+            a, b, c = positions[face[0]], positions[face[1]], positions[face[2]]
+            n = np.cross(b - a, c - a)
+            if np.linalg.norm(n) < 1e-9:
+                continue
+            n = n / np.linalg.norm(n)
+            d = -np.dot(n, a)
+            dst_plane_dir = (n[0] * xi[0] + n[1] * xi[1] + n[2] * xi[2] + d)
+            dst_plane = np.abs(dst_plane_dir)
+            h = xi - dst_plane_dir * n
+            dst_h_tri = np.inf
+            for j in range(3):
+                b, c = positions[face[j]], positions[face[(j+1)%3]]
+                vecd = (c - b) / np.linalg.norm(c - b)
+                v = h - b
+                t = np.dot(v, vecd)
+                p = b + t * vecd
+                dist = np.linalg.norm(p - h)
+                if dist < dst_h_tri:
+                    dst_h_tri = dist
+
+            dst = dst_plane + (dst_h_tri if not inside_triangle(a, b, c, h) else 0)
+
+            if dst - rad < detection_range:
+                normal = (xi - h) / np.linalg.norm(xi - h)
+                contact = Contact(i, j, normal, CONTACT_PARTICLE_MESH)
+                contact.mesh_idx = k
+                contacts.append(contact)
+
+
+@jit(nopython=True)
 def inside_rectangle(rectangle, point):
     mn_x = min(rectangle[0][0], rectangle[1][0], rectangle[2][0], rectangle[3][0])
     mx_x = max(rectangle[0][0], rectangle[1][0], rectangle[2][0], rectangle[3][0])
@@ -149,3 +187,13 @@ def inside_rectangle(rectangle, point):
     mn_z = min(rectangle[0][2], rectangle[1][2], rectangle[2][2], rectangle[3][2])
     mx_z = max(rectangle[0][2], rectangle[1][2], rectangle[2][2], rectangle[3][2])
     return mn_y <= point[1] <= mx_y and mn_z <= point[2] <= mx_z and mn_x <= point[0] <= mx_x
+
+@jit(nopython=True)
+def inside_triangle(a, b, c, point):
+    area = 0.5 * np.linalg.norm(np.cross(b - a, c - a))
+    if area < 1e-9:
+        return False
+    area1 = 0.5 * np.linalg.norm(np.cross(b - point, c - point)) / area
+    area2 = 0.5 * np.linalg.norm(np.cross(a - point, c - point)) / area
+    gamma = 1 - area1 - area2
+    return 0 <= area1 <= 1 and 0 <= area2 <= 1 and 0 <= gamma <= 1 and np.abs(area1 + area2 + gamma - 1) < 1e-9
