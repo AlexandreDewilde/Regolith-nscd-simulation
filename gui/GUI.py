@@ -24,7 +24,7 @@ class GUI:
         self.particle_color = particle_color
         self.background_color = background_color
         self.line_thickness = line_thickness
-
+        self.break_anim = False
         self.size = (bound[1] - bound[0], bound[3] - bound[2])
 
         self.init_scene()
@@ -32,6 +32,7 @@ class GUI:
         if self.show_fps:
             self.add_fps()
         self.init_sim()
+        self.add_break()
 
     def init_scene(self):
         self.canvas = WgpuCanvas(max_fps=60)
@@ -53,6 +54,11 @@ class GUI:
     def add_light(self):
         self.scene.add(gfx.AmbientLight(intensity=0.2))
 
+    def add_break(self):
+        def break_anim(event):
+            if event["key"] == " ":
+                self.break_anim = not self.break_anim
+        self.canvas.add_event_handler(break_anim, "key_down")
     def init_sim(self):
         if not self.d3:
             self.init_sim_2d()
@@ -103,7 +109,8 @@ class GUI:
             self.scene.add(rect)
 
     def animate(self):
-        self.sim.step()
+        if not self.break_anim:
+            self.sim.step()
         if not self.d3:
             self.geometry.positions.data[:, :] = self.sim.get_positions()
             self.geometry.positions.update_range()
