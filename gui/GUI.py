@@ -12,11 +12,15 @@ class GUI:
             d3=False,
             show_fps=True,
             line_color=(1, 0, 0, 1),
+            line_colors = None,
             rectangle_color=(0, 1, 0, 0.6),
+            rectangle_colors = None,
             particle_color=(0, 1, 1, 1),
+            particle_colors = None,
             background_color=(1, 1, 1, 1),
             line_thickness=2
             ):
+
         self.sim = sim
         self.bound = bound
         self.show_fps = show_fps
@@ -26,11 +30,14 @@ class GUI:
         self.particle_color = particle_color
         self.background_color = background_color
         self.line_thickness = line_thickness
+        self.line_colors = line_colors
+        self.rectangle_colors = rectangle_colors
+        self.particle_colors = particle_colors
         self.break_anim = False
         self.size = (bound[1] - bound[0], bound[3] - bound[2])
 
         self.init_scene()
-
+        self.add_light()
         if self.show_fps:
             self.add_fps()
         self.init_sim()
@@ -61,6 +68,7 @@ class GUI:
             if event["key"] == " ":
                 self.break_anim = not self.break_anim
         self.canvas.add_event_handler(break_anim, "key_down")
+
     def init_sim(self):
         if not self.d3:
             self.init_sim_2d()
@@ -76,8 +84,8 @@ class GUI:
         points = gfx.Points(self.geometry, material)
         self.scene.add(points)
 
-        for line in self.sim.get_lines():
-            geometry = gfx.Geometry(positions=line, colors=[self.line_color])
+        for i, line in enumerate(self.sim.get_lines()):
+            geometry = gfx.Geometry(positions=line, colors=[self.line_color if not self.line_colors else self.line_colors[i]])
             material = gfx.LineSegmentMaterial(thickness=self.line_thickness, color_mode="face")
             line = gfx.Line(geometry, material)
             self.scene.add(line)
@@ -86,9 +94,9 @@ class GUI:
         pos = self.sim.get_positions()
         sizes = self.sim.get_radius()
         self.spheres = []
-        for coord, size in zip(pos, sizes):
+        for i, (coord, size) in enumerate(zip(pos, sizes)):
             geometry = gfx.sphere_geometry(radius=size)
-            material = gfx.MeshPhongMaterial(color=self.particle_color)
+            material = gfx.MeshPhongMaterial(color=self.particle_color if not self.particle_colors else self.particle_colors[i])
             mesh = gfx.Mesh(geometry, material)
             mesh.local.position = coord
             self.spheres.append(mesh)
@@ -102,11 +110,10 @@ class GUI:
             line = gfx.Line(geometry, material)
             self.scene.add(line)
 
-        for rectangle in self.sim.get_rectangles():
-
+        for i, rectangle in enumerate(self.sim.get_rectangles()):
             rect = gfx.Mesh(
                 gfx.Geometry(positions=rectangle, indices=[[0, 1, 2, 3]]),
-                gfx.MeshPhongMaterial(color=self.rectangle_color)
+                gfx.MeshPhongMaterial(color=self.rectangle_color if not self.rectangle_colors else self.rectangle_colors[i])
             )
             self.scene.add(rect)
 
