@@ -1,6 +1,8 @@
 import pygfx as gfx
 from wgpu.gui.auto import WgpuCanvas, run
-from numba import jit
+
+from .FPSTime import FPSTime
+
 
 class GUI:
     def __init__(
@@ -35,7 +37,7 @@ class GUI:
         self.add_break()
 
     def init_scene(self):
-        self.canvas = WgpuCanvas(max_fps=60)
+        self.canvas = WgpuCanvas(max_fps=60, title="Granular material simulation")
         self.renderer = gfx.renderers.WgpuRenderer(self.canvas)
 
         self.scene = gfx.Scene()
@@ -49,7 +51,7 @@ class GUI:
         self.scene.add(gfx.Background(None, gfx.BackgroundMaterial(self.background_color)))
 
     def add_fps(self):
-        self.stats = gfx.Stats(viewport=self.renderer)
+        self.stats = FPSTime(viewport=self.renderer)
 
     def add_light(self):
         self.scene.add(gfx.AmbientLight(intensity=0.2))
@@ -111,6 +113,7 @@ class GUI:
     def animate(self):
         if not self.break_anim:
             self.sim.step()
+            self.stats.set_sim_time(self.sim.t if self.sim.t else 0)
         if not self.d3:
             self.geometry.positions.data[:, :] = self.sim.get_positions()
             self.geometry.positions.update_range()
