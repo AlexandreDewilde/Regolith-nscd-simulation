@@ -3,17 +3,20 @@ from typing import Annotated
 import numpy as np
 from numpy.typing import NDArray
 from numba import jit
+from numba.typed import List
+from numba.experimental import jitclass
+from numba import int32, float32    # import the types
 
 class Simulation:
     def __init__(self,
                 init_positions: Annotated[list | NDArray, "2D or 3D list"],
-                init_speeds: Annotated[list | NDArray, "2D or 3D list"],
+                init_velocities: Annotated[list | NDArray, "2D or 3D list"],
+                init_omega: Annotated[list | NDArray, "2D or 3D list"],
                 radius: Annotated[list | NDArray, "list of floats"],
-                iM: Annotated[NDArray, "inverse mass"],
+                rho: Annotated[float, "Density [kg/m^3]"],
+                g:Annotated[float, "Gravity [m/s^2]"],
                 lines: Annotated[list, "list of boundary lines"] = None,
                 rectangles: Annotated[list, "list of boundary rectangles"] = None,
-                kn = 2e7,
-                gn = 10000,
                 dt: Annotated[float, "time step"] = 0.01,
                 d3: Annotated[bool, "3D or 2D simulation"] = False):
         """
@@ -26,31 +29,37 @@ class Simulation:
             init_positions = np.array(init_positions)
         self.__positions = init_positions.astype(np.float64) if init_positions.shape[1] == 3 else np.c_[init_positions, np.zeros(len(init_positions))].astype(np.float64)
 
-        if type(init_speeds) == list:
-            init_speeds = np.array(init_speeds)
-        self.__speeds = init_speeds.astype(np.float64) if init_speeds.shape[1] == 3 else np.c_[init_speeds, np.zeros(len(init_positions))].astype(np.float64)
+        if type(init_velocities) == list:
+            init_velocities = np.array(init_velocities)
+        self.__velocities = init_velocities.astype(np.float64) if init_velocities.shape[1] == 3 else np.c_[init_velocities, np.zeros(len(init_positions))].astype(np.float64)
 
         if type(radius) == list:
             radius = np.array(radius)
         self.__radius = radius.astype(np.float64)
 
-        self.lines = np.array(lines).astype(np.float64) if lines is not None else np.array([[[0, 0, 0], [0, 0, 0]]]).astype(np.float64)
+        if type(init_omega) == list:
+            omega = np.array(init_omega)
+        self.__omega = init_omega.astype(np.float64)  
+        self.lines = np.array(lines).astype(np.float64) if lines is not None  else np.array([[[0, 0, 0], [0, 0, 0]]]).astype(np.float64)
+        self.n_lines = len(lines) if lines is not None else 0
         self.rectangles = np.array([
             [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
         ]).astype(np.float64) if rectangles is None else np.array(rectangles).astype(np.float64)
         self.d3 = d3
-
-        self.iM = iM
-        self.kn = kn
-        self.gn = gn
-
-        self.old_contacts = {}
+        self.iM = (1/(np.pi*rho*self.__radius**2))
+        self.I = 1/2*1/self.iM*self.__radius*self.__radius
+        self.old_contacts = []
         self.t = 0
         self.dt = dt
+        self.contacts = []
+        self.g = np.array([[0,-g,0]for i in range(len(self.__velocities))])
+        self.restitution_wall = 0
+        self.restitution_particles = 0
+        self.mu = 0.3
 
 
     def add_grain(self, position: np.array,
-                speed: NDArray,
+                velocity: NDArray,
                 radius: float) -> None:
         """
         Add a grain to the simulation
@@ -60,7 +69,7 @@ class Simulation:
             radius: float containing the radius of the grain
         """
         self.__positions = np.vstack((self.__positions, position))
-        self.__speeds = np.vstack((self.__speeds, speed))
+        self.__velocities = np.vstack((self.__velocities, velocity))
         self.__radius = np.append(self.__radius, radius)
 
     def add_line(self, line: np.array) -> None:
@@ -69,7 +78,12 @@ class Simulation:
         Args:
             line: np.array of shape (4, 2|3) containing the coordinates of the line
         """
-        self.lines = np.vstack((self.lines, np.array([line])))
+        if self.n_lines == 0:
+            self.lines = np.array([line])
+            self.n_lines += 1
+        else : 
+            self.lines = np.vstack((self.lines, np.array([line])))
+            self.n_lines += 1
 
     def add_rectangle(self, rectangle: np.array) -> None:
         """
@@ -85,8 +99,8 @@ class Simulation:
     def get_radius(self) -> np.array:
         return self.__radius.astype(np.float32)
 
-    def get_speeds(self) -> np.array:
-        return self.__speeds.astype(np.float32)
+    def get_velocities(self) -> np.array:
+        return self.__velocities.astype(np.float32)
 
     def get_lines(self) -> np.array:
         return self.lines.astype(np.float32)
@@ -95,117 +109,126 @@ class Simulation:
         return self.rectangles.astype(np.float32)
 
     @staticmethod
-    @jit(nopython=True)
-    def solve_contacts(positions, speeds, radius, kn, gn):
-        n = len(positions)
-        f = np.zeros_like(positions).astype(np.float64)
-        for i in range(n):
-            for j in range(i + 1, n):
-                dst = np.linalg.norm(positions[i] - positions[j])
-                if dst < radius[i] + radius[j]:
-                    normal = (positions[i] - positions[j]) / dst
-                    vi = speeds[i]
-                    vj = speeds[j]
-                    dv = vi - vj
-                    vn = np.dot(dv, normal)
-                    fn = kn * (radius[i] + radius[j] - dst) ** 1.5 - gn * vn
-                    if fn > 0:
-                        fi = fn * normal
-                        f[i] += fi
-                        f[j] -= fi
-        return f
+    @jit(nopython=True) 
+    def generate_tree(positions):
+        #tree = QuadTree()
+        return
 
     @staticmethod
-    @jit(nopython=True)
-    def solve_contacts_line(positions, speeds, radius, lines, kn, gn):
-        n = len(positions)
-        f = np.zeros_like(positions).astype(np.float64)
-        for i in range(n):
-            for k in range(len(lines)):
-                line = lines[k]
-                t = line[1] - line[0]
-                nt = np.linalg.norm(t)
-                if np.abs(nt) < 1e-6:
-                    continue
-                xt = positions[i] - line[0]
-                txt = np.dot(xt, t) / nt ** 2
-                n = xt - txt * t
-                dst = np.linalg.norm(n)
-                if dst < radius[i]:
-                    normal = n / dst
-                    vi = speeds[i]
-                    vn = np.dot(vi, normal)
-
-                    fn = kn * (radius[i] - dst) ** 1.5 - vn * gn
-                    if fn > 0:
-                        f[i] += fn * normal
-        return f
-
+    @jit(nopython=True)            
+    def detect_contacts(positions,velocities,radius,walls,dt):
+        detection_range = np.mean(velocities)*dt
+        contacts = List()
+        empty = True
+        for i in range(len(radius)):
+            xi = positions[i]
+            for j in range(i+1,len(radius)):
+                xj = positions[j]
+                distance = np.linalg.norm(xi-xj)-radius[i]-radius[j]
+                if distance <= detection_range:
+                    l = List()
+                    l.append(i)
+                    l.append(j)
+                    contacts.append(l)
+                    empty = False
+            for j in range(len(walls)) :
+                wall = walls[j].astype(np.float64)
+                t = wall[1]-wall[0]
+                s = xi-wall[0]
+                st = np.dot(s,t)/np.linalg.norm(t)**2
+                n = s-st*t
+                d = np.linalg.norm(n)-radius[i]
+                if d<detection_range and 0 <= st <= 1:
+                    l = List()
+                    l.append(i)
+                    l.append(-(j+1))
+                    contacts.append(l)
+                    empty = False
+                if 1 < st <= 1+radius[i]/np.linalg.norm(t) or -(radius[i])/np.linalg.norm(t) <= st < 0 :
+                    print("eoh")
+                    #contact with boundary disk
+        if empty :
+            l = List()
+            l.append(-1)
+            contacts.append(l)
+        return contacts
+    
     @staticmethod
     @jit(nopython=True)
-    def solve_contacts_rectangle(positions, speeds, radius, rectangles, kn, gn):
-        f = np.zeros_like(positions).astype(np.float64)
-        for k in range(len(rectangles)):
-            rectangle = rectangles[k]
-            ab, ac = rectangle[1] - rectangle[0], rectangle[2] - rectangle[0]
-            n = np.cross(ab, ac)
-            if np.linalg.norm(n) < 1e-6:
-                continue
-            n = n / np.linalg.norm(n)
-            d = -np.dot(n, rectangle[0])
-            for i in range(len(positions)):
-                pos = positions[i]
-                dst_plane_dir = (n[0] * pos[0] + n[1] * pos[1] + n[2] * pos[2] + d)
-                dst_plane = np.abs(dst_plane_dir)
-                h = pos - dst_plane_dir * n
-                dst_h_rect = np.inf
-                for j in range(4):
-                    b, c = rectangle[j], rectangle[(j+1)%4]
-                    vecd = (c - b) / np.linalg.norm(c - b)
-                    v = h - b
-                    t = np.dot(v, vecd)
-                    p = b + t * vecd
-                    dist = np.linalg.norm(p - h)
-                    if dist < dst_h_rect:
-                        dst_h_rect = dist
+    def solve_contacts(positions, velocities,omega, radius,imass,inertia, walls, contacts,restitution_wall ,dt):
+        impulses = np.zeros(len(contacts))
+        for k in range(len(contacts)) :
+            i = int(contacts[k][0])
+            j = int(contacts[k][1])
+            xi = positions[i]
+            if j < 0 : 
+                #contact with wall
+                wall = walls[-(j+1)].astype(np.float64)
+                t = wall[1]-wall[0]
+                s = xi-wall[0]
+                st = np.dot(s,t)/np.linalg.norm(t)**2
+                n = s-st*t
+                velocities[i] = velocities[i] - (1+restitution_wall) * np.dot(velocities[i],n)/np.dot(n,n) * n
+            
+            else : 
+                #contact with particle
+                xj = positions[j]
+                ui = velocities[i]
+                uj = velocities[j]
+                ri = radius[i]
+                rj = radius[j]
+                mi = 1/imass[i]
+                mj = 1/imass[j]
+                Ii = inertia[i]
+                Ij = inertia[j]
+                wi = omega[i]
+                wj = omega[j]
+                n = (xi-xj)/np.linalg.norm(xi-xj)
+                t = np.array([n[1],-n[0],0])
+                H = np.array([[n[0],n[1],0,-n[0],-n[1],0],
+                              [t[0],t[1],ri,-t[0],-t[1],rj]])
+                HT = np.transpose(H)
+                Minverse = np.diag(np.array([1/mi,1/mi,1/Ii,1/mj,1/mj,1/Ij]))
+                W = H@(Minverse@HT)
+                W = np.diag(np.array([W[0,0],W[1,1]]))
+                d = np.linalg.norm(xi-xj) - ri - rj
+                vn = np.dot((ui-uj),n)
+                vt = (wi-wj)
+                dvn = max(0,-vn-max(0,d)/dt)
+                mu = 0.3
+                if vt*W[0,0] > mu*dvn*W[1,1]:
+                    dvt = -mu*dvn*W[1,1]/W[0,0]
+                else :
+                    dvt = 0
+                #dvt = 0
+                dV = np.array([dvn,dvt])
+                dv = Minverse@HT@np.linalg.inv(W)@dV
 
-                dst = dst_plane + (dst_h_rect if not inside_rectangle(rectangle, h) else 0)
-                if dst <= radius[i]:
-                    normal = (pos - h) / np.linalg.norm(pos - h)
-                    vi = speeds[i]
-                    vn = np.dot(vi, normal)
+                M = mi+mj
+                Pn = dvn/M
+                velocities[i] = velocities[i] +  np.array([dv[0],dv[1],0])
+                velocities[j] = velocities[j] +  np.array([dv[3],dv[4],0])
+                impulses[k] = np.abs(Pn)      
+        
+        return impulses
 
-                    fn = kn * (radius[i] - dst) ** 1.5 - vn * gn
-                    if fn > 0:
-                        f[i] += fn * normal
-        return f
-
-    def velocity_verlet(self) -> None:
-        """
-        Update the positions and speeds of the particles using the velocity verlet algorithm
-        """
-        f = self.solve_contacts(self.__positions, self.__speeds, self.__radius, self.kn, self.gn) + \
-            self.solve_contacts_line(self.__positions, self.__speeds, self.__radius, self.lines, self.kn, self.gn) + \
-            self.solve_contacts_rectangle(self.__positions, self.__speeds, self.__radius, self.rectangles, self.kn, self.gn)
-        self.__speeds += self.dt * f * self.iM
-        self.__positions += self.dt * self.__speeds
-        # f = self.solve_contacts(self.__positions, self.__speeds, self.__radius, self.kn, self.gn) + self.solve_contacts_line(self.__positions, self.__speeds, self.__radius, self.lines, self.kn, self.gn)
-        # self.__speeds += 0.5 * self.dt * f * self.iM
 
     def step(self) -> None:
         """
-        Perform a simulation step
+        Update the positions and speeds of the particles using the velocity verlet algorithm
         """
-        self.velocity_verlet()
+        self.generate_tree(self.__positions)
+        self.__velocities += self.g*self.dt
+        converged = False
+        self.contacts = self.detect_contacts(self.__positions,self.__velocities,self.__radius,self.lines,self.dt)
+        while not converged : 
+            if self.contacts[0][0] == -1 :
+                converged = True
+                break
+            impulses = self.solve_contacts(self.__positions,self.__velocities,self.__omega,self.__radius,self.iM,
+                                           self.I,self.lines,self.contacts,self.restitution_wall,self.dt)
+            if np.sum(impulses) < 1e-3/(len(self.__radius)):
+                converged = True
+        self.__positions += self.__velocities * self.dt
         self.t += self.dt
-
-@jit(nopython=True)
-def inside_rectangle(rectangle, point):
-
-    mn_x = min(rectangle[0][0], rectangle[1][0], rectangle[2][0], rectangle[3][0])
-    mx_x = max(rectangle[0][0], rectangle[1][0], rectangle[2][0], rectangle[3][0])
-    mn_y = min(rectangle[0][1], rectangle[1][1], rectangle[2][1], rectangle[3][1])
-    mx_y = max(rectangle[0][1], rectangle[1][1], rectangle[2][1], rectangle[3][1])
-    mn_z = min(rectangle[0][2], rectangle[1][2], rectangle[2][2], rectangle[3][2])
-    mx_z = max(rectangle[0][2], rectangle[1][2], rectangle[2][2], rectangle[3][2])
-    return mn_y <= point[1] <= mx_y and mn_z <= point[2] <= mx_z and mn_x <= point[0] <= mx_x
+        return

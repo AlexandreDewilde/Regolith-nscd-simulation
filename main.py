@@ -15,62 +15,46 @@ def random_initial_conditions(n, R, xmin, xmax, ymin, ymax):
 
   return pos
 
+rho = 2400 # kg/m^3
+xmin = 0
+xmax = 20
+ymin = 0
+ymax = 20
+n = 10
+np.random.seed(1)
+positions = random_initial_conditions(n, 0.5, xmin, xmax, ymin, ymax)
+velocities = np.random.uniform(-6,6,(n,2))
+omega = np.random.uniform(-np.pi,np.pi,(n))
+radius = np.random.uniform(0.5,0.5*0.5,(n))
+dt = 1e-3
+g = 9.81
+sim = Simulation(positions, velocities,omega, radius,rho,g,d3=False)
 
-positions = random_initial_conditions(100, 0.5, 0, 20, 0, 20)
-speeds = np.random.uniform(-6,6,(100,3))
-radius = np.random.uniform(0.5,0.5*0.5,(100,1))
-dt = 0.5*(4*0.5*0.5**2.5*np.pi*3/(3*1e4))**0.5
-
-rho = 1e4
-iM = (1/(np.pi*rho*radius**3)).reshape(-1,1)
-
-sim = Simulation(positions, speeds, radius, iM=iM, d3=False)
-sim.add_rectangle(
+sim.add_line(
     np.array([
-        [0, 0, -10],
-        [0, 0, 10],
-        [0, 20, 10],
-        [0, 20, -10]
+        [xmin, ymax, 0],
+        [xmax, ymax, 0],
+    ])
+)
+sim.add_line(
+    np.array([
+        [xmax, ymin, 0],
+        [xmax, ymax, 0],
+    ])
+)
+sim.add_line(
+    np.array([
+        [xmin, ymin, 0],
+        [xmin, ymax, 0],
+    ])
+)
+sim.add_line(
+    np.array([
+        [xmin, ymin, 0],
+        [xmax, ymin, 0],
     ])
 )
 
-sim.add_rectangle(
-    np.array([
-        [0, 0, -10],
-        [0, 0, 10],
-        [20, 0, 10],
-        [20, 0, -10]
-    ])
-)
-
-sim.add_rectangle(
-    np.array([
-        [0, 20, -10],
-        [0, 20, 10],
-        [20, 20, 10],
-        [20, 20, -10]
-    ])
-)
-
-sim.add_rectangle(
-    np.array([
-        [20, 0, -10],
-        [20, 0, 10],
-        [20, 20, 10],
-        [20, 20, -10]
-    ])
-)
-
-sim.add_rectangle(
-    np.array([
-        [0, 0, -10],
-        [0, 20, -10],
-        [20, 20, -10],
-        [20, 0, -10]
-    ])
-
-)
-
-gui = GUI(sim, bound=(0, 20, 0, 20), d3=True)
+gui = GUI(sim, bound=(0, 20, 0, 20), d3=False)
 
 gui.run()
