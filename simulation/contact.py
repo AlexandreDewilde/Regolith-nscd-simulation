@@ -159,12 +159,12 @@ def detect_contact_meshes(i, xi, rad, meshes_positions, meshes_faces, detection_
             dst_plane = np.abs(dst_plane_dir)
             h = xi - dst_plane_dir * n
             dst_h_tri = np.inf
-            for j in range(3):
-                b, c = positions[face[j]], positions[face[(j+1)%3]]
-                vecd = (c - b) / np.linalg.norm(c - b)
-                v = h - b
+            for l in range(3):
+                bb, cc = positions[face[l]], positions[face[(l+1)%3]]
+                vecd = (cc - bb) / np.linalg.norm(cc - bb)
+                v = h - bb
                 t = np.dot(v, vecd)
-                p = b + t * vecd
+                p = bb + t * vecd
                 dist = np.linalg.norm(p - h)
                 if dist < dst_h_tri:
                     dst_h_tri = dist
@@ -191,8 +191,6 @@ def inside_rectangle(rectangle, point):
 @jit(nopython=True)
 def inside_triangle(a, b, c, point):
     area = 0.5 * np.linalg.norm(np.cross(b - a, c - a))
-    if area < 1e-9:
-        return False
     area1 = 0.5 * np.linalg.norm(np.cross(b - point, c - point)) / area
     area2 = 0.5 * np.linalg.norm(np.cross(a - point, c - point)) / area
     gamma = 1 - area1 - area2
