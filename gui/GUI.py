@@ -117,6 +117,12 @@ class GUI:
             )
             self.scene.add(rect)
 
+        for i, mesh in enumerate(self.sim.meshes):
+            geometry = gfx.geometry_from_trimesh(mesh)
+            material = gfx.material_from_trimesh(mesh)
+            mesh = gfx.Mesh(geometry, material)
+            self.scene.add(mesh)
+
     def animate(self):
         if not self.break_anim:
             self.sim.step()
