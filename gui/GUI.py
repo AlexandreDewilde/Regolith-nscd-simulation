@@ -1,6 +1,6 @@
 import pygfx as gfx
 from wgpu.gui.auto import WgpuCanvas, run
-
+from numba import jit
 
 class GUI:
     def __init__(
@@ -28,7 +28,6 @@ class GUI:
         self.size = (bound[1] - bound[0], bound[3] - bound[2])
 
         self.init_scene()
-        # self.add_light()
 
         if self.show_fps:
             self.add_fps()
@@ -109,8 +108,7 @@ class GUI:
             self.geometry.positions.data[:, :] = self.sim.get_positions()
             self.geometry.positions.update_range()
         else:
-            for sphere, coord in zip(self.spheres, self.sim.get_positions()):
-                sphere.local.position = coord
+            any(setattr(sphere.local, "position", coord) for sphere, coord in zip(self.spheres, self.sim.get_positions()))
         if self.stats:
             with self.stats:
                 self.renderer.render(self.scene, self.camera, flush=False)
