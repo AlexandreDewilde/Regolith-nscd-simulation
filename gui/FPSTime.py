@@ -9,6 +9,8 @@ class FPSTime(Stats):
         self.sim_time = sim_time
         super().__init__(*args, **kwargs)
         self.bg.local.scale = (130, self._line_height * 3.1, 1)
+        self._tbegin = 0
+        self._tprev = 0
 
     def set_sim_time(self, sim_time):
         self.sim_time = sim_time
