@@ -1,4 +1,5 @@
 import numpy as np
+import trimesh
 
 from gui.GUI import GUI
 from simulation.Simulation import Simulation
@@ -14,6 +15,15 @@ def random_initial_conditions(n, R, xmin, xmax, ymin, ymax):
     pos[i,:] = [xx,yy]
 
   return pos
+
+def open_mesh_files(*mesh_files):
+    meshes = []
+    for file in mesh_files:
+        s = trimesh.load_mesh(file)
+        # for name, mesh in s.geometry.items():
+            # mesh.apply_transform(trimesh.transformations.rotation_matrix(np.pi, [1, 0, 0]))
+        meshes.append(s)
+    return meshes
 
 rho = 2400 # kg/m^3
 xmin = 0
@@ -31,7 +41,10 @@ omega = np.random.uniform(-np.pi,np.pi,(n))
 radius = np.random.uniform(0.5,0.5*0.5,(n))
 dt = 1e-3
 g = 9.81
-sim = Simulation(positions, velocities,omega, radius,rho,g,d3=True)
+
+meshes = open_mesh_files("mesh/cube.obj")
+sim = Simulation(positions, velocities,omega, radius, rho, g, d3=True)
+sim.add_mesh(meshes[0], 0.5, np.array([10, 0, 10]))
 
 sim.add_rectangle(
     np.array([
