@@ -1,3 +1,6 @@
+import signal
+import sys
+
 from typing import Annotated
 import numpy as np
 from numpy.typing import NDArray
@@ -5,8 +8,6 @@ from .tree import *
 import trimesh
 import time
 from .tree import *
-import sys
-import quads
 
 from .contact import solve_contacts_jacobi, detect_contacts
 
@@ -25,7 +26,10 @@ class Simulation:
                 rectangles: Annotated[list, "list of boundary rectangles"] = None,
                 meshes: Annotated[list, "list of meshes"] = None,
                 dt: Annotated[float, "time step"] = 0.01,
-                d3: Annotated[bool, "3D or 2D simulation"] = False):
+                d3: Annotated[bool, "3D or 2D simulation"] = False,
+                precomputation_file: Annotated[str, "file containing the precomputation data, if no file no precompute"] = None,
+                tend: Annotated[float, "end time"] = None,
+        ):
         """
         Args:
             init_positions: np.array of shape (n, 2|3) or list containing the initial positions of the particles
@@ -59,6 +63,7 @@ class Simulation:
         self.d3 = d3
 
         self.t = 0
+        self.tend = tend
         self.dt = dt
 
         self.iM = (1 / (np.pi * rho * self.__radius ** 2))
@@ -75,7 +80,41 @@ class Simulation:
         self.meshes_positions = [np.ascontiguousarray(mesh.vertices, dtype=np.float64) for mesh in self.meshes]
         self.meshes_faces = [np.ascontiguousarray(mesh.faces, dtype=np.int32) for mesh in self.meshes]
 
+        self.precomputation_file = precomputation_file
+
         self.tree = tree
+
+        self.t_history = [self.t]
+        self.positions_history = [self.__positions]
+        self.velocities_history = [self.__velocities]
+        self.omega_history = [self.__omega]
+
+        signal.signal(signal.SIGINT, self.signal_handler)
+
+
+    def signal_handler(self, sig, frame):
+        self.write_precomputation()
+        sys.exit(0)
+
+    def run_sim(self):
+        while self.tend is None or self.t < self.tend:
+            self.step()
+            self.t_history.append(self.t)
+            self.positions_history.append(self.__positions)
+            self.velocities_history.append(self.__velocities)
+            self.omega_history.append(self.__omega)
+        self.write_precomputation()
+
+    def write_precomputation(self):
+        if self.precomputation_file is not None:
+            with open(self.precomputation_file, "w") as f:
+                for t, positions, velocities, omega in zip(self.t_history, self.positions_history, self.velocities_history, self.omega_history):
+                    f.write(f"Computation time: {t}\n")
+                    for i, (pos, vel, om) in enumerate(zip(positions, velocities, omega)):
+                        f.write(f"\tPosition {i}: {pos[0]} {pos[1]} {pos[2]}\n")
+                        f.write(f"\tVelocity {i}: {vel[0]} {vel[1]} {vel[2]}\n")
+                        f.write(f"\tOmega {i}: {om}\n")
+                    f.write("\n")
 
     def add_mesh(self, mesh, scale, position) -> None:
         mesh.apply_transform(trimesh.transformations.scale_and_translate(scale, -mesh.centroid * scale + position))
@@ -108,7 +147,7 @@ class Simulation:
         if self.n_lines == 0:
             self.lines = np.array([line])
             self.n_lines += 1
-        else : 
+        else:
             self.lines = np.vstack((self.lines, np.array([line])))
             self.n_lines += 1
 
