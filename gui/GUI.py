@@ -46,6 +46,7 @@ class GUI:
         self.init_sim()
         self.add_break()
 
+        self.current_time = None
         if self.steps_from_file:
             self.parse_text_file()
             self.current_time = 0
@@ -156,7 +157,6 @@ class GUI:
             else:
                 self.sim.step()
                 self.stats.set_sim_time(self.sim.t if self.sim.t else 0)
-        print(self.positions_history[self.current_time])
         if not self.d3:
             self.geometry.positions.data[:, :] = self.sim.get_positions() if not self.steps_from_file else self.positions_history[self.current_time]
             self.geometry.positions.update_range()
@@ -166,7 +166,8 @@ class GUI:
             with self.stats:
                 self.renderer.render(self.scene, self.camera, flush=False)
                 self.stats.render()
-        self.current_time += 1
+        if self.current_time is not None:
+            self.current_time += 1
         self.canvas.request_draw()
 
     def run(self):
