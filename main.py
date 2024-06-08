@@ -63,7 +63,7 @@ sim = Simulation(
     rho,
     g,
     d3=False,
-    tree=False,
+    tree=True,
     precomputation_file="out.txt"
 )
 
@@ -92,8 +92,8 @@ sim.add_line(
     ])
 )
 
-sim.run_sim()
-exit()
+#sim.run_sim()
+#exit()
 gui = GUI(sim, bound=(0, 20, 0, 20), d3=False)
 
 gui.run()

@@ -1,11 +1,19 @@
 import numpy as np
 from .tree import *
-
-
+import numba
+from numba import jit
+from numba.typed import List
 CONTACT_PARTICLE_PARTICLE = 0
 CONTACT_PARTICLE_LINE = 1
 CONTACT_PARTICLE_DISK = 2
 
+@jitclass((
+    ("i", int64),
+    ("j", int64),
+    ("normal", float64[:]),
+    ("d", float64),
+    ("type", int64),
+))
 class Contact:
     def __init__(self, i, j, normal,d, type=CONTACT_PARTICLE_PARTICLE):
         self.i = i
@@ -13,19 +21,19 @@ class Contact:
         self.normal = normal
         self.d = d
         self.type = type
-
+@jit
 def norm_with_axis1(vector):
     array = np.zeros(vector.shape[0])
     for i in range(len(array)):
         array[i] = np.linalg.norm(vector[i])
     return array
-
+@jit
 def sum_with_axis1(vector):
     array = np.zeros(vector.shape[0])
     for i in range(len(array)):
         array[i] = np.sum(vector[i])
     return array
-
+@jit
 def solve_contacts_jacobi(contacts,positions, velocities, omega, radius, imass, inertia, dt):
     mu = 0.3
     m = 1/imass
@@ -142,7 +150,7 @@ def solve_contacts_jacobi(contacts,positions, velocities, omega, radius, imass, 
 
 def detect_contacts(positions, velocities, radius, walls, dt,tree):
     detection_range = np.max(radius)
-    contacts = []
+    contacts = List()
     empty = True
     if tree == None:
         for i in range(len(radius)):
@@ -210,5 +218,4 @@ def detect_contacts(positions, velocities, radius, walls, dt,tree):
     if empty :
         c = Contact(-1,-1,np.array([-1.0,-1.0,-1.0]),-1.0,-1)
         contacts.append(c)
-    print(len(contacts))
     return contacts

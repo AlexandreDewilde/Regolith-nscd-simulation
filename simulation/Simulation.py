@@ -200,9 +200,3 @@ class Simulation:
         print("Solving time : ",time.time()-tic)
         self.__positions += self.__velocities * self.dt
         self.t += self.dt
-        distance = np.zeros((len(self.__positions),len(self.__positions)))
-        for i in range(len(self.__positions)):
-            distance[i,i+1:] = np.linalg.norm(self.__positions[i]-self.__positions[i+1:],axis=1)-self.__radius[i]-self.__radius[i+1:]
-        if np.any(distance<-np.max(self.__radius)*0.2):
-            print(distance[distance<-np.max(self.__radius)*0.2])
-            print("c négatif")
