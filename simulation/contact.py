@@ -1,197 +1,214 @@
-from numba import jit, int64, float64, int32
-from numba.experimental import jitclass
 import numpy as np
+from .tree import *
+import quads
 
+CONTACT_PARTICLE_PARTICLE = 0
+CONTACT_PARTICLE_LINE = 1
+CONTACT_PARTICLE_DISK = 2
 
-CONTACT_PARTICLE_PARTICLE = 1
-CONTACT_PARTICLE_LINE = 2
-CONTACT_PARTICLE_RECTANGLE = 3
-CONTACT_PARTICLE_MESH = 4
-
-@jitclass([("i", int64), ("j", int64), ("type", int64), ("normal", float64[:]), ("mesh_idx", int32)])
 class Contact:
-    def __init__(self, i, j, normal, type=CONTACT_PARTICLE_PARTICLE):
+    def __init__(self, i, j, normal,d, type=CONTACT_PARTICLE_PARTICLE):
         self.i = i
         self.j = j
         self.normal = normal
+        self.d = d
         self.type = type
-        self.mesh_idx = -1
 
-@jit(nopython=True)
-def solve_contacts(positions, velocities, omega, radius, imass, inertia, contacts, restitution_wall, dt):
-    impulses = np.zeros(len(contacts))
-    for k in range(len(contacts)) :
-        contact = contacts[k]
-        i, j = contact.i, contact.j
-        xi = positions[i]
-        if contact.type == CONTACT_PARTICLE_LINE:
-            velocities[i] = velocities[i] - (1 + restitution_wall) * np.dot(velocities[i], contact.normal) / np.dot(contact.normal, contact.normal) * contact.normal
-        elif contact.type == CONTACT_PARTICLE_RECTANGLE:
-            velocities[i] = velocities[i] - (1 + restitution_wall) * np.dot(velocities[i], contact.normal) * contact.normal / np.dot(contact.normal, contact.normal)
-        elif contact.type == CONTACT_PARTICLE_MESH:
-            velocities[i] = velocities[i] - (1 + restitution_wall) * np.dot(velocities[i], contact.normal) * contact.normal / np.dot(contact.normal, contact.normal)
-        else :
-            #contact with particle
-            xj = positions[j]
-            ui = velocities[i]
-            uj = velocities[j]
-            ri = radius[i]
-            rj = radius[j]
-            mi = 1/imass[i]
-            mj = 1/imass[j]
-            Ii = inertia[i]
-            Ij = inertia[j]
-            wi = omega[i]
-            wj = omega[j]
-            n = contact.normal
-            t = np.array([n[1], -n[0], 0])
-            H = np.array([[n[0], n[1], 0, -n[0], -n[1], 0],
-                            [t[0], t[1], ri, -t[0], -t[1], rj]])
-            HT = np.transpose(H)
-            Minverse = np.diag(np.array([1 / mi, 1 / mi, 1 / Ii, 1 / mj, 1 /mj, 1 / Ij]))
-            W = H @ (Minverse @ HT)
-            W = np.diag(np.array([W[0,0], W[1,1]]))
-            d = np.linalg.norm(xi - xj) - ri - rj
-            vn = np.dot((ui - uj), n)
-            vt = (wi - wj)
-            dvn = max(0, -vn - max(0, d) / dt)
-            mu = 0.3
-            if vt * W[0,0] > mu * dvn *W[1,1]:
-                dvt = -mu * dvn * W[1,1] / W[0,0]
-            else:
-                dvt = 0
-            #dvt = 0
-            dV = np.array([dvn,dvt])
-            dv = Minverse @ HT @ np.linalg.inv(W) @ dV
+def norm_with_axis1(vector):
+    array = np.zeros(vector.shape[0])
+    for i in range(len(array)):
+        array[i] = np.linalg.norm(vector[i])
+    return array
 
-            M = mi+mj
-            Pn = dvn/M
-            velocities[i] = velocities[i] +  np.array([dv[0], dv[1], 0])
-            velocities[j] = velocities[j] +  np.array([dv[3], dv[4], 0])
-            impulses[k] = np.abs(Pn)
+def sum_with_axis1(vector):
+    array = np.zeros(vector.shape[0])
+    for i in range(len(array)):
+        array[i] = np.sum(vector[i])
+    return array
 
-    return impulses
+def solve_contacts_jacobi(contacts,positions, velocities, omega, radius, imass, inertia, dt):
+    mu = 0.3
+    m = 1/imass
+    itmax = 2
+    tol = 5e-6
+    if contacts[0].type == -1 :
+        return velocities,omega
+    it = 0
 
-@jit(nopython=True)
-def detect_contacts(positions, velocities, radius, lines, rectangles, meshes_positions, meshes_faces, dt):
-    detection_range = np.mean(velocities) * dt
+    dvsn = np.ones((len(contacts),3))*2*tol/dt                                  #Array containing the normal velocity corrections times the normals
+    dvst = np.ones((len(contacts),3))*2*tol/dt                                  #Array containing the tangential velocity corrections times the tangents
+    dvsp = np.zeros((len(contacts),1))                                          #Array containing the tangential velocity corrections
+    types = np.array([c.type for c in contacts])                                   #Array containing the type of each contact
+    ncg = types[types==0].shape[0]                                                #Array containing the number of grain-grain contacts
+    ncs = types[types==1].shape[0]                                                #Array containing the number of grain-segment contacts
+    ncd = types[types==2].shape[0]                                                #Array containing the number of grain-disk contacts
+    i0 = np.array([c.i for c in contacts])                                     #Array containing the indices of the first object implied in each contact
+    i1 = np.array([c.j for c in contacts])                                     #Array containing the indices of the second object implied in each contact
+    wnn = imass[i0]                                                            #Computing wnn, here only ok for grain-segment and grain-disk contacts
+    wnn[types==0] = (m[i0[types==0]] + m[i1[types==0]])/(m[i0[types==0]]*m[i1[types==0]]) #Modifying wnn to the correct value for grain-grain contacts
+    a = inertia[0]/(m[0]*radius[0]**2)                                    #Computing the moment of inertia factor which is the same for eavery grain
+    wtt = (1+a)/(a*m[i0])                                                    #Computing wtt, here only ok for grain-segment and grain-disk contacts
+    wtt[types==0] = a*(m[i0[types==0]] + m[i1[types==0]])/(m[i0[types==0]]*m[i1[types==0]]) #Modifying wtt to the correct value for grain-grain contacts
+    
+ 
+    if ncg > 0:                                                                   #Extracting grain-grain contact data
+        ng = np.zeros((ncg,3))
+        dg = np.zeros(ncg)
+        tg = np.zeros((ncg,3))                                                   
+        ncgi = 0
+    
+    if ncs > 0:                                                             #Extracting grain-segment contact data
+        ns = np.zeros((ncs,3))
+        ds = np.zeros(ncs)
+        ts = np.zeros((ncs,3))
+        ncsi = 0
+
+    if ncd > 0:                                                             #Extracting grain-disk contact data
+        nd = np.zeros((ncd,3))
+        dd = np.zeros(ncd)
+        td = np.zeros((ncd,3))
+        ncdi = 0
+
+
+    for i in range(len(contacts)):   
+        c = contacts[i]
+        if types[i] == 0:
+            ng[ncgi] = c.normal                                              #Array containing the normal for each grain-grain contact
+            dg[ncgi] = c.d                                                   #Array containing the distances for each grain-grain contact
+            tg[ncgi] = np.array([c.normal[1],-c.normal[0],0])                #Array containing the tangent for each grain-grain contact
+            ncgi += 1
+        
+        if types[i] == 1:
+            ns[ncsi] = c.normal                                              #Array containing the normal for each grain-segment contact
+            ds[ncsi] = c.d                                                   #Array containing the distances for each grain-segment contact
+            ts[ncsi] = np.array([c.normal[1],-c.normal[0],0])                #Array containing the tangent for each grain-segment contact
+            ncsi += 1
+
+        if types[i] == 2:
+            nd[ncdi] = c.normal                                              #Array containing the normal for each grain-segment contact
+            dd[ncdi] = c.d                                                   #Array containing the tangent for each grain-segment contact
+            td[ncdi] = np.array([c.normal[1],-c.normal[0],0])                #Array containing the distances for each grain-segment contact            
+            ncdi += 1
+
+
+    while np.any((norm_with_axis1(dvsn)**2 + norm_with_axis1(dvst)**2)**0.5*dt > tol) and it < itmax:             #Check for convergence AND if the number of iteration is below the maximum
+      it += 1
+      if ncg > 0:                                                                                                 #If there are grain-grain contacts
+        vrelg = velocities[i0[types==0],:] - velocities[i1[types==0],:]                                                   #Compute the relative velocities for each grain-grain contact
+        vng = np.sum(vrelg*ng,axis=1)                                                                             #Compute the normal component of the relative velocity for each grain-grain contact
+        vtg = np.sum(vrelg*tg,axis=1) - omega[i0[types==0]]*radius[i0[types==0]] - omega[i1[types==0]]*radius[i1[types==0]] #Compute the tangential component of the relative velocity for each grain-grain contact
+        dvgn = np.maximum(0,-vng - np.maximum(dg,0)/dt)                                                           #Compute the normal velocity correction for each grain-grain contact
+        dvgt = np.where(np.abs(vtg)*wnn[types==0] <= mu*dvgn*wtt[types==0],-vtg,-mu*dvgn*vtg*(wtt[types==0]/wnn[types==0])/np.abs(vtg)) #Compute the tangential velocity correction for each grain-grain contact
+
+        dvst[types==0,:] = np.expand_dims(dvgt[:],-1)*tg                                                                             #Store the tangential velocity correction times the tangent vector for each grain-grain contact
+        dvsn[types==0,:] = np.expand_dims(dvgn[:],-1)*ng                                                                             #Store the normal velocity correction times the normal vector for each grain-grain contact
+        dvsp[types==0,0] = dvgt                                                                                   #Store the tangential velocity correction for each grain-grain contact
+
+      if ncs > 0:                                                                                                 #If there are grain-segment contacts
+        vrels = velocities[i0[types==1],:]                                                                       #Compute the relative velocities for each grain-segment contact
+        vns = np.sum(vrels*ns,axis=1)                                                                             #Compute the normal component of the relative velocity for each grain-segment contact
+        vts = np.sum(vrels*ts,axis=1) - omega[i0[types==1]]*radius[i0[types==1]]                             #Compute the tangential component of the relative velocity for each grain-segment contact
+        dvssn = np.maximum(0,-vns - np.maximum(ds,0)/dt)                                                          #Compute the normal velocity correction for each grain-segment contact
+        dvsst = np.where(np.abs(vts)*wnn[types==1] <= mu*dvssn*wtt[types==1],-vts,-mu*dvssn*vts*(wtt[types==1]/wnn[types==1])/np.abs(vts)) #Compute the tangential velocity correction for each grain-segment contact
+        dvst[types==1,:] = np.expand_dims(dvsst[:],-1)*ts                                                                       #Store the tangential velocity correction times the tangent vector for each grain-segment contact
+        dvsn[types==1,:] = np.expand_dims(dvssn[:],-1)*ns                                                                       #Store the normal velocity correction times the normal vector for each grain-segment contact
+        dvsp[types==1,0] = dvsst                                                                                  #Store the tangential velocity correction for each grain-segment contact
+
+      if ncd > 0:                                                                                                 #If there are grain-disk contacts
+        vreld = velocities[i0[types==2],:]                                                                       #Compute the relative velocities for each grain-disk contact
+        vnd = np.sum(vreld*nd,axis=1)                                                                             #Compute the normal component of the relative velocity for each grain-disk contact
+        vtd = np.sum(vreld*td,axis=1) - omega[i0[types==2]]*radius[i0[types==2]]                             #Compute the tangential component of the relative velocity for each grain-disk contact
+        dvdn = np.maximum(0,-vnd - np.maximum(dd,0)/dt)                                                           #Compute the normal velocity correction for each grain-disk contact
+        dvdt = np.where(np.abs(vtd)*wnn[types==2] <= mu*dvdn*wtt[types==2],-vtd,-mu*dvdn*vtd*(wtt[types==2]/wnn[types==2])/np.abs(vtd)) #Compute the tangential velocity correction for each grain-disk contact
+        dvst[types==2,:] = np.expand_dims(dvdt[:],-1)*td                                                                        #Store the tangential velocity correction times the tangent vector for each grain-disk contact
+        dvsn[types==2,:] = np.expand_dims(dvdn[:],-1)*nd                                                                        #Store the normal velocity correction times the normal vector for each grain-disk contact
+        dvsp[types==2,0] = dvdt                                                                                   #Store the tangential velocity correction for each grain-disk contact
+
+      pcx0n = np.bincount(i0,weights=(dvsn/np.expand_dims(wnn,-1))[:,0],minlength=velocities.shape[0])                                   #For each grain compute the x impulse for all the contacts in which it was grain 0 from normal corrections
+      pcy0n = np.bincount(i0,weights=(dvsn/np.expand_dims(wnn,-1))[:,1],minlength=velocities.shape[0])                                   #For each grain compute the y impulse for all the contacts in which it was grain 0 from normal corrections
+      pcx1n = np.bincount(i1[types==0],weights=(dvsn[types==0]/np.expand_dims(wnn[types==0],-1))[:,0],minlength=velocities.shape[0])     #For each grain compute the x impulse for all the contacts in which it was grain 1 from normal corrections
+      pcy1n = np.bincount(i1[types==0],weights=(dvsn[types==0]/np.expand_dims(wnn[types==0],-1))[:,1],minlength=velocities.shape[0])     #For each grain compute the y impulse for all the contacts in which it was grain 1 from normal corrections
+      pcx0t = np.bincount(i0,weights=(dvst/np.expand_dims(wtt,-1))[:,0],minlength=velocities.shape[0])                                   #For each grain compute the x impulse for all the contacts in which it was grain 0 from tangential corrections
+      pcy0t = np.bincount(i0,weights=(dvst/np.expand_dims(wtt,-1))[:,1],minlength=velocities.shape[0])                                   #For each grain compute the y impulse for all the contacts in which it was grain 0 from tangential corrections
+      pcx1t = np.bincount(i1[types==0],weights=(dvst[types==0]/np.expand_dims(wtt[types==0],-1))[:,0],minlength=velocities.shape[0])     #For each grain compute the x impulse for all the contacts in which it was grain 1 from tangential corrections
+      pcy1t = np.bincount(i1[types==0],weights=(dvst[types==0]/np.expand_dims(wtt[types==0],-1))[:,1],minlength=velocities.shape[0])     #For each grain compute the y impulse for all the contacts in which it was grain 1 from tangential corrections
+      ptc0 = np.bincount(i0,weights=(dvsp/np.expand_dims(wtt,-1))[:,0],minlength=omega.shape[0])                                    #For each grain compute the angular impulse for all the contacts in which it was grain 0
+      ptc1 = np.bincount(i1[types==0],weights=(dvsp[types==0]/np.expand_dims(wtt[types==0],-1))[:,0],minlength=omega.shape[0])      #For each grain compute the angular impulse for all the contacts in which it was grain 1
+      velocities[:,0] += (pcx0n + pcx0t - pcx1n - pcx1t)/m[:]                                                  #Update the x velocity of each grain
+      velocities[:,1] += (pcy0n + pcy0t - pcy1n - pcy1t)/m[:]                                                  #Update the y velocity of each grain
+      omega[:] -= radius[:]*(ptc0 + ptc1)/inertia[:]                                                        #Update the angular velocity of each grain"""
+
+    return velocities,omega
+
+def detect_contacts(positions, velocities, radius, walls, dt,tree):
+    detection_range = np.max(radius)
     contacts = []
-    for i in range(len(radius)):
-        detect_contact_particles(i, positions, radius, detection_range, contacts)
-        detect_contact_lines(i, positions[i], radius[i], lines, detection_range, contacts)
-        detect_contact_rectangle(i, positions[i], radius[i], rectangles, detection_range, contacts)
-        detect_contact_meshes(i, positions[i], radius[i], meshes_positions, meshes_faces, detection_range, contacts)
-    if not contacts:
-        contacts.append(Contact(-1, -1, np.zeros(3), -1))
+    empty = True
+    if tree == None: 
+        for i in range(len(radius)):
+            xi = positions[i]
+            for j in range(i+1,len(radius)):
+                xj = positions[j]
+                distance = np.linalg.norm(xi-xj)-radius[i]-radius[j]
+                if distance <= detection_range:
+                    c = Contact(i,j,(xi-xj)/np.linalg.norm(xi-xj),distance,0)
+                    contacts.append(c)
+                    empty = False
+            for j in range(len(walls)) :
+                wall = walls[j].astype(np.float64)
+                t = wall[1]-wall[0]
+                s = xi-wall[0]
+                st = np.dot(s,t)/np.linalg.norm(t)**2
+                n = s-st*t
+                d = np.linalg.norm(n)-radius[i]
+                if d<detection_range and 0 <= st <= 1:
+                    c = Contact(i,j,n/(np.linalg.norm(n)),d,1)
+                    contacts.append(c)
+                    empty = False
+                disk0 = wall[0]
+                disk1 = wall[1]
+                distance0 = np.linalg.norm(xi - disk0) - radius[i]
+                distance1 = np.linalg.norm(xi - disk1) - radius[i]
+                if distance0 < detection_range :
+                    contacts.append(Contact(i,j,n,d,2))
+                if distance1 < detection_range :
+                    contacts.append(Contact(i,j,n,d,2))
 
-    return contacts
-
-@jit(nopython=True)
-def detect_contact_particles(i, positions, radius, detection_range, contacts):
-    xi = positions[i]
-    for j in range(i + 1, len(radius)):
-        xj = positions[j]
-        distance = np.linalg.norm(xi - xj) - radius[i] - radius[j]
-        if distance <= detection_range:
-            contacts.append(Contact(i, j, (xi- xj) / np.linalg.norm(xi - xj), CONTACT_PARTICLE_PARTICLE))
-
-@jit(nopython=True)
-def detect_contact_lines(i, xi, rad, lines, detection_range, contacts):
-    for j in range(len(lines)) :
-        line = lines[j].astype(np.float64)
-        t = line[1] - line[0]
-        if np.linalg.norm(t) < 1e-9:
-            continue
-
-        s = xi - line[0]
-        st = np.dot(s, t) / np.linalg.norm(t) ** 2
-        n = s - st * t
-        d = np.linalg.norm(n) - rad
-        if d < detection_range and 0 <= st <= 1:
-            contact = Contact(i, j, n, CONTACT_PARTICLE_LINE)
-            contacts.append(contact)
-
-        if 1 < st <= 1 + rad / np.linalg.norm(t) or - rad / np.linalg.norm(t) <= st < 0 :
-                print("eoh")
-                #contact with boundary disk
-
-@jit(nopython=True)
-def detect_contact_rectangle(i, xi, rad, rectangles, detection_range, contacts):
-    for k in range(len(rectangles)):
-        rectangle = rectangles[k]
-        ab, ac = rectangle[1] - rectangle[0], rectangle[2] - rectangle[0]
-        n = np.cross(ab, ac)
-        if np.linalg.norm(n) < 1e-6:
-            continue
-
-        n = n / np.linalg.norm(n)
-        d = -np.dot(n, rectangle[0])
-        dst_plane_dir = (n[0] * xi[0] + n[1] * xi[1] + n[2] * xi[2] + d)
-        dst_plane = np.abs(dst_plane_dir)
-        h = xi - dst_plane_dir * n
-        dst_h_rect = np.inf
-        for j in range(4):
-            b, c = rectangle[j], rectangle[(j+1)%4]
-            vecd = (c - b) / np.linalg.norm(c - b)
-            v = h - b
-            t = np.dot(v, vecd)
-            p = b + t * vecd
-            dist = np.linalg.norm(p - h)
-            if dist < dst_h_rect:
-                dst_h_rect = dist
-
-        dst = dst_plane + (dst_h_rect if not inside_rectangle(rectangle, h) else 0)
-        if dst - rad < detection_range:
-            normal = (xi - h) / np.linalg.norm(xi - h)
-            contacts.append(Contact(i, k, normal, CONTACT_PARTICLE_RECTANGLE))
-
-@jit(nopython=True)
-def detect_contact_meshes(i, xi, rad, meshes_positions, meshes_faces, detection_range, contacts):
-    for k, (faces, positions) in enumerate(zip(meshes_faces, meshes_positions)):
-        for j, face in enumerate(faces):
-            a, b, c = positions[face[0]], positions[face[1]], positions[face[2]]
-            n = np.cross(b - a, c - a)
-            if np.linalg.norm(n) < 1e-9:
-                continue
-            n = n / np.linalg.norm(n)
-            d = -np.dot(n, a)
-            dst_plane_dir = (n[0] * xi[0] + n[1] * xi[1] + n[2] * xi[2] + d)
-            dst_plane = np.abs(dst_plane_dir)
-            h = xi - dst_plane_dir * n
-            dst_h_tri = np.inf
-            for l in range(3):
-                bb, cc = positions[face[l]], positions[face[(l+1)%3]]
-                vecd = (cc - bb) / np.linalg.norm(cc - bb)
-                v = h - bb
-                t = np.dot(v, vecd)
-                p = bb + t * vecd
-                dist = np.linalg.norm(p - h)
-                if dist < dst_h_tri:
-                    dst_h_tri = dist
-
-            dst = dst_plane + (dst_h_tri if not inside_triangle(a, b, c, h) else 0)
-
-            if dst - rad < detection_range:
-                normal = (xi - h) / np.linalg.norm(xi - h)
-                contact = Contact(i, j, normal, CONTACT_PARTICLE_MESH)
-                contact.mesh_idx = k
-                contacts.append(contact)
-
-
-@jit(nopython=True)
-def inside_rectangle(rectangle, point):
-    mn_x = min(rectangle[0][0], rectangle[1][0], rectangle[2][0], rectangle[3][0])
-    mx_x = max(rectangle[0][0], rectangle[1][0], rectangle[2][0], rectangle[3][0])
-    mn_y = min(rectangle[0][1], rectangle[1][1], rectangle[2][1], rectangle[3][1])
-    mx_y = max(rectangle[0][1], rectangle[1][1], rectangle[2][1], rectangle[3][1])
-    mn_z = min(rectangle[0][2], rectangle[1][2], rectangle[2][2], rectangle[3][2])
-    mx_z = max(rectangle[0][2], rectangle[1][2], rectangle[2][2], rectangle[3][2])
-    return mn_y <= point[1] <= mx_y and mn_z <= point[2] <= mx_z and mn_x <= point[0] <= mx_x
-
-@jit(nopython=True)
-def inside_triangle(a, b, c, point):
-    area = 0.5 * np.linalg.norm(np.cross(b - a, c - a))
-    area1 = 0.5 * np.linalg.norm(np.cross(b - point, c - point)) / area
-    area2 = 0.5 * np.linalg.norm(np.cross(a - point, c - point)) / area
-    gamma = 1 - area1 - area2
-    return 0 <= area1 <= 1 and 0 <= area2 <= 1 and 0 <= gamma <= 1 and np.abs(area1 + area2 + gamma - 1) < 1e-9
+    else :
+        for i in range(len(radius)):
+            xi = positions[i]
+            particles,IDs = particles_in_box(tree,xi,detection_range*2)
+            for j in range(len(IDs)):
+                if int(IDs[j]) <= i:
+                    continue
+                xj = positions[int(IDs[j])]
+                distance = np.linalg.norm(xi-xj)-radius[i]-radius[int(IDs[j])]
+                if distance <= detection_range:
+                    c = Contact(i,int(IDs[j]),(xi-xj)/np.linalg.norm(xi-xj),distance,0)
+                    contacts.append(c)
+                    empty = False
+            for j in range(len(walls)) :
+                wall = walls[j].astype(np.float64)
+                t = wall[1]-wall[0]
+                s = xi-wall[0]
+                st = np.dot(s,t)/np.linalg.norm(t)**2
+                n = s-st*t
+                d = np.linalg.norm(n)-radius[i]
+                if d<detection_range and 0 <= st <= 1:
+                    c = Contact(i,j,n/(np.linalg.norm(n)),d,1)
+                    contacts.append(c)
+                    empty = False
+                disk0 = wall[0]
+                disk1 = wall[1]
+                distance0 = np.linalg.norm(xi - disk0) - radius[i]
+                distance1 = np.linalg.norm(xi - disk1) - radius[i]
+                if distance0 < detection_range :
+                    contacts.append(Contact(i,j,n,d,2))
+                if distance1 < detection_range :
+                    contacts.append(Contact(i,j,n,d,2))
+                    
+    if empty :
+        c = Contact(-1,-1,np.array([-1.0,-1.0,-1.0]),-1.0,-1)
+        contacts.append(c)
+    print(len(contacts))
+    return contacts 

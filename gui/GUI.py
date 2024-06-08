@@ -1,6 +1,5 @@
 import pygfx as gfx
 from wgpu.gui.auto import WgpuCanvas, run
-
 from .FPSTime import FPSTime
 
 
@@ -89,12 +88,6 @@ class GUI:
             material = gfx.LineSegmentMaterial(thickness=self.line_thickness, color_mode="face")
             line = gfx.Line(geometry, material)
             self.scene.add(line)
-
-        for i, mesh in enumerate(self.sim.meshes):
-            geometry = gfx.geometry_from_trimesh(mesh)
-            material = gfx.material_from_trimesh(mesh)
-            mesh = gfx.Mesh(geometry, material)
-            self.scene.add(mesh)
 
     def init_sim_3d(self):
         pos = self.sim.get_positions()

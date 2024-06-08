@@ -1,11 +1,14 @@
 from typing import Annotated
-
 import numpy as np
 from numpy.typing import NDArray
-from numba import jit
+from .tree import *
 import trimesh
+import time
+from .tree import *
+import sys
+import quads
 
-from .contact import solve_contacts, detect_contacts
+from .contact import solve_contacts_jacobi, detect_contacts
 
 
 class Simulation:
@@ -17,11 +20,10 @@ class Simulation:
                 rho: Annotated[float, "Density [kg/m^3]"],
                 g: Annotated[float, "Gravity [m/s^2]"] = 9.81,
                 mu: Annotated[float, "Friction coefficient"] = 0.3,
+                tree : Annotated[bool, "Use of QuadTree"] = True,
                 lines: Annotated[list, "list of boundary lines"] = None,
                 rectangles: Annotated[list, "list of boundary rectangles"] = None,
                 meshes: Annotated[list, "list of meshes"] = None,
-                restitution_wall: Annotated[float, "restitution coefficient"] = 0,
-                restitution_particles: Annotated[float, "restitution coefficient"] = 0,
                 dt: Annotated[float, "time step"] = 0.01,
                 d3: Annotated[bool, "3D or 2D simulation"] = False):
         """
@@ -47,6 +49,7 @@ class Simulation:
         self.__omega = init_omega.astype(np.float64)
 
         self.lines = np.array(lines).astype(np.float64) if lines is not None  else np.array([[[0, 0, 0], [0, 0, 0]]]).astype(np.float64)
+        self.n_lines = len(lines) if lines is not None else 0
 
         self.rectangles = np.array([
             [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
@@ -66,13 +69,13 @@ class Simulation:
 
         self.g = np.array([[0, -g, 0]for i in range(len(self.__velocities))])
 
-        self.restitution_wall = restitution_wall
-        self.restitution_particles = restitution_particles
         self.mu = mu
 
         self.meshes = meshes if meshes is not None else []
         self.meshes_positions = [np.ascontiguousarray(mesh.vertices, dtype=np.float64) for mesh in self.meshes]
         self.meshes_faces = [np.ascontiguousarray(mesh.faces, dtype=np.int32) for mesh in self.meshes]
+
+        self.tree = tree
 
     def add_mesh(self, mesh, scale, position) -> None:
         mesh.apply_transform(trimesh.transformations.scale_and_translate(scale, -mesh.centroid * scale + position))
@@ -102,7 +105,13 @@ class Simulation:
         Args:
             line: np.array of shape (4, 2|3) containing the coordinates of the line
         """
-        self.lines = np.vstack((self.lines, np.array([line])))
+        if self.n_lines == 0:
+            self.lines = np.array([line])
+            self.n_lines += 1
+        else : 
+            self.lines = np.vstack((self.lines, np.array([line])))
+            self.n_lines += 1
+
 
     def add_rectangle(self, rectangle: np.array) -> None:
         """
@@ -130,30 +139,31 @@ class Simulation:
     def get_meshes(self) -> list[trimesh.Trimesh]:
         return self.meshes
 
-    @staticmethod
-    @jit(nopython=True)
-    def generate_tree(positions):
-        #tree = QuadTree()
-        return
-
-    @staticmethod
-    @jit(nopython=True)
-    def gauss_seidel(contacts, positions, velocities, omega, radius, iM, I, restitution_wall, dt):
-        while 1:
-            if contacts[0].type == -1 :
-                break
-            impulses = solve_contacts(positions, velocities, omega, radius, iM,
-                                            I, contacts, restitution_wall, dt)
-            if np.sum(impulses) < 1e-3 / len(radius):
-                break
-
     def step(self) -> None:
         """
-        Update the positions and speeds of the particles using the velocity verlet algorithm
+        Update the positions and velocities of the particles
         """
-        self.generate_tree(self.__positions)
-        self.__velocities += self.g * self.dt
-        self.contacts = detect_contacts(self.__positions, self.__velocities, self.__radius, self.lines, self.rectangles, self.meshes_positions, self.meshes_faces, self.dt)
-        self.gauss_seidel(self.contacts, self.__positions, self.__velocities, self.__omega, self.__radius, self.iM, self.I, self.restitution_wall, self.dt)
+        tic = time.time()
+        #self.__velocities += self.g*self.dt
+        if self.tree == True:
+            tree = set_tree(self.__positions)
+            print("Tree time : ",time.time()-tic)
+            tic = time.time()
+            self.contacts = detect_contacts(self.__positions, self.__velocities, self.__radius, self.lines, self.dt,tree)
+            print("Detection time : ",time.time()-tic)
+
+        else :
+            self.contacts = detect_contacts(self.__positions, self.__velocities, self.__radius, self.lines, self.dt,None)
+            print("Detection time : ",time.time()-tic)
+
+        tic = time.time()
+        self.__velocities,self.__omega = solve_contacts_jacobi(self.contacts, self.__positions, self.__velocities, self.__omega, self.__radius, self.iM, self.I, self.dt)
+        print("Solving time : ",time.time()-tic)
         self.__positions += self.__velocities * self.dt
         self.t += self.dt
+        distance = np.zeros((len(self.__positions),len(self.__positions)))
+        for i in range(len(self.__positions)):
+            distance[i,i+1:] = np.linalg.norm(self.__positions[i]-self.__positions[i+1:],axis=1)-self.__radius[i]-self.__radius[i+1:]
+        if np.any(distance<-np.max(self.__radius)*0.2):
+            print(distance[distance<-np.max(self.__radius)*0.2])
+            print("c négatif")
