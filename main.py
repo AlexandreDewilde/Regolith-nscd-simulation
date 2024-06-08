@@ -17,7 +17,7 @@ def insert_particles(N, R, xmin, xmax, ymin, ymax):
 
     # Adjust the number of particles if needed
     total_particles = min(N, num_particles_x * num_particles_y)
-    
+
     # Create a list to store particle positions
     particles = []
 
@@ -56,7 +56,16 @@ omega = np.zeros(len(positions))
 radius =np.ones(len(positions))
 dt = 1e-6
 g = 9.81
-sim = Simulation(positions, velocities,omega, radius,rho,g,d3=False,tree=False)
+sim = Simulation(
+    positions,
+    velocities,omega,
+    radius,
+    rho,
+    g,
+    d3=False,
+    tree=False,
+    precomputation_file="out.txt"
+)
 
 sim.add_line(
     np.array([
@@ -83,9 +92,7 @@ sim.add_line(
     ])
 )
 
-for i in range(2):
-    sim.step()
-
+sim.run_sim()
 exit()
 gui = GUI(sim, bound=(0, 20, 0, 20), d3=False)
 
