@@ -1,6 +1,6 @@
 import numpy as np
 from .tree import *
-import quads
+
 
 CONTACT_PARTICLE_PARTICLE = 0
 CONTACT_PARTICLE_LINE = 1
@@ -49,14 +49,14 @@ def solve_contacts_jacobi(contacts,positions, velocities, omega, radius, imass, 
     a = inertia[0]/(m[0]*radius[0]**2)                                    #Computing the moment of inertia factor which is the same for eavery grain
     wtt = (1+a)/(a*m[i0])                                                    #Computing wtt, here only ok for grain-segment and grain-disk contacts
     wtt[types==0] = a*(m[i0[types==0]] + m[i1[types==0]])/(m[i0[types==0]]*m[i1[types==0]]) #Modifying wtt to the correct value for grain-grain contacts
-    
- 
+
+
     if ncg > 0:                                                                   #Extracting grain-grain contact data
         ng = np.zeros((ncg,3))
         dg = np.zeros(ncg)
-        tg = np.zeros((ncg,3))                                                   
+        tg = np.zeros((ncg,3))
         ncgi = 0
-    
+
     if ncs > 0:                                                             #Extracting grain-segment contact data
         ns = np.zeros((ncs,3))
         ds = np.zeros(ncs)
@@ -70,14 +70,14 @@ def solve_contacts_jacobi(contacts,positions, velocities, omega, radius, imass, 
         ncdi = 0
 
 
-    for i in range(len(contacts)):   
+    for i in range(len(contacts)):
         c = contacts[i]
         if types[i] == 0:
             ng[ncgi] = c.normal                                              #Array containing the normal for each grain-grain contact
             dg[ncgi] = c.d                                                   #Array containing the distances for each grain-grain contact
             tg[ncgi] = np.array([c.normal[1],-c.normal[0],0])                #Array containing the tangent for each grain-grain contact
             ncgi += 1
-        
+
         if types[i] == 1:
             ns[ncsi] = c.normal                                              #Array containing the normal for each grain-segment contact
             ds[ncsi] = c.d                                                   #Array containing the distances for each grain-segment contact
@@ -87,7 +87,7 @@ def solve_contacts_jacobi(contacts,positions, velocities, omega, radius, imass, 
         if types[i] == 2:
             nd[ncdi] = c.normal                                              #Array containing the normal for each grain-segment contact
             dd[ncdi] = c.d                                                   #Array containing the tangent for each grain-segment contact
-            td[ncdi] = np.array([c.normal[1],-c.normal[0],0])                #Array containing the distances for each grain-segment contact            
+            td[ncdi] = np.array([c.normal[1],-c.normal[0],0])                #Array containing the distances for each grain-segment contact
             ncdi += 1
 
 
@@ -144,7 +144,7 @@ def detect_contacts(positions, velocities, radius, walls, dt,tree):
     detection_range = np.max(radius)
     contacts = []
     empty = True
-    if tree == None: 
+    if tree == None:
         for i in range(len(radius)):
             xi = positions[i]
             for j in range(i+1,len(radius)):
@@ -206,9 +206,9 @@ def detect_contacts(positions, velocities, radius, walls, dt,tree):
                     contacts.append(Contact(i,j,n,d,2))
                 if distance1 < detection_range :
                     contacts.append(Contact(i,j,n,d,2))
-                    
+
     if empty :
         c = Contact(-1,-1,np.array([-1.0,-1.0,-1.0]),-1.0,-1)
         contacts.append(c)
     print(len(contacts))
-    return contacts 
+    return contacts
