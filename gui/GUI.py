@@ -1,3 +1,4 @@
+import numpy as np
 import pygfx as gfx
 from wgpu.gui.auto import WgpuCanvas, run
 from .FPSTime import FPSTime
@@ -7,17 +8,18 @@ class GUI:
     def __init__(
             self,
             sim,
-            bound=(-10, 10, -10, 10),
-            d3=False,
-            show_fps=True,
-            line_color=(1, 0, 0, 1),
+            bound = (-10, 10, -10, 10),
+            d3 = False,
+            show_fps = True,
+            line_color = (1, 0, 0, 1),
             line_colors = None,
-            rectangle_color=(0, 1, 0, 0.6),
+            rectangle_color = (0, 1, 0, 0.6),
             rectangle_colors = None,
-            particle_color=(0, 1, 1, 1),
+            particle_color = (0, 1, 1, 1),
             particle_colors = None,
-            background_color=(1, 1, 1, 1),
-            line_thickness=2
+            background_color = (1, 1, 1, 1),
+            line_thickness = 2,
+            steps_from_file = None,
             ):
 
         self.sim = sim
@@ -34,13 +36,19 @@ class GUI:
         self.particle_colors = particle_colors
         self.break_anim = False
         self.size = (bound[1] - bound[0], bound[3] - bound[2])
+        self.steps_from_file = steps_from_file
 
         self.init_scene()
         self.add_light()
         if self.show_fps:
             self.add_fps()
+
         self.init_sim()
         self.add_break()
+
+        if self.steps_from_file:
+            self.parse_text_file()
+            self.current_time = 0
 
     def init_scene(self):
         self.canvas = WgpuCanvas(max_fps=60, title="Granular material simulation")
@@ -122,19 +130,43 @@ class GUI:
             mesh = gfx.Mesh(geometry, material)
             self.scene.add(mesh)
 
+    def parse_text_file(self):
+        current_time = None
+        current_positions = None
+        self.t_history = []
+        self.positions_history = []
+        with open(self.steps_from_file, "r") as f:
+            for line in f:
+                if line.startswith("Computation time:"):
+                    current_time = float(line.split()[-1])
+                    current_positions = []
+                    self.t_history.append(current_time)
+                elif line.startswith("\tPosition"):
+                    line = line.split(":")[1].strip()
+                    current_positions.append(list(map(float, line.split())))
+                elif line == "\n":
+                    self.positions_history.append(np.array(current_positions))
+
     def animate(self):
         if not self.break_anim:
-            self.sim.step()
-            self.stats.set_sim_time(self.sim.t if self.sim.t else 0)
+            if self.steps_from_file:
+                if self.current_time >= len(self.positions_history):
+                    return
+                self.stats.set_sim_time(self.t_history[self.current_time])
+            else:
+                self.sim.step()
+                self.stats.set_sim_time(self.sim.t if self.sim.t else 0)
+        print(self.positions_history[self.current_time])
         if not self.d3:
-            self.geometry.positions.data[:, :] = self.sim.get_positions()
+            self.geometry.positions.data[:, :] = self.sim.get_positions() if not self.steps_from_file else self.positions_history[self.current_time]
             self.geometry.positions.update_range()
         else:
-            any(setattr(sphere.local, "position", coord) for sphere, coord in zip(self.spheres, self.sim.get_positions()))
+            any(setattr(sphere.local, "position", coord) for sphere, coord in zip(self.spheres, self.sim.get_positions() if not self.steps_from_file else self.positions_history[self.current_time]))
         if self.stats:
             with self.stats:
                 self.renderer.render(self.scene, self.camera, flush=False)
                 self.stats.render()
+        self.current_time += 1
         self.canvas.request_draw()
 
     def run(self):
