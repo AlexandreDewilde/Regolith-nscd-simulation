@@ -38,7 +38,7 @@ class QuadTreeNode(object):
 
 node_type.define(QuadTreeNode.class_type.instance_type)
 
-@numba.jit()
+@numba.jit(nopython = True) #ok
 def add_point(node, point,i):
     stack_node = List()
     stack_point = List()
@@ -97,7 +97,7 @@ def add_point(node, point,i):
                 stack_point.append(point)
     return
 
-@numba.jit() #ok
+@numba.jit(nopython = True) #ok
 def set_nodes(node): 
     l = node.length / 2
     d = node.length / 4
@@ -109,13 +109,13 @@ def set_nodes(node):
 
     return l
 
-@numba.jit() #ok
+@numba.jit(nopython = True) #ok
 def get_points(node):
     points = node.points[:node.npoints]
     IDs = node.IDs[:node.npoints]
     return points,IDs
 
-@numba.jit() #ok
+@numba.jit(nopython = True) #ok
 def point_in_square(point,center,length):
     #Check if a point is in a square
     x = point[0]
@@ -129,7 +129,7 @@ def point_in_square(point,center,length):
     else :
         return False
 
-@numba.jit() #ok
+@numba.jit(nopython = True) #ok
 def intersects(centerA,lengthA,centerB,lengthB):
     #Return true if rectangle A intersects rectangle B
     xminA = centerA[0] - lengthA/2
@@ -175,7 +175,7 @@ def particles_in_box(node,point,L):
         nparticles += nodes[i].npoints
     return particles[:nparticles],IDs[:nparticles]
 
-#@numba.jit()
+@numba.jit(nopython = True)
 def set_tree(points):
     xmin = np.min(points[:,0]) - 1
     xmax = np.max(points[:,0]) + 1
