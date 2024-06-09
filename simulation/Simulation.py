@@ -141,10 +141,6 @@ class Simulation:
         """
         while self.tend is None or self.t < self.tend:
             self.step()
-            self.t_history.append(self.t)
-            self.positions_history.append(self.__positions)
-            self.velocities_history.append(self.__velocities)
-            self.omega_history.append(self.__omega)
         self.__write_precomputation()
 
     def __write_precomputation(self) -> None:
@@ -273,6 +269,12 @@ class Simulation:
 
         self.__positions += self.__velocities * self.dt
         self.t += self.dt
+
+        if self.precomputation_file:
+            self.t_history.append(self.t)
+            self.positions_history.append(self.__positions)
+            self.velocities_history.append(self.__velocities)
+            self.omega_history.append(self.__omega)
 
     def __detect_contacts_tree(self):
         tic = time.time()
