@@ -300,7 +300,7 @@ class Simulation:
         tic = time.time()
 
         tree = KDTree(self.__positions)
-        ids = [np.array(l).astype(np.int64) for l in tree.query_ball_point(self.__positions, self.__max_radius * 2.1)]
+        ids = [np.array(l).astype(np.int64) for l in tree.query_ball_point(self.__positions, self.__max_radius * 3)]
 
         self.contacts = detect_contacts_tree(self.__positions, self.__radius, self.lines, ids)
 
@@ -314,7 +314,7 @@ class Simulation:
         tic = time.time()
 
         tree = KDTree(self.__positions)
-        ids = [np.array(tree.query_ball_point(self.__positions[i], self.__max_radius * 1.1 + self.__radius[i])) for i in range(len(self.__positions))]
+        ids = [np.array(tree.query_ball_point(self.__positions[i], self.__max_radius * 2 + self.__radius[i])) for i in range(len(self.__positions))]
         self.contacts = detect_contacts_tree(self.__positions, self.__radius, self.lines, ids)
 
         end = time.time()
