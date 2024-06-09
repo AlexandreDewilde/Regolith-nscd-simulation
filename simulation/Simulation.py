@@ -303,7 +303,7 @@ class Simulation:
     def __detect_contacts(self):
         tic = time.time()
 
-        self.contacts = detect_contacts(self.__positions, self.__velocities, self.__radius, self.lines, self.dt, None)
+        self.contacts = detect_contacts(self.__positions, self.__radius, self.lines)
 
         if self.debug:
             print("Detection time : ",time.time() - tic)
