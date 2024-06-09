@@ -46,6 +46,7 @@ def add_point(node, point,i):
     stack_node.append(node)
     stack_point.append(point)
     stack_i.append(i)
+
     while len(stack_node):
         node = stack_node[0]
         point = stack_point[0]
@@ -62,10 +63,20 @@ def add_point(node, point,i):
             continue 
         
         if node.leaf == 0 :
-            stack.append((node.nw,point,i))
-            stack.append((node.sw,point,i))
-            stack.append((node.se,point,i))
-            stack.append((node.ne,point,i))
+            stack_node.append(node.nw)
+            stack_node.append(node.sw)
+            stack_node.append(node.se)
+            stack_node.append(node.ne)
+
+            stack_i.append(i)
+            stack_i.append(i)
+            stack_i.append(i)
+            stack_i.append(i)
+
+            stack_point.append(point)
+            stack_point.append(point)
+            stack_point.append(point)
+            stack_point.append(point)
         
         elif node.npoints < node.max:
             node.points[node.npoints] = point
@@ -75,11 +86,15 @@ def add_point(node, point,i):
             set_nodes(node)
             points_toremove,IDs = get_points(node)
             node.leaf = 0
-            stack.append((node,point,i))
+            stack_node.append(node)
+            stack_i.append(i)
+            stack_point.append(point)
             for j in range(len(points_toremove)) :
                 p = points_toremove[j]
                 ID = IDs[j]
-                stack.append((node,p,ID))
+                stack_node.append(node)
+                stack_i.append(i)
+                stack_point.append(point)
     return
 
 @numba.jit() #ok
