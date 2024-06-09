@@ -38,7 +38,7 @@ class QuadTreeNode(object):
 
 node_type.define(QuadTreeNode.class_type.instance_type)
 
-@numba.jit(nopython = True) #ok
+@numba.jit() #ok
 def add_point(node, point,i):
     stack_node = List()
     stack_point = List()
@@ -93,8 +93,8 @@ def add_point(node, point,i):
                 p = points_toremove[j]
                 ID = IDs[j]
                 stack_node.append(node)
-                stack_i.append(i)
-                stack_point.append(point)
+                stack_i.append(ID)
+                stack_point.append(stack_point[-1])
     return
 
 @numba.jit(nopython = True) #ok
@@ -172,7 +172,7 @@ def particles_in_box(node,point,L):
         nparticles += nodes[i].npoints
     return particles[:nparticles],IDs[:nparticles]
 
-@numba.jit(nopython = True)
+@numba.jit()
 def set_tree(points):
     xmin = np.min(points[:,0]) - 1
     xmax = np.max(points[:,0]) + 1

@@ -8,6 +8,8 @@ from .tree import *
 import trimesh
 import time
 from .tree import *
+from scipy.spatial import KDTree
+from numba.typed import List
 
 from .contact import solve_contacts_jacobi, detect_contacts
 
@@ -205,17 +207,21 @@ class Simulation:
             self.__velocities = (self.dt/nsub)*forces*self.iM[:,np.newaxis] + self.__velocities
             tic = time.time()
             if self.tree == True:
-                tree = set_tree(self.__positions)
-                return
+                tree = KDTree(self.__positions)
+                IDs = tree.query_ball_point(self.__positions,np.max(self.__radius)*3)
+                new_IDs = List()
+                for i in range(len(IDs)):
+                    l = np.array([IDs[i][j] for j in range(len(IDs[i]))])
+                    new_IDs.append(l)
+                        
                 print("Tree time : ",time.time()-tic)
                 tic = time.time()
-                self.contacts = detect_contacts(self.__positions, self.__velocities, self.__radius, self.lines, self.dt/nsub,tree)
+                self.contacts = detect_contacts(self.__positions, self.__velocities, self.__radius, self.lines, self.dt/nsub,new_IDs)
                 print("Detection time : ",time.time()-tic)
 
             else :
                 self.contacts = detect_contacts(self.__positions, self.__velocities, self.__radius, self.lines, self.dt/nsub,None)
                 print("Detection time : ",time.time()-tic)
-            
             tic = time.time()
             self.__velocities,self.__omega = solve_contacts_jacobi(self.contacts, self.__positions, self.__velocities, self.__omega, self.__radius, self.iM, self.I, self.dt/nsub)
             print("Solving time : ",time.time()-tic)

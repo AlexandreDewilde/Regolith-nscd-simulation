@@ -91,8 +91,6 @@ sim.add_line(
     ]).astype(np.float64)
 )
 
-sim.step()
-exit()
 gui = GUI(sim, bound=(0, 20, 0, 20), d3=False)
 
 gui.run()

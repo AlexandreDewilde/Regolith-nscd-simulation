@@ -1,8 +1,8 @@
 import numpy as np
 from .tree import *
-import numba
 from numba import jit
 from numba.typed import List
+from scipy.spatial import KDTree
 CONTACT_PARTICLE_PARTICLE = 0
 CONTACT_PARTICLE_LINE = 1
 CONTACT_PARTICLE_DISK = 2
@@ -22,14 +22,14 @@ class Contact:
         self.d = d
         self.type = type
         
-@jit(nopython = True,nogil = True,cache = True,parallel = False)
+@jit(nopython = True)
 def norm_with_axis1(vector):
     array = np.zeros(vector.shape[0])
     for i in range(len(array)):
         array[i] = np.linalg.norm(vector[i])
     return array
 
-@jit(nopython = True,nogil = True,cache = True,parallel = False)
+@jit(nopython = True)
 def norm_with_axis2(vector):
     array = np.zeros((vector.shape[0],vector.shape[1]))
     for i in range(len(array)):
@@ -37,14 +37,14 @@ def norm_with_axis2(vector):
             array[i,j] = np.linalg.norm(vector[i,j])
     return array
 
-@jit(nopython = True,nogil = True,cache = True,parallel = False)
+@jit(nopython = True)
 def sum_with_axis1(vector):
     array = np.zeros(vector.shape[0])
     for i in range(len(array)):
         array[i] = np.sum(vector[i])
     return array
 
-@jit(nopython = True,nogil = True,cache = True,parallel = False)
+@jit(nopython = True)
 def sum_with_axis2(vector):
     array = np.zeros((vector.shape[0],vector.shape[1]))
     for i in range(len(array)):
@@ -52,7 +52,7 @@ def sum_with_axis2(vector):
             array[i,j] = np.sum(vector[i,j])
     return array
 
-@jit(nopython = True,nogil = True,cache = True)
+@jit(nopython = True)
 def solve_contacts_jacobi(contacts,positions, velocities, omega, radius, imass, inertia, dt):
     mu = 0.3
     m = 1/imass
@@ -167,12 +167,12 @@ def solve_contacts_jacobi(contacts,positions, velocities, omega, radius, imass, 
 
     return velocities,omega
 
-@jit(nopython = True,nogil = True,cache = True)
-def detect_contacts(positions, velocities, radius, walls, dt,tree):
-    detection_range = np.max(velocities)*dt
+@jit(nopython = True)
+def detect_contacts(positions, velocities, radius, walls, dt,IDss):
+    detection_range = np.max(radius)
     contacts = List()
     empty = True
-    if tree == None:
+    if IDss is None:
         xrel = np.expand_dims(positions,1)- positions                                                            #Relative positions of all grains (duplicates included)
         dx = norm_with_axis2(xrel)                                               #Center to center distance between each pair of grains (duplicates included)
         norms = xrel/np.expand_dims(dx,-1)
@@ -229,8 +229,8 @@ def detect_contacts(positions, velocities, radius, walls, dt,tree):
 
     else :
         for i in range(len(radius)):
+            IDs = IDss[i]
             xi = positions[i]
-            particles,IDs = particles_in_box(tree,xi,detection_range*4)
             for j in range(len(IDs)):
                 if int(IDs[j]) <= i:
                     continue
@@ -240,6 +240,7 @@ def detect_contacts(positions, velocities, radius, walls, dt,tree):
                     c = Contact(i,int(IDs[j]),(xi-xj)/np.linalg.norm(xi-xj),distance,0)
                     contacts.append(c)
                     empty = False
+                    
             for j in range(len(walls)) :
                 wall = walls[j].astype(np.float64)
                 t = wall[1]-wall[0]
