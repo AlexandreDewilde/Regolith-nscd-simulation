@@ -246,36 +246,31 @@ class Simulation:
         """
         forces = 1/self.iM[:,np.newaxis]*self.g \
             #+ self.compute_cohesion_force()
-        #print(1/self.iM[:,np.newaxis]*self.g,self.compute_cohesion_force())
-        nsub = 1
+
+        self.__velocities = self.dt * forces * self.iM[:, np.newaxis] + self.__velocities
+
+        if self.tree:
+            self.__detect_contacts_tree()
+        else:
+            self.__detect_contacts()
+
+        tic = time.time()
+        self.__velocities,self.__omega = solve_contacts_jacobi(
+            self.contacts,
+            self.__positions,
+            self.__velocities,
+            self.__omega,
+            self.__radius,
+            self.iM,
+            self.I,
+            self.dt
+        )
+
         if self.debug:
-            print("NSUB",nsub)
+            print("Solving time : ",time.time() - tic)
 
-        for i in range(nsub):
-            self.__velocities = (self.dt / nsub) * forces * self.iM[:, np.newaxis] + self.__velocities
-
-            if self.tree:
-                self.__detect_contacts_tree(nsub)
-            else:
-                self.__detect_contacts(nsub)
-
-            tic = time.time()
-            self.__velocities,self.__omega = solve_contacts_jacobi(
-                self.contacts,
-                self.__positions,
-                self.__velocities,
-                self.__omega,
-                self.__radius,
-                self.iM,
-                self.I,
-                self.dt / nsub
-            )
-
-            if self.debug:
-                print("Solving time : ",time.time() - tic)
-
-            self.__positions += self.__velocities * self.dt
-            self.t += self.dt / nsub
+        self.__positions += self.__velocities * self.dt
+        self.t += self.dt
 
     def __detect_contacts_tree(self, nsub: int):
         tic = time.time()
@@ -288,18 +283,18 @@ class Simulation:
             new_IDs.append(l)
 
         if self.debug:
-            print("Tree time : ",time.time()-tic)
+            print("Tree time : ",time.time() - tic)
         tic = time.time()
 
-        self.contacts = detect_contacts(self.__positions, self.__velocities, self.__radius, self.lines, self.dt / nsub, new_IDs)
+        self.contacts = detect_contacts(self.__positions, self.__velocities, self.__radius, self.lines, self.dt, new_IDs)
 
         if self.debug:
-            print("Detection time : ",time.time()-tic)
+            print("Detection time : ",time.time() - tic)
 
-    def __detect_contacts(self, nsub: int):
+    def __detect_contacts(self):
         tic = time.time()
 
-        self.contacts = detect_contacts(self.__positions, self.__velocities, self.__radius, self.lines, self.dt / nsub, None)
+        self.contacts = detect_contacts(self.__positions, self.__velocities, self.__radius, self.lines, self.dt, None)
 
         if self.debug:
-            print("Detection time : ",time.time()-tic)
+            print("Detection time : ",time.time() - tic)
