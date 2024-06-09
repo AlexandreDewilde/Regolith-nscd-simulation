@@ -31,7 +31,8 @@ class Simulation:
             tree : bool = True,
             d3: bool = False,
             precomputation_file: str = None,
-            debug: bool = False
+            debug: bool = False,
+            test_perf: bool = False,
         ) -> None:
         """
         Args:
@@ -73,6 +74,9 @@ class Simulation:
         self.precomputation_file = precomputation_file
         self.tree = tree
         self.debug = debug
+        self.test_perf = test_perf
+        if self.test_perf:
+            self.perfs = []
 
         # When the user presses Ctrl+C, the program will write the precomputation data to the file
         signal.signal(signal.SIGINT, self.__signal_handler)
@@ -242,6 +246,10 @@ class Simulation:
         """
         Update the positions and velocities of the particles
         """
+        self.step_perf = {
+            "tree": self.tree,
+        }
+
         forces = 1 / self.iM[:, np.newaxis] * self.g \
             #+ self.compute_cohesion_force()
 
@@ -266,6 +274,9 @@ class Simulation:
 
         if self.debug:
             print("Solving time : ",time.time() - tic)
+        if self.test_perf:
+            self.step_perf["solve"] = time.time() - tic
+            self.perfs.append(self.step_perf)
 
         self.__positions += self.__velocities * self.dt
         self.t += self.dt
@@ -282,14 +293,12 @@ class Simulation:
         tree = KDTree(self.__positions)
         ids = [np.array(l).astype(np.int64) for l in tree.query_ball_point(self.__positions, self.__max_radius * 2.1)]
 
-        if self.debug:
-            print("Tree time : ",time.time() - tic)
-        tic = time.time()
-
         self.contacts = detect_contacts_tree(self.__positions, self.__radius, self.lines, ids)
 
         if self.debug:
             print("Detection time : ",time.time() - tic)
+        if self.test_perf:
+            self.test_perf["detect_contact"] = time.time() - tic
 
     def __detect_contacts_tree_2(self):
         tic = time.time()
@@ -297,8 +306,11 @@ class Simulation:
         tree = KDTree(self.__positions)
         ids = [np.array(tree.query_ball_point(self.__positions[i], self.__max_radius * 1.1 + self.__radius[i])) for i in range(len(self.__positions))]
         self.contacts = detect_contacts_tree(self.__positions, self.__radius, self.lines, ids)
+
         if self.debug:
             print("Tree time : ",time.time() - tic)
+        if self.test_perf:
+            self.test_perf["detect_contact"] = time.time() - tic
 
     def __detect_contacts(self):
         tic = time.time()
@@ -307,3 +319,5 @@ class Simulation:
 
         if self.debug:
             print("Detection time : ",time.time() - tic)
+        if self.test_perf:
+            self.test_perf["detect_contact"] = time.time() - tic
