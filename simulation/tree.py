@@ -23,12 +23,12 @@ spec = (
 class QuadTreeNode(object):
 
     def __init__(self, center, length):
-        self.max = 4   #max number of points in the node 
+        self.max = 4   #max number of points in the node
         self.points = np.zeros((self.max,3))   #on note pas les sous arrays sinon numba plante
         self.IDs = np.zeros(self.max).astype(int64)
         self.npoints = 0
         self.center = center       #center of the node
-        self.length = length       #length of the node 
+        self.length = length       #length of the node
         self.leaf= 1
 
         self.nw = None             #top left node
@@ -60,8 +60,8 @@ def add_point(node, point,i):
         ymax = node.center[1]+node.length/2
 
         if point[0] <= xmin or point[0]>xmax or point[1] <= ymin or point[1]>ymax:                #Check if point is outside node
-            continue 
-        
+            continue
+
         if node.leaf == 0 :
             stack_node.append(node.nw)
             stack_node.append(node.sw)
@@ -77,7 +77,7 @@ def add_point(node, point,i):
             stack_point.append(point)
             stack_point.append(point)
             stack_point.append(point)
-        
+
         elif node.npoints < node.max:
             node.points[node.npoints] = point
             node.IDs[node.npoints] = i
@@ -98,7 +98,7 @@ def add_point(node, point,i):
     return
 
 @numba.jit(nopython = True) #ok
-def set_nodes(node): 
+def set_nodes(node):
     l = node.length / 2
     d = node.length / 4
 
@@ -136,7 +136,7 @@ def intersects(centerA,lengthA,centerB,lengthB):
     xmaxA = centerA[0] + lengthA/2
     yminA = centerA[1] - lengthA/2
     ymaxA = centerA[1] + lengthA/2
-    
+
     xminB = centerB[0] - lengthB/2
     xmaxB = centerB[0] + lengthB/2
     yminB = centerB[1] - lengthB/2
@@ -144,27 +144,24 @@ def intersects(centerA,lengthA,centerB,lengthB):
 
     return not (xmaxA<xminB or xmaxB<xminA or ymaxA < yminB or ymaxB<yminA)
 
-#@numba.jit()
-def nodes_in_square(node,point,L,list):
+@numba.jit()
+def nodes_in_square(node,point,L,lst):
     #return all the leaf nodes that touches the square of side L centered on point
     if intersects(node.center,node.length,point,L):
         if node.leaf == 1:
-            list.append(node)
+            lst.append(node)
         else :
-            list += nodes_in_square(node.nw,point,L,[])
-            list += nodes_in_square(node.sw,point,L,[])
-            list += nodes_in_square(node.ne,point,L,[])
-            list += nodes_in_square(node.se,point,L,[])
-    if len(list) == 0:
-        return List()
-    return list
+            nodes_in_square(node.nw,point,L,lst)
+            nodes_in_square(node.sw,point,L,lst)
+            nodes_in_square(node.ne,point,L,lst)
+            nodes_in_square(node.se,point,L,lst)
 
-#@numba.jit()
+@numba.jit()
 def particles_in_box(node,point,L):
-    #return all particles coordinates in the box of size L around point 
+    #return all particles coordinates in the box of size L around point
     nodes = List()
     nodes.append(QuadTreeNode(np.array([0.0,0.0,0.0]),0.0))
-    nodes = nodes_in_square(node,point,L,nodes)
+    nodes_in_square(node,point,L,nodes)
     nparticles = 0
     particles = np.zeros((node.max*len(nodes),3))
     IDs = np.zeros(node.max*len(nodes))
@@ -180,7 +177,7 @@ def set_tree(points):
     xmin = np.min(points[:,0]) - 1
     xmax = np.max(points[:,0]) + 1
     ymin = np.min(points[:,1]) - 1
-    ymax = np.max(points[:,1]) + 1 
+    ymax = np.max(points[:,1]) + 1
     center = np.array([xmax+xmin,ymax+ymin])/2
     length = np.max(np.array([xmax-xmin,ymax-ymin]))
     tree = QuadTreeNode(center,length)
