@@ -150,10 +150,10 @@ class Simulation:
     def __write_precomputation(self) -> None:
         if self.test_perf:
             with open(f"perf_{time.time()}.csv", "w") as f:
-                f.write("tree,numba,detect_contact,solve\n")
+                f.write("tree,numba,particles_count,detect_contact,solve\n")
                 for perf in self.perfs:
-                    tree, numba, detect_contact, solve = perf.values()
-                    f.write(f"{tree},{numba},{detect_contact},{solve}\n")
+                    tree, numba, particles_count, detect_contact, solve = perf.values()
+                    f.write(f"{tree},{numba},{particles_count},{detect_contact},{solve}\n")
 
         if self.precomputation_file is not None:
             with open(self.precomputation_file, "w") as f:
@@ -256,6 +256,7 @@ class Simulation:
         self.step_perf = {
             "tree": self.tree,
             "numba": NUMBA_ACTIVATE,
+            "particles_count": len(self.__positions),
         }
 
         forces = 1 / self.iM[:, np.newaxis] * self.g \
