@@ -97,6 +97,7 @@ class Simulation:
         if type(radius) == list:
             radius = np.array(radius)
         self.__radius = radius.astype(np.float64)
+        self.__max_radius = np.max(self.__radius)
 
         if type(init_omega) == list:
             init_omega = np.array(init_omega)
@@ -185,6 +186,7 @@ class Simulation:
         self.__positions = np.vstack((self.__positions, position))
         self.__velocities = np.vstack((self.__velocities, velocity))
         self.__radius = np.append(self.__radius, radius)
+        self.__max_radius = max(self.__max_radius, radius)
 
     def add_line(self, line: np.array) -> None:
         """
@@ -244,7 +246,7 @@ class Simulation:
         """
         Update the positions and velocities of the particles
         """
-        forces = 1/self.iM[:,np.newaxis]*self.g \
+        forces = 1 / self.iM[:, np.newaxis] * self.g \
             #+ self.compute_cohesion_force()
 
         self.__velocities = self.dt * forces * self.iM[:, np.newaxis] + self.__velocities
@@ -272,21 +274,17 @@ class Simulation:
         self.__positions += self.__velocities * self.dt
         self.t += self.dt
 
-    def __detect_contacts_tree(self, nsub: int):
+    def __detect_contacts_tree(self):
         tic = time.time()
 
         tree = KDTree(self.__positions)
-        IDs = tree.query_ball_point(self.__positions, np.max(self.__radius) * 3)
-        new_IDs = []
-        for i in range(len(IDs)):
-            l = np.array([IDs[i][j] for j in range(len(IDs[i]))])
-            new_IDs.append(l)
+        ids = [np.array(l) for l in tree.query_ball_point(self.__positions, self.__max_radius * 2.1)]
 
         if self.debug:
             print("Tree time : ",time.time() - tic)
         tic = time.time()
 
-        self.contacts = detect_contacts(self.__positions, self.__velocities, self.__radius, self.lines, self.dt, new_IDs)
+        self.contacts = detect_contacts(self.__positions, self.__velocities, self.__radius, self.lines, self.dt, ids)
 
         if self.debug:
             print("Detection time : ",time.time() - tic)
