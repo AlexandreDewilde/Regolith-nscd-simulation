@@ -1,42 +1,90 @@
 import signal
 import sys
+import time
 
-from typing import Annotated
+import trimesh
 import numpy as np
 from numpy.typing import NDArray
-from .tree import *
-import trimesh
-import time
-from .tree import *
 from scipy.spatial import KDTree
-from numba.typed import List
 
 from .contact import solve_contacts_jacobi, detect_contacts
 
 
 class Simulation:
     def __init__(self,
-                init_positions: Annotated[list | NDArray, "2D or 3D list"],
-                init_velocities: Annotated[list | NDArray, "2D or 3D list"],
-                init_omega: Annotated[list | NDArray, "2D or 3D list"],
-                radius: Annotated[list | NDArray, "list of floats"],
-                rho: Annotated[float, "Density [kg/m^3]"],
-                g: Annotated[float, "Gravity [m/s^2]"] = 9.81,
-                mu: Annotated[float, "Friction coefficient"] = 0.3,
-                tree : Annotated[bool, "Use of QuadTree"] = True,
-                lines: Annotated[list, "list of boundary lines"] = None,
-                rectangles: Annotated[list, "list of boundary rectangles"] = None,
-                meshes: Annotated[list, "list of meshes"] = None,
-                dt: Annotated[float, "time step"] = 0.01,
-                d3: Annotated[bool, "3D or 2D simulation"] = False,
-                precomputation_file: Annotated[str, "file containing the precomputation data, if no file no precompute"] = None,
-                tend: Annotated[float, "end time"] = None,
-        ):
+            init_positions: list | NDArray,
+            init_velocities: list | NDArray,
+            init_omega: list | NDArray,
+            radius: list | NDArray,
+
+            rho: float,
+            g: float = 9.81,
+            mu: float = 0.3,
+
+            lines: list = None,
+            rectangles: list = None,
+            meshes: list = None,
+
+            dt: float = 0.01,
+            tend: float = None,
+
+            tree : bool = True,
+            d3: bool = False,
+            precomputation_file: str = None,
+            debug: bool = False
+        ) -> None:
         """
         Args:
             init_positions: np.array of shape (n, 2|3) or list containing the initial positions of the particles
             init_speeds: np.array of shape (n, 2|3) or list containing the initial speeds of the particles
+            init_omega: np.array of shape (n) or list containing the initial angular speeds of the particles
             radius: np.array of shape (n) or list containing the radius of the particles
+
+            rho: float containing the density of the particles
+            g: float containing the gravity
+            mu: float containing the friction coefficient
+
+            lines: list of np.array of shape (2, 2|3) containing the coordinates of the boundary lines
+            rectangles: list of np.array of shape (4, 2|3) containing the coordinates of the rectangles
+            meshes: list of trimesh.Trimesh containing the meshes
+
+            dt: float containing the time step
+            tend: float containing the end time
+
+            tree: bool to use the tree or not
+            d3: bool to use 3D or 2D simulation
+            precomputation_file: str containing the file to write the precomputation data
+            debug: bool to print debug information
+        """
+
+        self.__init_particles(init_positions, init_velocities, init_omega, radius)
+        self.contacts = []
+
+        self.__init_physical_properties(rho, g, mu)
+
+        self.__init_boundary(lines, rectangles, meshes)
+
+        self.t = 0
+        self.tend = tend
+        self.dt = dt
+        self.__init_particles_history()
+
+        self.d3 = d3
+        self.precomputation_file = precomputation_file
+        self.tree = tree
+        self.debug = debug
+
+        # When the user presses Ctrl+C, the program will write the precomputation data to the file
+        signal.signal(signal.SIGINT, self.__signal_handler)
+
+    def __init_particles(self,
+            init_positions: list | NDArray,
+            init_velocities: list | NDArray,
+            init_omega: list | NDArray,
+            radius: list | NDArray,
+        ) -> None:
+        """
+        Initialize the particles and convert the lists to np.array when needed
         """
         if type(init_positions) == list:
             init_positions = np.array(init_positions)
@@ -54,60 +102,51 @@ class Simulation:
             init_omega = np.array(init_omega)
         self.__omega = init_omega.astype(np.float64)
 
-        self.lines = np.array(lines).astype(np.float64) if lines is not None  else np.array([[[0, 0, 0], [0, 0, 0]]]).astype(np.float64)
-        self.n_lines = len(lines) if lines is not None else 0
-
-        self.rectangles = np.array([
-            [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
-        ]).astype(np.float64) if rectangles is None else np.array(rectangles).astype(np.float64)
-
-
-        self.d3 = d3
-
-        self.t = 0
-        self.tend = tend
-        self.dt = dt
-
-        self.iM = (1 / (np.pi * rho * self.__radius ** 2))
-        self.I = 1 / 2 * 1 / self.iM * self.__radius * self.__radius
-
-        self.contacts = []
-        self.old_contacts = []
-
-        self.g = np.array([[0, -g, 0]for i in range(len(self.__velocities))])
-
-        self.mu = mu
-
-        self.meshes = meshes if meshes is not None else []
-        self.meshes_positions = [np.ascontiguousarray(mesh.vertices, dtype=np.float64) for mesh in self.meshes]
-        self.meshes_faces = [np.ascontiguousarray(mesh.faces, dtype=np.int32) for mesh in self.meshes]
-
-        self.precomputation_file = precomputation_file
-
-        self.tree = tree
-
+    def __init_particles_history(self) -> None:
+        """
+        Initialize the history of the particles
+        """
         self.t_history = [self.t]
         self.positions_history = [self.__positions]
         self.velocities_history = [self.__velocities]
         self.omega_history = [self.__omega]
 
-        signal.signal(signal.SIGINT, self.signal_handler)
+    def __init_physical_properties(self, rho: float, g: float, mu: float) -> None:
+        self.g = np.array([[0, -g, 0] for _ in range(len(self.__velocities))])
+        self.mu = mu
+        self.rho = rho
+        self.iM = (1 / (np.pi * self.rho * self.__radius ** 2))
+        self.I = 1 / 2 * 1 / self.iM * self.__radius * self.__radius
 
+    def __init_boundary(self, lines, rectangles, meshes) -> None:
+        self.lines = np.array(lines).astype(np.float64) if lines is not None  else np.array([[[0, 0, 0], [0, 0, 0]]]).astype(np.float64)
+        self.n_lines = len(lines) if lines is not None else 0
+        self.rectangles = np.array([
+            [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
+        ]).astype(np.float64) if rectangles is None else np.array(rectangles).astype(np.float64)
+        self.meshes = meshes if meshes is not None else []
 
-    def signal_handler(self, sig, frame):
-        self.write_precomputation()
+        # Following two lists are needed for contact detection
+        self.meshes_positions = [np.ascontiguousarray(mesh.vertices, dtype=np.float64) for mesh in self.meshes]
+        self.meshes_faces = [np.ascontiguousarray(mesh.faces, dtype=np.int32) for mesh in self.meshes]
+
+    def __signal_handler(self, sig, frame) -> None:
+        self.__write_precomputation()
         sys.exit(0)
 
-    def run_sim(self):
+    def run_sim(self) -> None:
+        """
+        Run the simulation until the end time
+        """
         while self.tend is None or self.t < self.tend:
             self.step()
             self.t_history.append(self.t)
             self.positions_history.append(self.__positions)
             self.velocities_history.append(self.__velocities)
             self.omega_history.append(self.__omega)
-        self.write_precomputation()
+        self.__write_precomputation()
 
-    def write_precomputation(self):
+    def __write_precomputation(self) -> None:
         if self.precomputation_file is not None:
             with open(self.precomputation_file, "w") as f:
                 for t, positions, velocities, omega in zip(self.t_history, self.positions_history, self.velocities_history, self.omega_history):
@@ -118,7 +157,14 @@ class Simulation:
                         f.write(f"\tOmega {i}: {om}\n")
                     f.write("\n")
 
-    def add_mesh(self, mesh, scale, position) -> None:
+    def add_mesh(self, mesh: trimesh.Trimesh, scale: float, position: NDArray) -> None:
+        """
+        Add a mesh to the simulation
+        Args:
+            mesh: trimesh.Trimesh containing the mesh
+            scale: float containing the scale of the mesh
+            position: np.array of shape (2|3) containing the position of the mesh
+        """
         mesh.apply_transform(trimesh.transformations.scale_and_translate(scale, -mesh.centroid * scale + position))
         self.meshes.append(mesh)
 
@@ -179,51 +225,81 @@ class Simulation:
 
     def get_meshes(self) -> list[trimesh.Trimesh]:
         return self.meshes
-    
-    def compute_cohesion_force(self):
+
+    def compute_cohesion_force(self) -> np.array:
         forces = np.zeros_like(self.__positions)
 
         for i in range(self.__positions.shape[0]):
             for j in range(i + 1, self.__positions.shape[0]):
                 direction = self.__positions[j] - self.__positions[i]
                 distance = np.linalg.norm(direction)
-                force_magnitude = 10000.0 
+                force_magnitude = 10000.0
                 force = force_magnitude * direction / distance  # Normalize the direction vector
                 forces[i] += force
                 forces[j] -= force  # Newton's third law
 
         return forces
 
-    
     def step(self) -> None:
         """
         Update the positions and velocities of the particles
         """
-        forces = 1/self.iM[:,np.newaxis]*self.g #+ self.compute_cohesion_force()
+        forces = 1/self.iM[:,np.newaxis]*self.g \
+            #+ self.compute_cohesion_force()
         #print(1/self.iM[:,np.newaxis]*self.g,self.compute_cohesion_force())
         nsub = 1
-        print("NSUB",nsub)
-        for i in range(nsub):
-            self.__velocities = (self.dt/nsub)*forces*self.iM[:,np.newaxis] + self.__velocities
-            tic = time.time()
-            if self.tree == True:
-                tree = KDTree(self.__positions)
-                IDs = tree.query_ball_point(self.__positions,np.max(self.__radius)*3)
-                new_IDs = List()
-                for i in range(len(IDs)):
-                    l = np.array([IDs[i][j] for j in range(len(IDs[i]))])
-                    new_IDs.append(l)
-                        
-                print("Tree time : ",time.time()-tic)
-                tic = time.time()
-                self.contacts = detect_contacts(self.__positions, self.__velocities, self.__radius, self.lines, self.dt/nsub,new_IDs)
-                print("Detection time : ",time.time()-tic)
+        if self.debug:
+            print("NSUB",nsub)
 
-            else :
-                self.contacts = detect_contacts(self.__positions, self.__velocities, self.__radius, self.lines, self.dt/nsub,None)
-                print("Detection time : ",time.time()-tic)
+        for i in range(nsub):
+            self.__velocities = (self.dt / nsub) * forces * self.iM[:, np.newaxis] + self.__velocities
+
+            if self.tree:
+                self.__detect_contacts_tree(nsub)
+            else:
+                self.__detect_contacts(nsub)
+
             tic = time.time()
-            self.__velocities,self.__omega = solve_contacts_jacobi(self.contacts, self.__positions, self.__velocities, self.__omega, self.__radius, self.iM, self.I, self.dt/nsub)
-            print("Solving time : ",time.time()-tic)
+            self.__velocities,self.__omega = solve_contacts_jacobi(
+                self.contacts,
+                self.__positions,
+                self.__velocities,
+                self.__omega,
+                self.__radius,
+                self.iM,
+                self.I,
+                self.dt / nsub
+            )
+
+            if self.debug:
+                print("Solving time : ",time.time() - tic)
+
             self.__positions += self.__velocities * self.dt
-            self.t += self.dt/nsub
+            self.t += self.dt / nsub
+
+    def __detect_contacts_tree(self, nsub: int):
+        tic = time.time()
+
+        tree = KDTree(self.__positions)
+        IDs = tree.query_ball_point(self.__positions, np.max(self.__radius) * 3)
+        new_IDs = []
+        for i in range(len(IDs)):
+            l = np.array([IDs[i][j] for j in range(len(IDs[i]))])
+            new_IDs.append(l)
+
+        if self.debug:
+            print("Tree time : ",time.time()-tic)
+        tic = time.time()
+
+        self.contacts = detect_contacts(self.__positions, self.__velocities, self.__radius, self.lines, self.dt / nsub, new_IDs)
+
+        if self.debug:
+            print("Detection time : ",time.time()-tic)
+
+    def __detect_contacts(self, nsub: int):
+        tic = time.time()
+
+        self.contacts = detect_contacts(self.__positions, self.__velocities, self.__radius, self.lines, self.dt / nsub, None)
+
+        if self.debug:
+            print("Detection time : ",time.time()-tic)
