@@ -236,11 +236,10 @@ def detect_contacts(positions, velocities, radius, walls, dt,IDss):
 @jit(nopython = True)
 def detect_contacts_tree(positions, radius, walls, poss_ids):
     detection_range = np.max(radius)
-    contacts = [Contact(-1,-1,np.array([-1.0,-1.0,-1.0]),-1.0,-1)]
+    contacts = [Contact(-1, -1, np.array([-1.0, -1.0, -1.0]), -1.0, -1)]
     for i in range(len(radius)):
-        xi = positions[i]
         detect_contacts_tree_particles(i, poss_ids[i], detection_range, positions, radius, contacts)
-        detect_contacts_tree_walls(i, xi, radius[i], detection_range, walls, contacts)
+        detect_contacts_tree_walls(i, positions[i], radius[i], detection_range, walls, contacts)
 
     if len(contacts) > 1:
         contacts.pop(0)
@@ -262,19 +261,18 @@ def detect_contacts_tree_particles(i, ids, detection_range, positions, radius, c
 def detect_contacts_tree_walls(i, xi, radii, detection_range, walls, contacts):
     for j in range(len(walls)):
         wall = walls[j].astype(np.float64)
-        t = wall[1] - wall[0]
-        s = xi - wall[0]
+
+        t, s = wall[1] - wall[0], xi - wall[0]
         st = np.dot(s, t) / np.linalg.norm(t) ** 2
         n = s - st * t
+
         d = np.linalg.norm(n) - radii
-        if d<detection_range and 0 <= st <= 1:
-            c = Contact(i,j,n/(np.linalg.norm(n)),d,1)
-            contacts.append(c)
-        disk0 = wall[0]
-        disk1 = wall[1]
-        distance0 = np.linalg.norm(xi - disk0) - radii
-        distance1 = np.linalg.norm(xi - disk1) - radii
+        if d < detection_range and 0 <= st <= 1:
+            contacts.append(Contact(i, j, n / np.linalg.norm(n), d, 1))
+
+        disk0, disk1 = wall[0], wall[1]
+        distance0, distance1 = np.linalg.norm(xi - disk0) - radii, np.linalg.norm(xi - disk1) - radii
         if distance0 < detection_range :
-            contacts.append(Contact(i,j,n,d,2))
+            contacts.append(Contact(i, j, n, d, 2))
         if distance1 < detection_range :
-            contacts.append(Contact(i,j,n,d,2))
+            contacts.append(Contact(i, j, n, d, 2))
