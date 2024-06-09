@@ -7,7 +7,7 @@ import numpy as np
 from numpy.typing import NDArray
 from scipy.spatial import KDTree
 
-from .contact import solve_contacts_jacobi, detect_contacts
+from .contact import solve_contacts_jacobi, detect_contacts, detect_contacts_tree
 
 
 class Simulation:
@@ -278,13 +278,13 @@ class Simulation:
         tic = time.time()
 
         tree = KDTree(self.__positions)
-        ids = [np.array(l) for l in tree.query_ball_point(self.__positions, self.__max_radius * 2.1)]
+        ids = [np.array(l).astype(np.int64) for l in tree.query_ball_point(self.__positions, self.__max_radius * 2.1)]
 
         if self.debug:
             print("Tree time : ",time.time() - tic)
         tic = time.time()
 
-        self.contacts = detect_contacts(self.__positions, self.__velocities, self.__radius, self.lines, self.dt, ids)
+        self.contacts = detect_contacts_tree(self.__positions, self.__radius, self.lines, ids)
 
         if self.debug:
             print("Detection time : ",time.time() - tic)
