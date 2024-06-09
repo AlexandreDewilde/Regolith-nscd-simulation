@@ -45,15 +45,14 @@ xmin = 0
 xmax = 20
 ymin = 0
 ymax = 20
-n = 10
+n = 1000
 np.random.seed(1)
-positions = insert_particles(n, 1.1, xmin, xmax, ymin, ymax)
+positions = insert_particles(n, 1/4, xmin, xmax, ymin, ymax)
 n = len(positions)
 print(n)
-velocities = np.random.uniform(-10,10,(n,2))
-#velocities = np.array([[0,-1,0],[0,-1,0],[0,-1,0],[0,-1,0],[0,-1,0]])
+velocities = np.zeros((n,2))
 omega = np.zeros(len(positions))
-radius =np.ones(len(positions))
+radius =np.ones(len(positions))/4
 dt = 1e-6
 g = 9.81
 sim = Simulation(
@@ -63,7 +62,7 @@ sim = Simulation(
     rho,
     g,
     d3=False,
-    tree=False,
+    tree=True,
     precomputation_file="out.txt"
 )
 
@@ -92,8 +91,8 @@ sim.add_line(
     ]).astype(np.float64)
 )
 
-#sim.run_sim()
-#exit()
+sim.step()
+exit()
 gui = GUI(sim, bound=(0, 20, 0, 20), d3=False)
 
 gui.run()

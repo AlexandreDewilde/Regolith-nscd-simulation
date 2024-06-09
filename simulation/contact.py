@@ -21,14 +21,15 @@ class Contact:
         self.normal = normal
         self.d = d
         self.type = type
-@jit
+        
+@jit(nopython = True,nogil = True,cache = True,parallel = False)
 def norm_with_axis1(vector):
     array = np.zeros(vector.shape[0])
     for i in range(len(array)):
         array[i] = np.linalg.norm(vector[i])
     return array
 
-@jit
+@jit(nopython = True,nogil = True,cache = True,parallel = False)
 def norm_with_axis2(vector):
     array = np.zeros((vector.shape[0],vector.shape[1]))
     for i in range(len(array)):
@@ -36,14 +37,14 @@ def norm_with_axis2(vector):
             array[i,j] = np.linalg.norm(vector[i,j])
     return array
 
-@jit
+@jit(nopython = True,nogil = True,cache = True,parallel = False)
 def sum_with_axis1(vector):
     array = np.zeros(vector.shape[0])
     for i in range(len(array)):
         array[i] = np.sum(vector[i])
     return array
 
-@jit
+@jit(nopython = True,nogil = True,cache = True,parallel = False)
 def sum_with_axis2(vector):
     array = np.zeros((vector.shape[0],vector.shape[1]))
     for i in range(len(array)):
@@ -51,12 +52,12 @@ def sum_with_axis2(vector):
             array[i,j] = np.sum(vector[i,j])
     return array
 
-@jit
+@jit(nopython = True,nogil = True,cache = True)
 def solve_contacts_jacobi(contacts,positions, velocities, omega, radius, imass, inertia, dt):
     mu = 0.3
     m = 1/imass
     itmax = 1000
-    tol = 5e-6
+    tol = 1e-3
     if contacts[0].type == -1 :
         return velocities,omega
     it = 0
@@ -166,9 +167,9 @@ def solve_contacts_jacobi(contacts,positions, velocities, omega, radius, imass, 
 
     return velocities,omega
 
-@jit
+@jit(nopython = True,nogil = True,cache = True)
 def detect_contacts(positions, velocities, radius, walls, dt,tree):
-    detection_range = np.max(radius)
+    detection_range = np.max(velocities)*dt
     contacts = List()
     empty = True
     if tree == None:

@@ -40,17 +40,24 @@ node_type.define(QuadTreeNode.class_type.instance_type)
 
 @numba.jit()
 def add_point(node, point,i):
-    stack = List()
-    stack.append((node,point,i))
-    xmin = node.center[0]-node.length/2
-    xmax = node.center[0]+node.length/2
-    ymin = node.center[1]-node.length/2
-    ymax = node.center[1]+node.length/2
-    while len(stack):
-        node = stack[0][0]
-        point = stack[0][1]
-        i = stack[0][2]
-        stack.pop(0)
+    stack_node = List()
+    stack_point = List()
+    stack_i = List()
+    stack_node.append(node)
+    stack_point.append(point)
+    stack_i.append(i)
+    while len(stack_node):
+        node = stack_node[0]
+        point = stack_point[0]
+        i = stack_i[0]
+        stack_node.pop(0)
+        stack_point.pop(0)
+        stack_i.pop(0)
+        xmin = node.center[0]-node.length/2
+        xmax = node.center[0]+node.length/2
+        ymin = node.center[1]-node.length/2
+        ymax = node.center[1]+node.length/2
+
         if point[0] <= xmin or point[0]>xmax or point[1] <= ymin or point[1]>ymax:                #Check if point is outside node
             continue 
         
@@ -68,11 +75,11 @@ def add_point(node, point,i):
             set_nodes(node)
             points_toremove,IDs = get_points(node)
             node.leaf = 0
+            stack.append((node,point,i))
             for j in range(len(points_toremove)) :
                 p = points_toremove[j]
                 ID = IDs[j]
                 stack.append((node,p,ID))
-            stack.append((node,point,i))
     return
 
 @numba.jit() #ok

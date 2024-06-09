@@ -1,32 +1,3002 @@
 Computation time: 0
-	Position 0: 1.1720025178954714 0.9999436511710158 0.0
-	Velocity 0: -1.6595599059485195 4.4064898688431615 0.0
-	Omega 0: 0.2833782637269407
-	Position 1: 7.797067045653765 0.999971397728839 0.0
-	Velocity 1: -9.997712503653101 -3.9533485473632046 0.0
-	Omega 1: 2.524545152597386
-	Position 2: 14.821284821635434 0.9731245513617381 0.0
-	Velocity 2: -7.064882183657739 -8.153228104624045 0.0
-	Omega 2: 5.536939940250377
-	Position 3: 16.00815561796735 2.5831016556868476 0.0
-	Velocity 3: -6.274795772446582 -3.0887854591390447 0.0
-	Omega 3: -2.9620677101154964
-	Position 4: 3.565008308433239 1.0000496988583987 0.0
-	Velocity 4: -2.0646505153866013 0.7763346800671389 0.0
-	Omega 4: 1.193484053842461
-	Position 5: 5.565008307815726 0.9999999999999999 0.0
-	Velocity 5: -1.6161097119341044 3.7043900079351904 0.0
-	Omega 5: -0.32288811142197604
-	Position 6: 9.915221362117121 1.0 0.0
-	Velocity 6: -5.910955005369651 7.562348727818907 0.0
-	Omega 6: 2.3160542938301587
-	Position 7: 1.0000025374273773 2.992392034559033 0.0
-	Velocity 7: -9.452248136041476 3.409350203568044 0.0
-	Omega 7: -0.5675551012815383
-	Position 8: 3.1563853043038628 3.3786696688701783 0.0
-	Velocity 8: -1.6539039526574602 1.1737965689150336 0.0
-	Omega 8: 3.9915070507691186
-	Position 9: 12.497439644389374 0.999979557764672 0.0
-	Velocity 9: -7.192261228095324 -6.037970218302425 0.0
-	Omega 9: 5.306874186312535
+	Position 0: 0.25 0.25 0.0
+	Velocity 0: 0.0 0.0 0.0
+	Omega 0: 0.0
+	Position 1: 0.25 0.75 0.0
+	Velocity 1: 0.0 0.0 0.0
+	Omega 1: 0.0
+	Position 2: 0.25 1.25 0.0
+	Velocity 2: 0.0 0.0 0.0
+	Omega 2: 0.0
+	Position 3: 0.25 1.75 0.0
+	Velocity 3: 0.0 0.0 0.0
+	Omega 3: 0.0
+	Position 4: 0.25 2.25 0.0
+	Velocity 4: 0.0 0.0 0.0
+	Omega 4: 0.0
+	Position 5: 0.25 2.75 0.0
+	Velocity 5: 0.0 0.0 0.0
+	Omega 5: 0.0
+	Position 6: 0.25 3.25 0.0
+	Velocity 6: 0.0 0.0 0.0
+	Omega 6: 0.0
+	Position 7: 0.25 3.75 0.0
+	Velocity 7: 0.0 0.0 0.0
+	Omega 7: 0.0
+	Position 8: 0.25 4.25 0.0
+	Velocity 8: 0.0 0.0 0.0
+	Omega 8: 0.0
+	Position 9: 0.25 4.75 0.0
+	Velocity 9: 0.0 0.0 0.0
+	Omega 9: 0.0
+	Position 10: 0.25 5.25 0.0
+	Velocity 10: 0.0 0.0 0.0
+	Omega 10: 0.0
+	Position 11: 0.25 5.75 0.0
+	Velocity 11: 0.0 0.0 0.0
+	Omega 11: 0.0
+	Position 12: 0.25 6.25 0.0
+	Velocity 12: 0.0 0.0 0.0
+	Omega 12: 0.0
+	Position 13: 0.25 6.75 0.0
+	Velocity 13: 0.0 0.0 0.0
+	Omega 13: 0.0
+	Position 14: 0.25 7.25 0.0
+	Velocity 14: 0.0 0.0 0.0
+	Omega 14: 0.0
+	Position 15: 0.25 7.75 0.0
+	Velocity 15: 0.0 0.0 0.0
+	Omega 15: 0.0
+	Position 16: 0.25 8.25 0.0
+	Velocity 16: 0.0 0.0 0.0
+	Omega 16: 0.0
+	Position 17: 0.25 8.75 0.0
+	Velocity 17: 0.0 0.0 0.0
+	Omega 17: 0.0
+	Position 18: 0.25 9.25 0.0
+	Velocity 18: 0.0 0.0 0.0
+	Omega 18: 0.0
+	Position 19: 0.25 9.75 0.0
+	Velocity 19: 0.0 0.0 0.0
+	Omega 19: 0.0
+	Position 20: 0.25 10.25 0.0
+	Velocity 20: 0.0 0.0 0.0
+	Omega 20: 0.0
+	Position 21: 0.25 10.75 0.0
+	Velocity 21: 0.0 0.0 0.0
+	Omega 21: 0.0
+	Position 22: 0.25 11.25 0.0
+	Velocity 22: 0.0 0.0 0.0
+	Omega 22: 0.0
+	Position 23: 0.25 11.75 0.0
+	Velocity 23: 0.0 0.0 0.0
+	Omega 23: 0.0
+	Position 24: 0.25 12.25 0.0
+	Velocity 24: 0.0 0.0 0.0
+	Omega 24: 0.0
+	Position 25: 0.25 12.75 0.0
+	Velocity 25: 0.0 0.0 0.0
+	Omega 25: 0.0
+	Position 26: 0.25 13.25 0.0
+	Velocity 26: 0.0 0.0 0.0
+	Omega 26: 0.0
+	Position 27: 0.25 13.75 0.0
+	Velocity 27: 0.0 0.0 0.0
+	Omega 27: 0.0
+	Position 28: 0.25 14.25 0.0
+	Velocity 28: 0.0 0.0 0.0
+	Omega 28: 0.0
+	Position 29: 0.25 14.75 0.0
+	Velocity 29: 0.0 0.0 0.0
+	Omega 29: 0.0
+	Position 30: 0.25 15.25 0.0
+	Velocity 30: 0.0 0.0 0.0
+	Omega 30: 0.0
+	Position 31: 0.25 15.75 0.0
+	Velocity 31: 0.0 0.0 0.0
+	Omega 31: 0.0
+	Position 32: 0.25 16.25 0.0
+	Velocity 32: 0.0 0.0 0.0
+	Omega 32: 0.0
+	Position 33: 0.25 16.75 0.0
+	Velocity 33: 0.0 0.0 0.0
+	Omega 33: 0.0
+	Position 34: 0.25 17.25 0.0
+	Velocity 34: 0.0 0.0 0.0
+	Omega 34: 0.0
+	Position 35: 0.25 17.75 0.0
+	Velocity 35: 0.0 0.0 0.0
+	Omega 35: 0.0
+	Position 36: 0.25 18.25 0.0
+	Velocity 36: 0.0 0.0 0.0
+	Omega 36: 0.0
+	Position 37: 0.25 18.75 0.0
+	Velocity 37: 0.0 0.0 0.0
+	Omega 37: 0.0
+	Position 38: 0.25 19.25 0.0
+	Velocity 38: 0.0 0.0 0.0
+	Omega 38: 0.0
+	Position 39: 0.25 19.75 0.0
+	Velocity 39: 0.0 0.0 0.0
+	Omega 39: 0.0
+	Position 40: 0.75 0.25 0.0
+	Velocity 40: 0.0 0.0 0.0
+	Omega 40: 0.0
+	Position 41: 0.75 0.75 0.0
+	Velocity 41: 0.0 0.0 0.0
+	Omega 41: 0.0
+	Position 42: 0.75 1.25 0.0
+	Velocity 42: 0.0 0.0 0.0
+	Omega 42: 0.0
+	Position 43: 0.75 1.75 0.0
+	Velocity 43: 0.0 0.0 0.0
+	Omega 43: 0.0
+	Position 44: 0.75 2.25 0.0
+	Velocity 44: 0.0 0.0 0.0
+	Omega 44: 0.0
+	Position 45: 0.75 2.75 0.0
+	Velocity 45: 0.0 0.0 0.0
+	Omega 45: 0.0
+	Position 46: 0.75 3.25 0.0
+	Velocity 46: 0.0 0.0 0.0
+	Omega 46: 0.0
+	Position 47: 0.75 3.75 0.0
+	Velocity 47: 0.0 0.0 0.0
+	Omega 47: 0.0
+	Position 48: 0.75 4.25 0.0
+	Velocity 48: 0.0 0.0 0.0
+	Omega 48: 0.0
+	Position 49: 0.75 4.75 0.0
+	Velocity 49: 0.0 0.0 0.0
+	Omega 49: 0.0
+	Position 50: 0.75 5.25 0.0
+	Velocity 50: 0.0 0.0 0.0
+	Omega 50: 0.0
+	Position 51: 0.75 5.75 0.0
+	Velocity 51: 0.0 0.0 0.0
+	Omega 51: 0.0
+	Position 52: 0.75 6.25 0.0
+	Velocity 52: 0.0 0.0 0.0
+	Omega 52: 0.0
+	Position 53: 0.75 6.75 0.0
+	Velocity 53: 0.0 0.0 0.0
+	Omega 53: 0.0
+	Position 54: 0.75 7.25 0.0
+	Velocity 54: 0.0 0.0 0.0
+	Omega 54: 0.0
+	Position 55: 0.75 7.75 0.0
+	Velocity 55: 0.0 0.0 0.0
+	Omega 55: 0.0
+	Position 56: 0.75 8.25 0.0
+	Velocity 56: 0.0 0.0 0.0
+	Omega 56: 0.0
+	Position 57: 0.75 8.75 0.0
+	Velocity 57: 0.0 0.0 0.0
+	Omega 57: 0.0
+	Position 58: 0.75 9.25 0.0
+	Velocity 58: 0.0 0.0 0.0
+	Omega 58: 0.0
+	Position 59: 0.75 9.75 0.0
+	Velocity 59: 0.0 0.0 0.0
+	Omega 59: 0.0
+	Position 60: 0.75 10.25 0.0
+	Velocity 60: 0.0 0.0 0.0
+	Omega 60: 0.0
+	Position 61: 0.75 10.75 0.0
+	Velocity 61: 0.0 0.0 0.0
+	Omega 61: 0.0
+	Position 62: 0.75 11.25 0.0
+	Velocity 62: 0.0 0.0 0.0
+	Omega 62: 0.0
+	Position 63: 0.75 11.75 0.0
+	Velocity 63: 0.0 0.0 0.0
+	Omega 63: 0.0
+	Position 64: 0.75 12.25 0.0
+	Velocity 64: 0.0 0.0 0.0
+	Omega 64: 0.0
+	Position 65: 0.75 12.75 0.0
+	Velocity 65: 0.0 0.0 0.0
+	Omega 65: 0.0
+	Position 66: 0.75 13.25 0.0
+	Velocity 66: 0.0 0.0 0.0
+	Omega 66: 0.0
+	Position 67: 0.75 13.75 0.0
+	Velocity 67: 0.0 0.0 0.0
+	Omega 67: 0.0
+	Position 68: 0.75 14.25 0.0
+	Velocity 68: 0.0 0.0 0.0
+	Omega 68: 0.0
+	Position 69: 0.75 14.75 0.0
+	Velocity 69: 0.0 0.0 0.0
+	Omega 69: 0.0
+	Position 70: 0.75 15.25 0.0
+	Velocity 70: 0.0 0.0 0.0
+	Omega 70: 0.0
+	Position 71: 0.75 15.75 0.0
+	Velocity 71: 0.0 0.0 0.0
+	Omega 71: 0.0
+	Position 72: 0.75 16.25 0.0
+	Velocity 72: 0.0 0.0 0.0
+	Omega 72: 0.0
+	Position 73: 0.75 16.75 0.0
+	Velocity 73: 0.0 0.0 0.0
+	Omega 73: 0.0
+	Position 74: 0.75 17.25 0.0
+	Velocity 74: 0.0 0.0 0.0
+	Omega 74: 0.0
+	Position 75: 0.75 17.75 0.0
+	Velocity 75: 0.0 0.0 0.0
+	Omega 75: 0.0
+	Position 76: 0.75 18.25 0.0
+	Velocity 76: 0.0 0.0 0.0
+	Omega 76: 0.0
+	Position 77: 0.75 18.75 0.0
+	Velocity 77: 0.0 0.0 0.0
+	Omega 77: 0.0
+	Position 78: 0.75 19.25 0.0
+	Velocity 78: 0.0 0.0 0.0
+	Omega 78: 0.0
+	Position 79: 0.75 19.75 0.0
+	Velocity 79: 0.0 0.0 0.0
+	Omega 79: 0.0
+	Position 80: 1.25 0.25 0.0
+	Velocity 80: 0.0 0.0 0.0
+	Omega 80: 0.0
+	Position 81: 1.25 0.75 0.0
+	Velocity 81: 0.0 0.0 0.0
+	Omega 81: 0.0
+	Position 82: 1.25 1.25 0.0
+	Velocity 82: 0.0 0.0 0.0
+	Omega 82: 0.0
+	Position 83: 1.25 1.75 0.0
+	Velocity 83: 0.0 0.0 0.0
+	Omega 83: 0.0
+	Position 84: 1.25 2.25 0.0
+	Velocity 84: 0.0 0.0 0.0
+	Omega 84: 0.0
+	Position 85: 1.25 2.75 0.0
+	Velocity 85: 0.0 0.0 0.0
+	Omega 85: 0.0
+	Position 86: 1.25 3.25 0.0
+	Velocity 86: 0.0 0.0 0.0
+	Omega 86: 0.0
+	Position 87: 1.25 3.75 0.0
+	Velocity 87: 0.0 0.0 0.0
+	Omega 87: 0.0
+	Position 88: 1.25 4.25 0.0
+	Velocity 88: 0.0 0.0 0.0
+	Omega 88: 0.0
+	Position 89: 1.25 4.75 0.0
+	Velocity 89: 0.0 0.0 0.0
+	Omega 89: 0.0
+	Position 90: 1.25 5.25 0.0
+	Velocity 90: 0.0 0.0 0.0
+	Omega 90: 0.0
+	Position 91: 1.25 5.75 0.0
+	Velocity 91: 0.0 0.0 0.0
+	Omega 91: 0.0
+	Position 92: 1.25 6.25 0.0
+	Velocity 92: 0.0 0.0 0.0
+	Omega 92: 0.0
+	Position 93: 1.25 6.75 0.0
+	Velocity 93: 0.0 0.0 0.0
+	Omega 93: 0.0
+	Position 94: 1.25 7.25 0.0
+	Velocity 94: 0.0 0.0 0.0
+	Omega 94: 0.0
+	Position 95: 1.25 7.75 0.0
+	Velocity 95: 0.0 0.0 0.0
+	Omega 95: 0.0
+	Position 96: 1.25 8.25 0.0
+	Velocity 96: 0.0 0.0 0.0
+	Omega 96: 0.0
+	Position 97: 1.25 8.75 0.0
+	Velocity 97: 0.0 0.0 0.0
+	Omega 97: 0.0
+	Position 98: 1.25 9.25 0.0
+	Velocity 98: 0.0 0.0 0.0
+	Omega 98: 0.0
+	Position 99: 1.25 9.75 0.0
+	Velocity 99: 0.0 0.0 0.0
+	Omega 99: 0.0
+	Position 100: 1.25 10.25 0.0
+	Velocity 100: 0.0 0.0 0.0
+	Omega 100: 0.0
+	Position 101: 1.25 10.75 0.0
+	Velocity 101: 0.0 0.0 0.0
+	Omega 101: 0.0
+	Position 102: 1.25 11.25 0.0
+	Velocity 102: 0.0 0.0 0.0
+	Omega 102: 0.0
+	Position 103: 1.25 11.75 0.0
+	Velocity 103: 0.0 0.0 0.0
+	Omega 103: 0.0
+	Position 104: 1.25 12.25 0.0
+	Velocity 104: 0.0 0.0 0.0
+	Omega 104: 0.0
+	Position 105: 1.25 12.75 0.0
+	Velocity 105: 0.0 0.0 0.0
+	Omega 105: 0.0
+	Position 106: 1.25 13.25 0.0
+	Velocity 106: 0.0 0.0 0.0
+	Omega 106: 0.0
+	Position 107: 1.25 13.75 0.0
+	Velocity 107: 0.0 0.0 0.0
+	Omega 107: 0.0
+	Position 108: 1.25 14.25 0.0
+	Velocity 108: 0.0 0.0 0.0
+	Omega 108: 0.0
+	Position 109: 1.25 14.75 0.0
+	Velocity 109: 0.0 0.0 0.0
+	Omega 109: 0.0
+	Position 110: 1.25 15.25 0.0
+	Velocity 110: 0.0 0.0 0.0
+	Omega 110: 0.0
+	Position 111: 1.25 15.75 0.0
+	Velocity 111: 0.0 0.0 0.0
+	Omega 111: 0.0
+	Position 112: 1.25 16.25 0.0
+	Velocity 112: 0.0 0.0 0.0
+	Omega 112: 0.0
+	Position 113: 1.25 16.75 0.0
+	Velocity 113: 0.0 0.0 0.0
+	Omega 113: 0.0
+	Position 114: 1.25 17.25 0.0
+	Velocity 114: 0.0 0.0 0.0
+	Omega 114: 0.0
+	Position 115: 1.25 17.75 0.0
+	Velocity 115: 0.0 0.0 0.0
+	Omega 115: 0.0
+	Position 116: 1.25 18.25 0.0
+	Velocity 116: 0.0 0.0 0.0
+	Omega 116: 0.0
+	Position 117: 1.25 18.75 0.0
+	Velocity 117: 0.0 0.0 0.0
+	Omega 117: 0.0
+	Position 118: 1.25 19.25 0.0
+	Velocity 118: 0.0 0.0 0.0
+	Omega 118: 0.0
+	Position 119: 1.25 19.75 0.0
+	Velocity 119: 0.0 0.0 0.0
+	Omega 119: 0.0
+	Position 120: 1.75 0.25 0.0
+	Velocity 120: 0.0 0.0 0.0
+	Omega 120: 0.0
+	Position 121: 1.75 0.75 0.0
+	Velocity 121: 0.0 0.0 0.0
+	Omega 121: 0.0
+	Position 122: 1.75 1.25 0.0
+	Velocity 122: 0.0 0.0 0.0
+	Omega 122: 0.0
+	Position 123: 1.75 1.75 0.0
+	Velocity 123: 0.0 0.0 0.0
+	Omega 123: 0.0
+	Position 124: 1.75 2.25 0.0
+	Velocity 124: 0.0 0.0 0.0
+	Omega 124: 0.0
+	Position 125: 1.75 2.75 0.0
+	Velocity 125: 0.0 0.0 0.0
+	Omega 125: 0.0
+	Position 126: 1.75 3.25 0.0
+	Velocity 126: 0.0 0.0 0.0
+	Omega 126: 0.0
+	Position 127: 1.75 3.75 0.0
+	Velocity 127: 0.0 0.0 0.0
+	Omega 127: 0.0
+	Position 128: 1.75 4.25 0.0
+	Velocity 128: 0.0 0.0 0.0
+	Omega 128: 0.0
+	Position 129: 1.75 4.75 0.0
+	Velocity 129: 0.0 0.0 0.0
+	Omega 129: 0.0
+	Position 130: 1.75 5.25 0.0
+	Velocity 130: 0.0 0.0 0.0
+	Omega 130: 0.0
+	Position 131: 1.75 5.75 0.0
+	Velocity 131: 0.0 0.0 0.0
+	Omega 131: 0.0
+	Position 132: 1.75 6.25 0.0
+	Velocity 132: 0.0 0.0 0.0
+	Omega 132: 0.0
+	Position 133: 1.75 6.75 0.0
+	Velocity 133: 0.0 0.0 0.0
+	Omega 133: 0.0
+	Position 134: 1.75 7.25 0.0
+	Velocity 134: 0.0 0.0 0.0
+	Omega 134: 0.0
+	Position 135: 1.75 7.75 0.0
+	Velocity 135: 0.0 0.0 0.0
+	Omega 135: 0.0
+	Position 136: 1.75 8.25 0.0
+	Velocity 136: 0.0 0.0 0.0
+	Omega 136: 0.0
+	Position 137: 1.75 8.75 0.0
+	Velocity 137: 0.0 0.0 0.0
+	Omega 137: 0.0
+	Position 138: 1.75 9.25 0.0
+	Velocity 138: 0.0 0.0 0.0
+	Omega 138: 0.0
+	Position 139: 1.75 9.75 0.0
+	Velocity 139: 0.0 0.0 0.0
+	Omega 139: 0.0
+	Position 140: 1.75 10.25 0.0
+	Velocity 140: 0.0 0.0 0.0
+	Omega 140: 0.0
+	Position 141: 1.75 10.75 0.0
+	Velocity 141: 0.0 0.0 0.0
+	Omega 141: 0.0
+	Position 142: 1.75 11.25 0.0
+	Velocity 142: 0.0 0.0 0.0
+	Omega 142: 0.0
+	Position 143: 1.75 11.75 0.0
+	Velocity 143: 0.0 0.0 0.0
+	Omega 143: 0.0
+	Position 144: 1.75 12.25 0.0
+	Velocity 144: 0.0 0.0 0.0
+	Omega 144: 0.0
+	Position 145: 1.75 12.75 0.0
+	Velocity 145: 0.0 0.0 0.0
+	Omega 145: 0.0
+	Position 146: 1.75 13.25 0.0
+	Velocity 146: 0.0 0.0 0.0
+	Omega 146: 0.0
+	Position 147: 1.75 13.75 0.0
+	Velocity 147: 0.0 0.0 0.0
+	Omega 147: 0.0
+	Position 148: 1.75 14.25 0.0
+	Velocity 148: 0.0 0.0 0.0
+	Omega 148: 0.0
+	Position 149: 1.75 14.75 0.0
+	Velocity 149: 0.0 0.0 0.0
+	Omega 149: 0.0
+	Position 150: 1.75 15.25 0.0
+	Velocity 150: 0.0 0.0 0.0
+	Omega 150: 0.0
+	Position 151: 1.75 15.75 0.0
+	Velocity 151: 0.0 0.0 0.0
+	Omega 151: 0.0
+	Position 152: 1.75 16.25 0.0
+	Velocity 152: 0.0 0.0 0.0
+	Omega 152: 0.0
+	Position 153: 1.75 16.75 0.0
+	Velocity 153: 0.0 0.0 0.0
+	Omega 153: 0.0
+	Position 154: 1.75 17.25 0.0
+	Velocity 154: 0.0 0.0 0.0
+	Omega 154: 0.0
+	Position 155: 1.75 17.75 0.0
+	Velocity 155: 0.0 0.0 0.0
+	Omega 155: 0.0
+	Position 156: 1.75 18.25 0.0
+	Velocity 156: 0.0 0.0 0.0
+	Omega 156: 0.0
+	Position 157: 1.75 18.75 0.0
+	Velocity 157: 0.0 0.0 0.0
+	Omega 157: 0.0
+	Position 158: 1.75 19.25 0.0
+	Velocity 158: 0.0 0.0 0.0
+	Omega 158: 0.0
+	Position 159: 1.75 19.75 0.0
+	Velocity 159: 0.0 0.0 0.0
+	Omega 159: 0.0
+	Position 160: 2.25 0.25 0.0
+	Velocity 160: 0.0 0.0 0.0
+	Omega 160: 0.0
+	Position 161: 2.25 0.75 0.0
+	Velocity 161: 0.0 0.0 0.0
+	Omega 161: 0.0
+	Position 162: 2.25 1.25 0.0
+	Velocity 162: 0.0 0.0 0.0
+	Omega 162: 0.0
+	Position 163: 2.25 1.75 0.0
+	Velocity 163: 0.0 0.0 0.0
+	Omega 163: 0.0
+	Position 164: 2.25 2.25 0.0
+	Velocity 164: 0.0 0.0 0.0
+	Omega 164: 0.0
+	Position 165: 2.25 2.75 0.0
+	Velocity 165: 0.0 0.0 0.0
+	Omega 165: 0.0
+	Position 166: 2.25 3.25 0.0
+	Velocity 166: 0.0 0.0 0.0
+	Omega 166: 0.0
+	Position 167: 2.25 3.75 0.0
+	Velocity 167: 0.0 0.0 0.0
+	Omega 167: 0.0
+	Position 168: 2.25 4.25 0.0
+	Velocity 168: 0.0 0.0 0.0
+	Omega 168: 0.0
+	Position 169: 2.25 4.75 0.0
+	Velocity 169: 0.0 0.0 0.0
+	Omega 169: 0.0
+	Position 170: 2.25 5.25 0.0
+	Velocity 170: 0.0 0.0 0.0
+	Omega 170: 0.0
+	Position 171: 2.25 5.75 0.0
+	Velocity 171: 0.0 0.0 0.0
+	Omega 171: 0.0
+	Position 172: 2.25 6.25 0.0
+	Velocity 172: 0.0 0.0 0.0
+	Omega 172: 0.0
+	Position 173: 2.25 6.75 0.0
+	Velocity 173: 0.0 0.0 0.0
+	Omega 173: 0.0
+	Position 174: 2.25 7.25 0.0
+	Velocity 174: 0.0 0.0 0.0
+	Omega 174: 0.0
+	Position 175: 2.25 7.75 0.0
+	Velocity 175: 0.0 0.0 0.0
+	Omega 175: 0.0
+	Position 176: 2.25 8.25 0.0
+	Velocity 176: 0.0 0.0 0.0
+	Omega 176: 0.0
+	Position 177: 2.25 8.75 0.0
+	Velocity 177: 0.0 0.0 0.0
+	Omega 177: 0.0
+	Position 178: 2.25 9.25 0.0
+	Velocity 178: 0.0 0.0 0.0
+	Omega 178: 0.0
+	Position 179: 2.25 9.75 0.0
+	Velocity 179: 0.0 0.0 0.0
+	Omega 179: 0.0
+	Position 180: 2.25 10.25 0.0
+	Velocity 180: 0.0 0.0 0.0
+	Omega 180: 0.0
+	Position 181: 2.25 10.75 0.0
+	Velocity 181: 0.0 0.0 0.0
+	Omega 181: 0.0
+	Position 182: 2.25 11.25 0.0
+	Velocity 182: 0.0 0.0 0.0
+	Omega 182: 0.0
+	Position 183: 2.25 11.75 0.0
+	Velocity 183: 0.0 0.0 0.0
+	Omega 183: 0.0
+	Position 184: 2.25 12.25 0.0
+	Velocity 184: 0.0 0.0 0.0
+	Omega 184: 0.0
+	Position 185: 2.25 12.75 0.0
+	Velocity 185: 0.0 0.0 0.0
+	Omega 185: 0.0
+	Position 186: 2.25 13.25 0.0
+	Velocity 186: 0.0 0.0 0.0
+	Omega 186: 0.0
+	Position 187: 2.25 13.75 0.0
+	Velocity 187: 0.0 0.0 0.0
+	Omega 187: 0.0
+	Position 188: 2.25 14.25 0.0
+	Velocity 188: 0.0 0.0 0.0
+	Omega 188: 0.0
+	Position 189: 2.25 14.75 0.0
+	Velocity 189: 0.0 0.0 0.0
+	Omega 189: 0.0
+	Position 190: 2.25 15.25 0.0
+	Velocity 190: 0.0 0.0 0.0
+	Omega 190: 0.0
+	Position 191: 2.25 15.75 0.0
+	Velocity 191: 0.0 0.0 0.0
+	Omega 191: 0.0
+	Position 192: 2.25 16.25 0.0
+	Velocity 192: 0.0 0.0 0.0
+	Omega 192: 0.0
+	Position 193: 2.25 16.75 0.0
+	Velocity 193: 0.0 0.0 0.0
+	Omega 193: 0.0
+	Position 194: 2.25 17.25 0.0
+	Velocity 194: 0.0 0.0 0.0
+	Omega 194: 0.0
+	Position 195: 2.25 17.75 0.0
+	Velocity 195: 0.0 0.0 0.0
+	Omega 195: 0.0
+	Position 196: 2.25 18.25 0.0
+	Velocity 196: 0.0 0.0 0.0
+	Omega 196: 0.0
+	Position 197: 2.25 18.75 0.0
+	Velocity 197: 0.0 0.0 0.0
+	Omega 197: 0.0
+	Position 198: 2.25 19.25 0.0
+	Velocity 198: 0.0 0.0 0.0
+	Omega 198: 0.0
+	Position 199: 2.25 19.75 0.0
+	Velocity 199: 0.0 0.0 0.0
+	Omega 199: 0.0
+	Position 200: 2.75 0.25 0.0
+	Velocity 200: 0.0 0.0 0.0
+	Omega 200: 0.0
+	Position 201: 2.75 0.75 0.0
+	Velocity 201: 0.0 0.0 0.0
+	Omega 201: 0.0
+	Position 202: 2.75 1.25 0.0
+	Velocity 202: 0.0 0.0 0.0
+	Omega 202: 0.0
+	Position 203: 2.75 1.75 0.0
+	Velocity 203: 0.0 0.0 0.0
+	Omega 203: 0.0
+	Position 204: 2.75 2.25 0.0
+	Velocity 204: 0.0 0.0 0.0
+	Omega 204: 0.0
+	Position 205: 2.75 2.75 0.0
+	Velocity 205: 0.0 0.0 0.0
+	Omega 205: 0.0
+	Position 206: 2.75 3.25 0.0
+	Velocity 206: 0.0 0.0 0.0
+	Omega 206: 0.0
+	Position 207: 2.75 3.75 0.0
+	Velocity 207: 0.0 0.0 0.0
+	Omega 207: 0.0
+	Position 208: 2.75 4.25 0.0
+	Velocity 208: 0.0 0.0 0.0
+	Omega 208: 0.0
+	Position 209: 2.75 4.75 0.0
+	Velocity 209: 0.0 0.0 0.0
+	Omega 209: 0.0
+	Position 210: 2.75 5.25 0.0
+	Velocity 210: 0.0 0.0 0.0
+	Omega 210: 0.0
+	Position 211: 2.75 5.75 0.0
+	Velocity 211: 0.0 0.0 0.0
+	Omega 211: 0.0
+	Position 212: 2.75 6.25 0.0
+	Velocity 212: 0.0 0.0 0.0
+	Omega 212: 0.0
+	Position 213: 2.75 6.75 0.0
+	Velocity 213: 0.0 0.0 0.0
+	Omega 213: 0.0
+	Position 214: 2.75 7.25 0.0
+	Velocity 214: 0.0 0.0 0.0
+	Omega 214: 0.0
+	Position 215: 2.75 7.75 0.0
+	Velocity 215: 0.0 0.0 0.0
+	Omega 215: 0.0
+	Position 216: 2.75 8.25 0.0
+	Velocity 216: 0.0 0.0 0.0
+	Omega 216: 0.0
+	Position 217: 2.75 8.75 0.0
+	Velocity 217: 0.0 0.0 0.0
+	Omega 217: 0.0
+	Position 218: 2.75 9.25 0.0
+	Velocity 218: 0.0 0.0 0.0
+	Omega 218: 0.0
+	Position 219: 2.75 9.75 0.0
+	Velocity 219: 0.0 0.0 0.0
+	Omega 219: 0.0
+	Position 220: 2.75 10.25 0.0
+	Velocity 220: 0.0 0.0 0.0
+	Omega 220: 0.0
+	Position 221: 2.75 10.75 0.0
+	Velocity 221: 0.0 0.0 0.0
+	Omega 221: 0.0
+	Position 222: 2.75 11.25 0.0
+	Velocity 222: 0.0 0.0 0.0
+	Omega 222: 0.0
+	Position 223: 2.75 11.75 0.0
+	Velocity 223: 0.0 0.0 0.0
+	Omega 223: 0.0
+	Position 224: 2.75 12.25 0.0
+	Velocity 224: 0.0 0.0 0.0
+	Omega 224: 0.0
+	Position 225: 2.75 12.75 0.0
+	Velocity 225: 0.0 0.0 0.0
+	Omega 225: 0.0
+	Position 226: 2.75 13.25 0.0
+	Velocity 226: 0.0 0.0 0.0
+	Omega 226: 0.0
+	Position 227: 2.75 13.75 0.0
+	Velocity 227: 0.0 0.0 0.0
+	Omega 227: 0.0
+	Position 228: 2.75 14.25 0.0
+	Velocity 228: 0.0 0.0 0.0
+	Omega 228: 0.0
+	Position 229: 2.75 14.75 0.0
+	Velocity 229: 0.0 0.0 0.0
+	Omega 229: 0.0
+	Position 230: 2.75 15.25 0.0
+	Velocity 230: 0.0 0.0 0.0
+	Omega 230: 0.0
+	Position 231: 2.75 15.75 0.0
+	Velocity 231: 0.0 0.0 0.0
+	Omega 231: 0.0
+	Position 232: 2.75 16.25 0.0
+	Velocity 232: 0.0 0.0 0.0
+	Omega 232: 0.0
+	Position 233: 2.75 16.75 0.0
+	Velocity 233: 0.0 0.0 0.0
+	Omega 233: 0.0
+	Position 234: 2.75 17.25 0.0
+	Velocity 234: 0.0 0.0 0.0
+	Omega 234: 0.0
+	Position 235: 2.75 17.75 0.0
+	Velocity 235: 0.0 0.0 0.0
+	Omega 235: 0.0
+	Position 236: 2.75 18.25 0.0
+	Velocity 236: 0.0 0.0 0.0
+	Omega 236: 0.0
+	Position 237: 2.75 18.75 0.0
+	Velocity 237: 0.0 0.0 0.0
+	Omega 237: 0.0
+	Position 238: 2.75 19.25 0.0
+	Velocity 238: 0.0 0.0 0.0
+	Omega 238: 0.0
+	Position 239: 2.75 19.75 0.0
+	Velocity 239: 0.0 0.0 0.0
+	Omega 239: 0.0
+	Position 240: 3.25 0.25 0.0
+	Velocity 240: 0.0 0.0 0.0
+	Omega 240: 0.0
+	Position 241: 3.25 0.75 0.0
+	Velocity 241: 0.0 0.0 0.0
+	Omega 241: 0.0
+	Position 242: 3.25 1.25 0.0
+	Velocity 242: 0.0 0.0 0.0
+	Omega 242: 0.0
+	Position 243: 3.25 1.75 0.0
+	Velocity 243: 0.0 0.0 0.0
+	Omega 243: 0.0
+	Position 244: 3.25 2.25 0.0
+	Velocity 244: 0.0 0.0 0.0
+	Omega 244: 0.0
+	Position 245: 3.25 2.75 0.0
+	Velocity 245: 0.0 0.0 0.0
+	Omega 245: 0.0
+	Position 246: 3.25 3.25 0.0
+	Velocity 246: 0.0 0.0 0.0
+	Omega 246: 0.0
+	Position 247: 3.25 3.75 0.0
+	Velocity 247: 0.0 0.0 0.0
+	Omega 247: 0.0
+	Position 248: 3.25 4.25 0.0
+	Velocity 248: 0.0 0.0 0.0
+	Omega 248: 0.0
+	Position 249: 3.25 4.75 0.0
+	Velocity 249: 0.0 0.0 0.0
+	Omega 249: 0.0
+	Position 250: 3.25 5.25 0.0
+	Velocity 250: 0.0 0.0 0.0
+	Omega 250: 0.0
+	Position 251: 3.25 5.75 0.0
+	Velocity 251: 0.0 0.0 0.0
+	Omega 251: 0.0
+	Position 252: 3.25 6.25 0.0
+	Velocity 252: 0.0 0.0 0.0
+	Omega 252: 0.0
+	Position 253: 3.25 6.75 0.0
+	Velocity 253: 0.0 0.0 0.0
+	Omega 253: 0.0
+	Position 254: 3.25 7.25 0.0
+	Velocity 254: 0.0 0.0 0.0
+	Omega 254: 0.0
+	Position 255: 3.25 7.75 0.0
+	Velocity 255: 0.0 0.0 0.0
+	Omega 255: 0.0
+	Position 256: 3.25 8.25 0.0
+	Velocity 256: 0.0 0.0 0.0
+	Omega 256: 0.0
+	Position 257: 3.25 8.75 0.0
+	Velocity 257: 0.0 0.0 0.0
+	Omega 257: 0.0
+	Position 258: 3.25 9.25 0.0
+	Velocity 258: 0.0 0.0 0.0
+	Omega 258: 0.0
+	Position 259: 3.25 9.75 0.0
+	Velocity 259: 0.0 0.0 0.0
+	Omega 259: 0.0
+	Position 260: 3.25 10.25 0.0
+	Velocity 260: 0.0 0.0 0.0
+	Omega 260: 0.0
+	Position 261: 3.25 10.75 0.0
+	Velocity 261: 0.0 0.0 0.0
+	Omega 261: 0.0
+	Position 262: 3.25 11.25 0.0
+	Velocity 262: 0.0 0.0 0.0
+	Omega 262: 0.0
+	Position 263: 3.25 11.75 0.0
+	Velocity 263: 0.0 0.0 0.0
+	Omega 263: 0.0
+	Position 264: 3.25 12.25 0.0
+	Velocity 264: 0.0 0.0 0.0
+	Omega 264: 0.0
+	Position 265: 3.25 12.75 0.0
+	Velocity 265: 0.0 0.0 0.0
+	Omega 265: 0.0
+	Position 266: 3.25 13.25 0.0
+	Velocity 266: 0.0 0.0 0.0
+	Omega 266: 0.0
+	Position 267: 3.25 13.75 0.0
+	Velocity 267: 0.0 0.0 0.0
+	Omega 267: 0.0
+	Position 268: 3.25 14.25 0.0
+	Velocity 268: 0.0 0.0 0.0
+	Omega 268: 0.0
+	Position 269: 3.25 14.75 0.0
+	Velocity 269: 0.0 0.0 0.0
+	Omega 269: 0.0
+	Position 270: 3.25 15.25 0.0
+	Velocity 270: 0.0 0.0 0.0
+	Omega 270: 0.0
+	Position 271: 3.25 15.75 0.0
+	Velocity 271: 0.0 0.0 0.0
+	Omega 271: 0.0
+	Position 272: 3.25 16.25 0.0
+	Velocity 272: 0.0 0.0 0.0
+	Omega 272: 0.0
+	Position 273: 3.25 16.75 0.0
+	Velocity 273: 0.0 0.0 0.0
+	Omega 273: 0.0
+	Position 274: 3.25 17.25 0.0
+	Velocity 274: 0.0 0.0 0.0
+	Omega 274: 0.0
+	Position 275: 3.25 17.75 0.0
+	Velocity 275: 0.0 0.0 0.0
+	Omega 275: 0.0
+	Position 276: 3.25 18.25 0.0
+	Velocity 276: 0.0 0.0 0.0
+	Omega 276: 0.0
+	Position 277: 3.25 18.75 0.0
+	Velocity 277: 0.0 0.0 0.0
+	Omega 277: 0.0
+	Position 278: 3.25 19.25 0.0
+	Velocity 278: 0.0 0.0 0.0
+	Omega 278: 0.0
+	Position 279: 3.25 19.75 0.0
+	Velocity 279: 0.0 0.0 0.0
+	Omega 279: 0.0
+	Position 280: 3.75 0.25 0.0
+	Velocity 280: 0.0 0.0 0.0
+	Omega 280: 0.0
+	Position 281: 3.75 0.75 0.0
+	Velocity 281: 0.0 0.0 0.0
+	Omega 281: 0.0
+	Position 282: 3.75 1.25 0.0
+	Velocity 282: 0.0 0.0 0.0
+	Omega 282: 0.0
+	Position 283: 3.75 1.75 0.0
+	Velocity 283: 0.0 0.0 0.0
+	Omega 283: 0.0
+	Position 284: 3.75 2.25 0.0
+	Velocity 284: 0.0 0.0 0.0
+	Omega 284: 0.0
+	Position 285: 3.75 2.75 0.0
+	Velocity 285: 0.0 0.0 0.0
+	Omega 285: 0.0
+	Position 286: 3.75 3.25 0.0
+	Velocity 286: 0.0 0.0 0.0
+	Omega 286: 0.0
+	Position 287: 3.75 3.75 0.0
+	Velocity 287: 0.0 0.0 0.0
+	Omega 287: 0.0
+	Position 288: 3.75 4.25 0.0
+	Velocity 288: 0.0 0.0 0.0
+	Omega 288: 0.0
+	Position 289: 3.75 4.75 0.0
+	Velocity 289: 0.0 0.0 0.0
+	Omega 289: 0.0
+	Position 290: 3.75 5.25 0.0
+	Velocity 290: 0.0 0.0 0.0
+	Omega 290: 0.0
+	Position 291: 3.75 5.75 0.0
+	Velocity 291: 0.0 0.0 0.0
+	Omega 291: 0.0
+	Position 292: 3.75 6.25 0.0
+	Velocity 292: 0.0 0.0 0.0
+	Omega 292: 0.0
+	Position 293: 3.75 6.75 0.0
+	Velocity 293: 0.0 0.0 0.0
+	Omega 293: 0.0
+	Position 294: 3.75 7.25 0.0
+	Velocity 294: 0.0 0.0 0.0
+	Omega 294: 0.0
+	Position 295: 3.75 7.75 0.0
+	Velocity 295: 0.0 0.0 0.0
+	Omega 295: 0.0
+	Position 296: 3.75 8.25 0.0
+	Velocity 296: 0.0 0.0 0.0
+	Omega 296: 0.0
+	Position 297: 3.75 8.75 0.0
+	Velocity 297: 0.0 0.0 0.0
+	Omega 297: 0.0
+	Position 298: 3.75 9.25 0.0
+	Velocity 298: 0.0 0.0 0.0
+	Omega 298: 0.0
+	Position 299: 3.75 9.75 0.0
+	Velocity 299: 0.0 0.0 0.0
+	Omega 299: 0.0
+	Position 300: 3.75 10.25 0.0
+	Velocity 300: 0.0 0.0 0.0
+	Omega 300: 0.0
+	Position 301: 3.75 10.75 0.0
+	Velocity 301: 0.0 0.0 0.0
+	Omega 301: 0.0
+	Position 302: 3.75 11.25 0.0
+	Velocity 302: 0.0 0.0 0.0
+	Omega 302: 0.0
+	Position 303: 3.75 11.75 0.0
+	Velocity 303: 0.0 0.0 0.0
+	Omega 303: 0.0
+	Position 304: 3.75 12.25 0.0
+	Velocity 304: 0.0 0.0 0.0
+	Omega 304: 0.0
+	Position 305: 3.75 12.75 0.0
+	Velocity 305: 0.0 0.0 0.0
+	Omega 305: 0.0
+	Position 306: 3.75 13.25 0.0
+	Velocity 306: 0.0 0.0 0.0
+	Omega 306: 0.0
+	Position 307: 3.75 13.75 0.0
+	Velocity 307: 0.0 0.0 0.0
+	Omega 307: 0.0
+	Position 308: 3.75 14.25 0.0
+	Velocity 308: 0.0 0.0 0.0
+	Omega 308: 0.0
+	Position 309: 3.75 14.75 0.0
+	Velocity 309: 0.0 0.0 0.0
+	Omega 309: 0.0
+	Position 310: 3.75 15.25 0.0
+	Velocity 310: 0.0 0.0 0.0
+	Omega 310: 0.0
+	Position 311: 3.75 15.75 0.0
+	Velocity 311: 0.0 0.0 0.0
+	Omega 311: 0.0
+	Position 312: 3.75 16.25 0.0
+	Velocity 312: 0.0 0.0 0.0
+	Omega 312: 0.0
+	Position 313: 3.75 16.75 0.0
+	Velocity 313: 0.0 0.0 0.0
+	Omega 313: 0.0
+	Position 314: 3.75 17.25 0.0
+	Velocity 314: 0.0 0.0 0.0
+	Omega 314: 0.0
+	Position 315: 3.75 17.75 0.0
+	Velocity 315: 0.0 0.0 0.0
+	Omega 315: 0.0
+	Position 316: 3.75 18.25 0.0
+	Velocity 316: 0.0 0.0 0.0
+	Omega 316: 0.0
+	Position 317: 3.75 18.75 0.0
+	Velocity 317: 0.0 0.0 0.0
+	Omega 317: 0.0
+	Position 318: 3.75 19.25 0.0
+	Velocity 318: 0.0 0.0 0.0
+	Omega 318: 0.0
+	Position 319: 3.75 19.75 0.0
+	Velocity 319: 0.0 0.0 0.0
+	Omega 319: 0.0
+	Position 320: 4.25 0.25 0.0
+	Velocity 320: 0.0 0.0 0.0
+	Omega 320: 0.0
+	Position 321: 4.25 0.75 0.0
+	Velocity 321: 0.0 0.0 0.0
+	Omega 321: 0.0
+	Position 322: 4.25 1.25 0.0
+	Velocity 322: 0.0 0.0 0.0
+	Omega 322: 0.0
+	Position 323: 4.25 1.75 0.0
+	Velocity 323: 0.0 0.0 0.0
+	Omega 323: 0.0
+	Position 324: 4.25 2.25 0.0
+	Velocity 324: 0.0 0.0 0.0
+	Omega 324: 0.0
+	Position 325: 4.25 2.75 0.0
+	Velocity 325: 0.0 0.0 0.0
+	Omega 325: 0.0
+	Position 326: 4.25 3.25 0.0
+	Velocity 326: 0.0 0.0 0.0
+	Omega 326: 0.0
+	Position 327: 4.25 3.75 0.0
+	Velocity 327: 0.0 0.0 0.0
+	Omega 327: 0.0
+	Position 328: 4.25 4.25 0.0
+	Velocity 328: 0.0 0.0 0.0
+	Omega 328: 0.0
+	Position 329: 4.25 4.75 0.0
+	Velocity 329: 0.0 0.0 0.0
+	Omega 329: 0.0
+	Position 330: 4.25 5.25 0.0
+	Velocity 330: 0.0 0.0 0.0
+	Omega 330: 0.0
+	Position 331: 4.25 5.75 0.0
+	Velocity 331: 0.0 0.0 0.0
+	Omega 331: 0.0
+	Position 332: 4.25 6.25 0.0
+	Velocity 332: 0.0 0.0 0.0
+	Omega 332: 0.0
+	Position 333: 4.25 6.75 0.0
+	Velocity 333: 0.0 0.0 0.0
+	Omega 333: 0.0
+	Position 334: 4.25 7.25 0.0
+	Velocity 334: 0.0 0.0 0.0
+	Omega 334: 0.0
+	Position 335: 4.25 7.75 0.0
+	Velocity 335: 0.0 0.0 0.0
+	Omega 335: 0.0
+	Position 336: 4.25 8.25 0.0
+	Velocity 336: 0.0 0.0 0.0
+	Omega 336: 0.0
+	Position 337: 4.25 8.75 0.0
+	Velocity 337: 0.0 0.0 0.0
+	Omega 337: 0.0
+	Position 338: 4.25 9.25 0.0
+	Velocity 338: 0.0 0.0 0.0
+	Omega 338: 0.0
+	Position 339: 4.25 9.75 0.0
+	Velocity 339: 0.0 0.0 0.0
+	Omega 339: 0.0
+	Position 340: 4.25 10.25 0.0
+	Velocity 340: 0.0 0.0 0.0
+	Omega 340: 0.0
+	Position 341: 4.25 10.75 0.0
+	Velocity 341: 0.0 0.0 0.0
+	Omega 341: 0.0
+	Position 342: 4.25 11.25 0.0
+	Velocity 342: 0.0 0.0 0.0
+	Omega 342: 0.0
+	Position 343: 4.25 11.75 0.0
+	Velocity 343: 0.0 0.0 0.0
+	Omega 343: 0.0
+	Position 344: 4.25 12.25 0.0
+	Velocity 344: 0.0 0.0 0.0
+	Omega 344: 0.0
+	Position 345: 4.25 12.75 0.0
+	Velocity 345: 0.0 0.0 0.0
+	Omega 345: 0.0
+	Position 346: 4.25 13.25 0.0
+	Velocity 346: 0.0 0.0 0.0
+	Omega 346: 0.0
+	Position 347: 4.25 13.75 0.0
+	Velocity 347: 0.0 0.0 0.0
+	Omega 347: 0.0
+	Position 348: 4.25 14.25 0.0
+	Velocity 348: 0.0 0.0 0.0
+	Omega 348: 0.0
+	Position 349: 4.25 14.75 0.0
+	Velocity 349: 0.0 0.0 0.0
+	Omega 349: 0.0
+	Position 350: 4.25 15.25 0.0
+	Velocity 350: 0.0 0.0 0.0
+	Omega 350: 0.0
+	Position 351: 4.25 15.75 0.0
+	Velocity 351: 0.0 0.0 0.0
+	Omega 351: 0.0
+	Position 352: 4.25 16.25 0.0
+	Velocity 352: 0.0 0.0 0.0
+	Omega 352: 0.0
+	Position 353: 4.25 16.75 0.0
+	Velocity 353: 0.0 0.0 0.0
+	Omega 353: 0.0
+	Position 354: 4.25 17.25 0.0
+	Velocity 354: 0.0 0.0 0.0
+	Omega 354: 0.0
+	Position 355: 4.25 17.75 0.0
+	Velocity 355: 0.0 0.0 0.0
+	Omega 355: 0.0
+	Position 356: 4.25 18.25 0.0
+	Velocity 356: 0.0 0.0 0.0
+	Omega 356: 0.0
+	Position 357: 4.25 18.75 0.0
+	Velocity 357: 0.0 0.0 0.0
+	Omega 357: 0.0
+	Position 358: 4.25 19.25 0.0
+	Velocity 358: 0.0 0.0 0.0
+	Omega 358: 0.0
+	Position 359: 4.25 19.75 0.0
+	Velocity 359: 0.0 0.0 0.0
+	Omega 359: 0.0
+	Position 360: 4.75 0.25 0.0
+	Velocity 360: 0.0 0.0 0.0
+	Omega 360: 0.0
+	Position 361: 4.75 0.75 0.0
+	Velocity 361: 0.0 0.0 0.0
+	Omega 361: 0.0
+	Position 362: 4.75 1.25 0.0
+	Velocity 362: 0.0 0.0 0.0
+	Omega 362: 0.0
+	Position 363: 4.75 1.75 0.0
+	Velocity 363: 0.0 0.0 0.0
+	Omega 363: 0.0
+	Position 364: 4.75 2.25 0.0
+	Velocity 364: 0.0 0.0 0.0
+	Omega 364: 0.0
+	Position 365: 4.75 2.75 0.0
+	Velocity 365: 0.0 0.0 0.0
+	Omega 365: 0.0
+	Position 366: 4.75 3.25 0.0
+	Velocity 366: 0.0 0.0 0.0
+	Omega 366: 0.0
+	Position 367: 4.75 3.75 0.0
+	Velocity 367: 0.0 0.0 0.0
+	Omega 367: 0.0
+	Position 368: 4.75 4.25 0.0
+	Velocity 368: 0.0 0.0 0.0
+	Omega 368: 0.0
+	Position 369: 4.75 4.75 0.0
+	Velocity 369: 0.0 0.0 0.0
+	Omega 369: 0.0
+	Position 370: 4.75 5.25 0.0
+	Velocity 370: 0.0 0.0 0.0
+	Omega 370: 0.0
+	Position 371: 4.75 5.75 0.0
+	Velocity 371: 0.0 0.0 0.0
+	Omega 371: 0.0
+	Position 372: 4.75 6.25 0.0
+	Velocity 372: 0.0 0.0 0.0
+	Omega 372: 0.0
+	Position 373: 4.75 6.75 0.0
+	Velocity 373: 0.0 0.0 0.0
+	Omega 373: 0.0
+	Position 374: 4.75 7.25 0.0
+	Velocity 374: 0.0 0.0 0.0
+	Omega 374: 0.0
+	Position 375: 4.75 7.75 0.0
+	Velocity 375: 0.0 0.0 0.0
+	Omega 375: 0.0
+	Position 376: 4.75 8.25 0.0
+	Velocity 376: 0.0 0.0 0.0
+	Omega 376: 0.0
+	Position 377: 4.75 8.75 0.0
+	Velocity 377: 0.0 0.0 0.0
+	Omega 377: 0.0
+	Position 378: 4.75 9.25 0.0
+	Velocity 378: 0.0 0.0 0.0
+	Omega 378: 0.0
+	Position 379: 4.75 9.75 0.0
+	Velocity 379: 0.0 0.0 0.0
+	Omega 379: 0.0
+	Position 380: 4.75 10.25 0.0
+	Velocity 380: 0.0 0.0 0.0
+	Omega 380: 0.0
+	Position 381: 4.75 10.75 0.0
+	Velocity 381: 0.0 0.0 0.0
+	Omega 381: 0.0
+	Position 382: 4.75 11.25 0.0
+	Velocity 382: 0.0 0.0 0.0
+	Omega 382: 0.0
+	Position 383: 4.75 11.75 0.0
+	Velocity 383: 0.0 0.0 0.0
+	Omega 383: 0.0
+	Position 384: 4.75 12.25 0.0
+	Velocity 384: 0.0 0.0 0.0
+	Omega 384: 0.0
+	Position 385: 4.75 12.75 0.0
+	Velocity 385: 0.0 0.0 0.0
+	Omega 385: 0.0
+	Position 386: 4.75 13.25 0.0
+	Velocity 386: 0.0 0.0 0.0
+	Omega 386: 0.0
+	Position 387: 4.75 13.75 0.0
+	Velocity 387: 0.0 0.0 0.0
+	Omega 387: 0.0
+	Position 388: 4.75 14.25 0.0
+	Velocity 388: 0.0 0.0 0.0
+	Omega 388: 0.0
+	Position 389: 4.75 14.75 0.0
+	Velocity 389: 0.0 0.0 0.0
+	Omega 389: 0.0
+	Position 390: 4.75 15.25 0.0
+	Velocity 390: 0.0 0.0 0.0
+	Omega 390: 0.0
+	Position 391: 4.75 15.75 0.0
+	Velocity 391: 0.0 0.0 0.0
+	Omega 391: 0.0
+	Position 392: 4.75 16.25 0.0
+	Velocity 392: 0.0 0.0 0.0
+	Omega 392: 0.0
+	Position 393: 4.75 16.75 0.0
+	Velocity 393: 0.0 0.0 0.0
+	Omega 393: 0.0
+	Position 394: 4.75 17.25 0.0
+	Velocity 394: 0.0 0.0 0.0
+	Omega 394: 0.0
+	Position 395: 4.75 17.75 0.0
+	Velocity 395: 0.0 0.0 0.0
+	Omega 395: 0.0
+	Position 396: 4.75 18.25 0.0
+	Velocity 396: 0.0 0.0 0.0
+	Omega 396: 0.0
+	Position 397: 4.75 18.75 0.0
+	Velocity 397: 0.0 0.0 0.0
+	Omega 397: 0.0
+	Position 398: 4.75 19.25 0.0
+	Velocity 398: 0.0 0.0 0.0
+	Omega 398: 0.0
+	Position 399: 4.75 19.75 0.0
+	Velocity 399: 0.0 0.0 0.0
+	Omega 399: 0.0
+	Position 400: 5.25 0.25 0.0
+	Velocity 400: 0.0 0.0 0.0
+	Omega 400: 0.0
+	Position 401: 5.25 0.75 0.0
+	Velocity 401: 0.0 0.0 0.0
+	Omega 401: 0.0
+	Position 402: 5.25 1.25 0.0
+	Velocity 402: 0.0 0.0 0.0
+	Omega 402: 0.0
+	Position 403: 5.25 1.75 0.0
+	Velocity 403: 0.0 0.0 0.0
+	Omega 403: 0.0
+	Position 404: 5.25 2.25 0.0
+	Velocity 404: 0.0 0.0 0.0
+	Omega 404: 0.0
+	Position 405: 5.25 2.75 0.0
+	Velocity 405: 0.0 0.0 0.0
+	Omega 405: 0.0
+	Position 406: 5.25 3.25 0.0
+	Velocity 406: 0.0 0.0 0.0
+	Omega 406: 0.0
+	Position 407: 5.25 3.75 0.0
+	Velocity 407: 0.0 0.0 0.0
+	Omega 407: 0.0
+	Position 408: 5.25 4.25 0.0
+	Velocity 408: 0.0 0.0 0.0
+	Omega 408: 0.0
+	Position 409: 5.25 4.75 0.0
+	Velocity 409: 0.0 0.0 0.0
+	Omega 409: 0.0
+	Position 410: 5.25 5.25 0.0
+	Velocity 410: 0.0 0.0 0.0
+	Omega 410: 0.0
+	Position 411: 5.25 5.75 0.0
+	Velocity 411: 0.0 0.0 0.0
+	Omega 411: 0.0
+	Position 412: 5.25 6.25 0.0
+	Velocity 412: 0.0 0.0 0.0
+	Omega 412: 0.0
+	Position 413: 5.25 6.75 0.0
+	Velocity 413: 0.0 0.0 0.0
+	Omega 413: 0.0
+	Position 414: 5.25 7.25 0.0
+	Velocity 414: 0.0 0.0 0.0
+	Omega 414: 0.0
+	Position 415: 5.25 7.75 0.0
+	Velocity 415: 0.0 0.0 0.0
+	Omega 415: 0.0
+	Position 416: 5.25 8.25 0.0
+	Velocity 416: 0.0 0.0 0.0
+	Omega 416: 0.0
+	Position 417: 5.25 8.75 0.0
+	Velocity 417: 0.0 0.0 0.0
+	Omega 417: 0.0
+	Position 418: 5.25 9.25 0.0
+	Velocity 418: 0.0 0.0 0.0
+	Omega 418: 0.0
+	Position 419: 5.25 9.75 0.0
+	Velocity 419: 0.0 0.0 0.0
+	Omega 419: 0.0
+	Position 420: 5.25 10.25 0.0
+	Velocity 420: 0.0 0.0 0.0
+	Omega 420: 0.0
+	Position 421: 5.25 10.75 0.0
+	Velocity 421: 0.0 0.0 0.0
+	Omega 421: 0.0
+	Position 422: 5.25 11.25 0.0
+	Velocity 422: 0.0 0.0 0.0
+	Omega 422: 0.0
+	Position 423: 5.25 11.75 0.0
+	Velocity 423: 0.0 0.0 0.0
+	Omega 423: 0.0
+	Position 424: 5.25 12.25 0.0
+	Velocity 424: 0.0 0.0 0.0
+	Omega 424: 0.0
+	Position 425: 5.25 12.75 0.0
+	Velocity 425: 0.0 0.0 0.0
+	Omega 425: 0.0
+	Position 426: 5.25 13.25 0.0
+	Velocity 426: 0.0 0.0 0.0
+	Omega 426: 0.0
+	Position 427: 5.25 13.75 0.0
+	Velocity 427: 0.0 0.0 0.0
+	Omega 427: 0.0
+	Position 428: 5.25 14.25 0.0
+	Velocity 428: 0.0 0.0 0.0
+	Omega 428: 0.0
+	Position 429: 5.25 14.75 0.0
+	Velocity 429: 0.0 0.0 0.0
+	Omega 429: 0.0
+	Position 430: 5.25 15.25 0.0
+	Velocity 430: 0.0 0.0 0.0
+	Omega 430: 0.0
+	Position 431: 5.25 15.75 0.0
+	Velocity 431: 0.0 0.0 0.0
+	Omega 431: 0.0
+	Position 432: 5.25 16.25 0.0
+	Velocity 432: 0.0 0.0 0.0
+	Omega 432: 0.0
+	Position 433: 5.25 16.75 0.0
+	Velocity 433: 0.0 0.0 0.0
+	Omega 433: 0.0
+	Position 434: 5.25 17.25 0.0
+	Velocity 434: 0.0 0.0 0.0
+	Omega 434: 0.0
+	Position 435: 5.25 17.75 0.0
+	Velocity 435: 0.0 0.0 0.0
+	Omega 435: 0.0
+	Position 436: 5.25 18.25 0.0
+	Velocity 436: 0.0 0.0 0.0
+	Omega 436: 0.0
+	Position 437: 5.25 18.75 0.0
+	Velocity 437: 0.0 0.0 0.0
+	Omega 437: 0.0
+	Position 438: 5.25 19.25 0.0
+	Velocity 438: 0.0 0.0 0.0
+	Omega 438: 0.0
+	Position 439: 5.25 19.75 0.0
+	Velocity 439: 0.0 0.0 0.0
+	Omega 439: 0.0
+	Position 440: 5.75 0.25 0.0
+	Velocity 440: 0.0 0.0 0.0
+	Omega 440: 0.0
+	Position 441: 5.75 0.75 0.0
+	Velocity 441: 0.0 0.0 0.0
+	Omega 441: 0.0
+	Position 442: 5.75 1.25 0.0
+	Velocity 442: 0.0 0.0 0.0
+	Omega 442: 0.0
+	Position 443: 5.75 1.75 0.0
+	Velocity 443: 0.0 0.0 0.0
+	Omega 443: 0.0
+	Position 444: 5.75 2.25 0.0
+	Velocity 444: 0.0 0.0 0.0
+	Omega 444: 0.0
+	Position 445: 5.75 2.75 0.0
+	Velocity 445: 0.0 0.0 0.0
+	Omega 445: 0.0
+	Position 446: 5.75 3.25 0.0
+	Velocity 446: 0.0 0.0 0.0
+	Omega 446: 0.0
+	Position 447: 5.75 3.75 0.0
+	Velocity 447: 0.0 0.0 0.0
+	Omega 447: 0.0
+	Position 448: 5.75 4.25 0.0
+	Velocity 448: 0.0 0.0 0.0
+	Omega 448: 0.0
+	Position 449: 5.75 4.75 0.0
+	Velocity 449: 0.0 0.0 0.0
+	Omega 449: 0.0
+	Position 450: 5.75 5.25 0.0
+	Velocity 450: 0.0 0.0 0.0
+	Omega 450: 0.0
+	Position 451: 5.75 5.75 0.0
+	Velocity 451: 0.0 0.0 0.0
+	Omega 451: 0.0
+	Position 452: 5.75 6.25 0.0
+	Velocity 452: 0.0 0.0 0.0
+	Omega 452: 0.0
+	Position 453: 5.75 6.75 0.0
+	Velocity 453: 0.0 0.0 0.0
+	Omega 453: 0.0
+	Position 454: 5.75 7.25 0.0
+	Velocity 454: 0.0 0.0 0.0
+	Omega 454: 0.0
+	Position 455: 5.75 7.75 0.0
+	Velocity 455: 0.0 0.0 0.0
+	Omega 455: 0.0
+	Position 456: 5.75 8.25 0.0
+	Velocity 456: 0.0 0.0 0.0
+	Omega 456: 0.0
+	Position 457: 5.75 8.75 0.0
+	Velocity 457: 0.0 0.0 0.0
+	Omega 457: 0.0
+	Position 458: 5.75 9.25 0.0
+	Velocity 458: 0.0 0.0 0.0
+	Omega 458: 0.0
+	Position 459: 5.75 9.75 0.0
+	Velocity 459: 0.0 0.0 0.0
+	Omega 459: 0.0
+	Position 460: 5.75 10.25 0.0
+	Velocity 460: 0.0 0.0 0.0
+	Omega 460: 0.0
+	Position 461: 5.75 10.75 0.0
+	Velocity 461: 0.0 0.0 0.0
+	Omega 461: 0.0
+	Position 462: 5.75 11.25 0.0
+	Velocity 462: 0.0 0.0 0.0
+	Omega 462: 0.0
+	Position 463: 5.75 11.75 0.0
+	Velocity 463: 0.0 0.0 0.0
+	Omega 463: 0.0
+	Position 464: 5.75 12.25 0.0
+	Velocity 464: 0.0 0.0 0.0
+	Omega 464: 0.0
+	Position 465: 5.75 12.75 0.0
+	Velocity 465: 0.0 0.0 0.0
+	Omega 465: 0.0
+	Position 466: 5.75 13.25 0.0
+	Velocity 466: 0.0 0.0 0.0
+	Omega 466: 0.0
+	Position 467: 5.75 13.75 0.0
+	Velocity 467: 0.0 0.0 0.0
+	Omega 467: 0.0
+	Position 468: 5.75 14.25 0.0
+	Velocity 468: 0.0 0.0 0.0
+	Omega 468: 0.0
+	Position 469: 5.75 14.75 0.0
+	Velocity 469: 0.0 0.0 0.0
+	Omega 469: 0.0
+	Position 470: 5.75 15.25 0.0
+	Velocity 470: 0.0 0.0 0.0
+	Omega 470: 0.0
+	Position 471: 5.75 15.75 0.0
+	Velocity 471: 0.0 0.0 0.0
+	Omega 471: 0.0
+	Position 472: 5.75 16.25 0.0
+	Velocity 472: 0.0 0.0 0.0
+	Omega 472: 0.0
+	Position 473: 5.75 16.75 0.0
+	Velocity 473: 0.0 0.0 0.0
+	Omega 473: 0.0
+	Position 474: 5.75 17.25 0.0
+	Velocity 474: 0.0 0.0 0.0
+	Omega 474: 0.0
+	Position 475: 5.75 17.75 0.0
+	Velocity 475: 0.0 0.0 0.0
+	Omega 475: 0.0
+	Position 476: 5.75 18.25 0.0
+	Velocity 476: 0.0 0.0 0.0
+	Omega 476: 0.0
+	Position 477: 5.75 18.75 0.0
+	Velocity 477: 0.0 0.0 0.0
+	Omega 477: 0.0
+	Position 478: 5.75 19.25 0.0
+	Velocity 478: 0.0 0.0 0.0
+	Omega 478: 0.0
+	Position 479: 5.75 19.75 0.0
+	Velocity 479: 0.0 0.0 0.0
+	Omega 479: 0.0
+	Position 480: 6.25 0.25 0.0
+	Velocity 480: 0.0 0.0 0.0
+	Omega 480: 0.0
+	Position 481: 6.25 0.75 0.0
+	Velocity 481: 0.0 0.0 0.0
+	Omega 481: 0.0
+	Position 482: 6.25 1.25 0.0
+	Velocity 482: 0.0 0.0 0.0
+	Omega 482: 0.0
+	Position 483: 6.25 1.75 0.0
+	Velocity 483: 0.0 0.0 0.0
+	Omega 483: 0.0
+	Position 484: 6.25 2.25 0.0
+	Velocity 484: 0.0 0.0 0.0
+	Omega 484: 0.0
+	Position 485: 6.25 2.75 0.0
+	Velocity 485: 0.0 0.0 0.0
+	Omega 485: 0.0
+	Position 486: 6.25 3.25 0.0
+	Velocity 486: 0.0 0.0 0.0
+	Omega 486: 0.0
+	Position 487: 6.25 3.75 0.0
+	Velocity 487: 0.0 0.0 0.0
+	Omega 487: 0.0
+	Position 488: 6.25 4.25 0.0
+	Velocity 488: 0.0 0.0 0.0
+	Omega 488: 0.0
+	Position 489: 6.25 4.75 0.0
+	Velocity 489: 0.0 0.0 0.0
+	Omega 489: 0.0
+	Position 490: 6.25 5.25 0.0
+	Velocity 490: 0.0 0.0 0.0
+	Omega 490: 0.0
+	Position 491: 6.25 5.75 0.0
+	Velocity 491: 0.0 0.0 0.0
+	Omega 491: 0.0
+	Position 492: 6.25 6.25 0.0
+	Velocity 492: 0.0 0.0 0.0
+	Omega 492: 0.0
+	Position 493: 6.25 6.75 0.0
+	Velocity 493: 0.0 0.0 0.0
+	Omega 493: 0.0
+	Position 494: 6.25 7.25 0.0
+	Velocity 494: 0.0 0.0 0.0
+	Omega 494: 0.0
+	Position 495: 6.25 7.75 0.0
+	Velocity 495: 0.0 0.0 0.0
+	Omega 495: 0.0
+	Position 496: 6.25 8.25 0.0
+	Velocity 496: 0.0 0.0 0.0
+	Omega 496: 0.0
+	Position 497: 6.25 8.75 0.0
+	Velocity 497: 0.0 0.0 0.0
+	Omega 497: 0.0
+	Position 498: 6.25 9.25 0.0
+	Velocity 498: 0.0 0.0 0.0
+	Omega 498: 0.0
+	Position 499: 6.25 9.75 0.0
+	Velocity 499: 0.0 0.0 0.0
+	Omega 499: 0.0
+	Position 500: 6.25 10.25 0.0
+	Velocity 500: 0.0 0.0 0.0
+	Omega 500: 0.0
+	Position 501: 6.25 10.75 0.0
+	Velocity 501: 0.0 0.0 0.0
+	Omega 501: 0.0
+	Position 502: 6.25 11.25 0.0
+	Velocity 502: 0.0 0.0 0.0
+	Omega 502: 0.0
+	Position 503: 6.25 11.75 0.0
+	Velocity 503: 0.0 0.0 0.0
+	Omega 503: 0.0
+	Position 504: 6.25 12.25 0.0
+	Velocity 504: 0.0 0.0 0.0
+	Omega 504: 0.0
+	Position 505: 6.25 12.75 0.0
+	Velocity 505: 0.0 0.0 0.0
+	Omega 505: 0.0
+	Position 506: 6.25 13.25 0.0
+	Velocity 506: 0.0 0.0 0.0
+	Omega 506: 0.0
+	Position 507: 6.25 13.75 0.0
+	Velocity 507: 0.0 0.0 0.0
+	Omega 507: 0.0
+	Position 508: 6.25 14.25 0.0
+	Velocity 508: 0.0 0.0 0.0
+	Omega 508: 0.0
+	Position 509: 6.25 14.75 0.0
+	Velocity 509: 0.0 0.0 0.0
+	Omega 509: 0.0
+	Position 510: 6.25 15.25 0.0
+	Velocity 510: 0.0 0.0 0.0
+	Omega 510: 0.0
+	Position 511: 6.25 15.75 0.0
+	Velocity 511: 0.0 0.0 0.0
+	Omega 511: 0.0
+	Position 512: 6.25 16.25 0.0
+	Velocity 512: 0.0 0.0 0.0
+	Omega 512: 0.0
+	Position 513: 6.25 16.75 0.0
+	Velocity 513: 0.0 0.0 0.0
+	Omega 513: 0.0
+	Position 514: 6.25 17.25 0.0
+	Velocity 514: 0.0 0.0 0.0
+	Omega 514: 0.0
+	Position 515: 6.25 17.75 0.0
+	Velocity 515: 0.0 0.0 0.0
+	Omega 515: 0.0
+	Position 516: 6.25 18.25 0.0
+	Velocity 516: 0.0 0.0 0.0
+	Omega 516: 0.0
+	Position 517: 6.25 18.75 0.0
+	Velocity 517: 0.0 0.0 0.0
+	Omega 517: 0.0
+	Position 518: 6.25 19.25 0.0
+	Velocity 518: 0.0 0.0 0.0
+	Omega 518: 0.0
+	Position 519: 6.25 19.75 0.0
+	Velocity 519: 0.0 0.0 0.0
+	Omega 519: 0.0
+	Position 520: 6.75 0.25 0.0
+	Velocity 520: 0.0 0.0 0.0
+	Omega 520: 0.0
+	Position 521: 6.75 0.75 0.0
+	Velocity 521: 0.0 0.0 0.0
+	Omega 521: 0.0
+	Position 522: 6.75 1.25 0.0
+	Velocity 522: 0.0 0.0 0.0
+	Omega 522: 0.0
+	Position 523: 6.75 1.75 0.0
+	Velocity 523: 0.0 0.0 0.0
+	Omega 523: 0.0
+	Position 524: 6.75 2.25 0.0
+	Velocity 524: 0.0 0.0 0.0
+	Omega 524: 0.0
+	Position 525: 6.75 2.75 0.0
+	Velocity 525: 0.0 0.0 0.0
+	Omega 525: 0.0
+	Position 526: 6.75 3.25 0.0
+	Velocity 526: 0.0 0.0 0.0
+	Omega 526: 0.0
+	Position 527: 6.75 3.75 0.0
+	Velocity 527: 0.0 0.0 0.0
+	Omega 527: 0.0
+	Position 528: 6.75 4.25 0.0
+	Velocity 528: 0.0 0.0 0.0
+	Omega 528: 0.0
+	Position 529: 6.75 4.75 0.0
+	Velocity 529: 0.0 0.0 0.0
+	Omega 529: 0.0
+	Position 530: 6.75 5.25 0.0
+	Velocity 530: 0.0 0.0 0.0
+	Omega 530: 0.0
+	Position 531: 6.75 5.75 0.0
+	Velocity 531: 0.0 0.0 0.0
+	Omega 531: 0.0
+	Position 532: 6.75 6.25 0.0
+	Velocity 532: 0.0 0.0 0.0
+	Omega 532: 0.0
+	Position 533: 6.75 6.75 0.0
+	Velocity 533: 0.0 0.0 0.0
+	Omega 533: 0.0
+	Position 534: 6.75 7.25 0.0
+	Velocity 534: 0.0 0.0 0.0
+	Omega 534: 0.0
+	Position 535: 6.75 7.75 0.0
+	Velocity 535: 0.0 0.0 0.0
+	Omega 535: 0.0
+	Position 536: 6.75 8.25 0.0
+	Velocity 536: 0.0 0.0 0.0
+	Omega 536: 0.0
+	Position 537: 6.75 8.75 0.0
+	Velocity 537: 0.0 0.0 0.0
+	Omega 537: 0.0
+	Position 538: 6.75 9.25 0.0
+	Velocity 538: 0.0 0.0 0.0
+	Omega 538: 0.0
+	Position 539: 6.75 9.75 0.0
+	Velocity 539: 0.0 0.0 0.0
+	Omega 539: 0.0
+	Position 540: 6.75 10.25 0.0
+	Velocity 540: 0.0 0.0 0.0
+	Omega 540: 0.0
+	Position 541: 6.75 10.75 0.0
+	Velocity 541: 0.0 0.0 0.0
+	Omega 541: 0.0
+	Position 542: 6.75 11.25 0.0
+	Velocity 542: 0.0 0.0 0.0
+	Omega 542: 0.0
+	Position 543: 6.75 11.75 0.0
+	Velocity 543: 0.0 0.0 0.0
+	Omega 543: 0.0
+	Position 544: 6.75 12.25 0.0
+	Velocity 544: 0.0 0.0 0.0
+	Omega 544: 0.0
+	Position 545: 6.75 12.75 0.0
+	Velocity 545: 0.0 0.0 0.0
+	Omega 545: 0.0
+	Position 546: 6.75 13.25 0.0
+	Velocity 546: 0.0 0.0 0.0
+	Omega 546: 0.0
+	Position 547: 6.75 13.75 0.0
+	Velocity 547: 0.0 0.0 0.0
+	Omega 547: 0.0
+	Position 548: 6.75 14.25 0.0
+	Velocity 548: 0.0 0.0 0.0
+	Omega 548: 0.0
+	Position 549: 6.75 14.75 0.0
+	Velocity 549: 0.0 0.0 0.0
+	Omega 549: 0.0
+	Position 550: 6.75 15.25 0.0
+	Velocity 550: 0.0 0.0 0.0
+	Omega 550: 0.0
+	Position 551: 6.75 15.75 0.0
+	Velocity 551: 0.0 0.0 0.0
+	Omega 551: 0.0
+	Position 552: 6.75 16.25 0.0
+	Velocity 552: 0.0 0.0 0.0
+	Omega 552: 0.0
+	Position 553: 6.75 16.75 0.0
+	Velocity 553: 0.0 0.0 0.0
+	Omega 553: 0.0
+	Position 554: 6.75 17.25 0.0
+	Velocity 554: 0.0 0.0 0.0
+	Omega 554: 0.0
+	Position 555: 6.75 17.75 0.0
+	Velocity 555: 0.0 0.0 0.0
+	Omega 555: 0.0
+	Position 556: 6.75 18.25 0.0
+	Velocity 556: 0.0 0.0 0.0
+	Omega 556: 0.0
+	Position 557: 6.75 18.75 0.0
+	Velocity 557: 0.0 0.0 0.0
+	Omega 557: 0.0
+	Position 558: 6.75 19.25 0.0
+	Velocity 558: 0.0 0.0 0.0
+	Omega 558: 0.0
+	Position 559: 6.75 19.75 0.0
+	Velocity 559: 0.0 0.0 0.0
+	Omega 559: 0.0
+	Position 560: 7.25 0.25 0.0
+	Velocity 560: 0.0 0.0 0.0
+	Omega 560: 0.0
+	Position 561: 7.25 0.75 0.0
+	Velocity 561: 0.0 0.0 0.0
+	Omega 561: 0.0
+	Position 562: 7.25 1.25 0.0
+	Velocity 562: 0.0 0.0 0.0
+	Omega 562: 0.0
+	Position 563: 7.25 1.75 0.0
+	Velocity 563: 0.0 0.0 0.0
+	Omega 563: 0.0
+	Position 564: 7.25 2.25 0.0
+	Velocity 564: 0.0 0.0 0.0
+	Omega 564: 0.0
+	Position 565: 7.25 2.75 0.0
+	Velocity 565: 0.0 0.0 0.0
+	Omega 565: 0.0
+	Position 566: 7.25 3.25 0.0
+	Velocity 566: 0.0 0.0 0.0
+	Omega 566: 0.0
+	Position 567: 7.25 3.75 0.0
+	Velocity 567: 0.0 0.0 0.0
+	Omega 567: 0.0
+	Position 568: 7.25 4.25 0.0
+	Velocity 568: 0.0 0.0 0.0
+	Omega 568: 0.0
+	Position 569: 7.25 4.75 0.0
+	Velocity 569: 0.0 0.0 0.0
+	Omega 569: 0.0
+	Position 570: 7.25 5.25 0.0
+	Velocity 570: 0.0 0.0 0.0
+	Omega 570: 0.0
+	Position 571: 7.25 5.75 0.0
+	Velocity 571: 0.0 0.0 0.0
+	Omega 571: 0.0
+	Position 572: 7.25 6.25 0.0
+	Velocity 572: 0.0 0.0 0.0
+	Omega 572: 0.0
+	Position 573: 7.25 6.75 0.0
+	Velocity 573: 0.0 0.0 0.0
+	Omega 573: 0.0
+	Position 574: 7.25 7.25 0.0
+	Velocity 574: 0.0 0.0 0.0
+	Omega 574: 0.0
+	Position 575: 7.25 7.75 0.0
+	Velocity 575: 0.0 0.0 0.0
+	Omega 575: 0.0
+	Position 576: 7.25 8.25 0.0
+	Velocity 576: 0.0 0.0 0.0
+	Omega 576: 0.0
+	Position 577: 7.25 8.75 0.0
+	Velocity 577: 0.0 0.0 0.0
+	Omega 577: 0.0
+	Position 578: 7.25 9.25 0.0
+	Velocity 578: 0.0 0.0 0.0
+	Omega 578: 0.0
+	Position 579: 7.25 9.75 0.0
+	Velocity 579: 0.0 0.0 0.0
+	Omega 579: 0.0
+	Position 580: 7.25 10.25 0.0
+	Velocity 580: 0.0 0.0 0.0
+	Omega 580: 0.0
+	Position 581: 7.25 10.75 0.0
+	Velocity 581: 0.0 0.0 0.0
+	Omega 581: 0.0
+	Position 582: 7.25 11.25 0.0
+	Velocity 582: 0.0 0.0 0.0
+	Omega 582: 0.0
+	Position 583: 7.25 11.75 0.0
+	Velocity 583: 0.0 0.0 0.0
+	Omega 583: 0.0
+	Position 584: 7.25 12.25 0.0
+	Velocity 584: 0.0 0.0 0.0
+	Omega 584: 0.0
+	Position 585: 7.25 12.75 0.0
+	Velocity 585: 0.0 0.0 0.0
+	Omega 585: 0.0
+	Position 586: 7.25 13.25 0.0
+	Velocity 586: 0.0 0.0 0.0
+	Omega 586: 0.0
+	Position 587: 7.25 13.75 0.0
+	Velocity 587: 0.0 0.0 0.0
+	Omega 587: 0.0
+	Position 588: 7.25 14.25 0.0
+	Velocity 588: 0.0 0.0 0.0
+	Omega 588: 0.0
+	Position 589: 7.25 14.75 0.0
+	Velocity 589: 0.0 0.0 0.0
+	Omega 589: 0.0
+	Position 590: 7.25 15.25 0.0
+	Velocity 590: 0.0 0.0 0.0
+	Omega 590: 0.0
+	Position 591: 7.25 15.75 0.0
+	Velocity 591: 0.0 0.0 0.0
+	Omega 591: 0.0
+	Position 592: 7.25 16.25 0.0
+	Velocity 592: 0.0 0.0 0.0
+	Omega 592: 0.0
+	Position 593: 7.25 16.75 0.0
+	Velocity 593: 0.0 0.0 0.0
+	Omega 593: 0.0
+	Position 594: 7.25 17.25 0.0
+	Velocity 594: 0.0 0.0 0.0
+	Omega 594: 0.0
+	Position 595: 7.25 17.75 0.0
+	Velocity 595: 0.0 0.0 0.0
+	Omega 595: 0.0
+	Position 596: 7.25 18.25 0.0
+	Velocity 596: 0.0 0.0 0.0
+	Omega 596: 0.0
+	Position 597: 7.25 18.75 0.0
+	Velocity 597: 0.0 0.0 0.0
+	Omega 597: 0.0
+	Position 598: 7.25 19.25 0.0
+	Velocity 598: 0.0 0.0 0.0
+	Omega 598: 0.0
+	Position 599: 7.25 19.75 0.0
+	Velocity 599: 0.0 0.0 0.0
+	Omega 599: 0.0
+	Position 600: 7.75 0.25 0.0
+	Velocity 600: 0.0 0.0 0.0
+	Omega 600: 0.0
+	Position 601: 7.75 0.75 0.0
+	Velocity 601: 0.0 0.0 0.0
+	Omega 601: 0.0
+	Position 602: 7.75 1.25 0.0
+	Velocity 602: 0.0 0.0 0.0
+	Omega 602: 0.0
+	Position 603: 7.75 1.75 0.0
+	Velocity 603: 0.0 0.0 0.0
+	Omega 603: 0.0
+	Position 604: 7.75 2.25 0.0
+	Velocity 604: 0.0 0.0 0.0
+	Omega 604: 0.0
+	Position 605: 7.75 2.75 0.0
+	Velocity 605: 0.0 0.0 0.0
+	Omega 605: 0.0
+	Position 606: 7.75 3.25 0.0
+	Velocity 606: 0.0 0.0 0.0
+	Omega 606: 0.0
+	Position 607: 7.75 3.75 0.0
+	Velocity 607: 0.0 0.0 0.0
+	Omega 607: 0.0
+	Position 608: 7.75 4.25 0.0
+	Velocity 608: 0.0 0.0 0.0
+	Omega 608: 0.0
+	Position 609: 7.75 4.75 0.0
+	Velocity 609: 0.0 0.0 0.0
+	Omega 609: 0.0
+	Position 610: 7.75 5.25 0.0
+	Velocity 610: 0.0 0.0 0.0
+	Omega 610: 0.0
+	Position 611: 7.75 5.75 0.0
+	Velocity 611: 0.0 0.0 0.0
+	Omega 611: 0.0
+	Position 612: 7.75 6.25 0.0
+	Velocity 612: 0.0 0.0 0.0
+	Omega 612: 0.0
+	Position 613: 7.75 6.75 0.0
+	Velocity 613: 0.0 0.0 0.0
+	Omega 613: 0.0
+	Position 614: 7.75 7.25 0.0
+	Velocity 614: 0.0 0.0 0.0
+	Omega 614: 0.0
+	Position 615: 7.75 7.75 0.0
+	Velocity 615: 0.0 0.0 0.0
+	Omega 615: 0.0
+	Position 616: 7.75 8.25 0.0
+	Velocity 616: 0.0 0.0 0.0
+	Omega 616: 0.0
+	Position 617: 7.75 8.75 0.0
+	Velocity 617: 0.0 0.0 0.0
+	Omega 617: 0.0
+	Position 618: 7.75 9.25 0.0
+	Velocity 618: 0.0 0.0 0.0
+	Omega 618: 0.0
+	Position 619: 7.75 9.75 0.0
+	Velocity 619: 0.0 0.0 0.0
+	Omega 619: 0.0
+	Position 620: 7.75 10.25 0.0
+	Velocity 620: 0.0 0.0 0.0
+	Omega 620: 0.0
+	Position 621: 7.75 10.75 0.0
+	Velocity 621: 0.0 0.0 0.0
+	Omega 621: 0.0
+	Position 622: 7.75 11.25 0.0
+	Velocity 622: 0.0 0.0 0.0
+	Omega 622: 0.0
+	Position 623: 7.75 11.75 0.0
+	Velocity 623: 0.0 0.0 0.0
+	Omega 623: 0.0
+	Position 624: 7.75 12.25 0.0
+	Velocity 624: 0.0 0.0 0.0
+	Omega 624: 0.0
+	Position 625: 7.75 12.75 0.0
+	Velocity 625: 0.0 0.0 0.0
+	Omega 625: 0.0
+	Position 626: 7.75 13.25 0.0
+	Velocity 626: 0.0 0.0 0.0
+	Omega 626: 0.0
+	Position 627: 7.75 13.75 0.0
+	Velocity 627: 0.0 0.0 0.0
+	Omega 627: 0.0
+	Position 628: 7.75 14.25 0.0
+	Velocity 628: 0.0 0.0 0.0
+	Omega 628: 0.0
+	Position 629: 7.75 14.75 0.0
+	Velocity 629: 0.0 0.0 0.0
+	Omega 629: 0.0
+	Position 630: 7.75 15.25 0.0
+	Velocity 630: 0.0 0.0 0.0
+	Omega 630: 0.0
+	Position 631: 7.75 15.75 0.0
+	Velocity 631: 0.0 0.0 0.0
+	Omega 631: 0.0
+	Position 632: 7.75 16.25 0.0
+	Velocity 632: 0.0 0.0 0.0
+	Omega 632: 0.0
+	Position 633: 7.75 16.75 0.0
+	Velocity 633: 0.0 0.0 0.0
+	Omega 633: 0.0
+	Position 634: 7.75 17.25 0.0
+	Velocity 634: 0.0 0.0 0.0
+	Omega 634: 0.0
+	Position 635: 7.75 17.75 0.0
+	Velocity 635: 0.0 0.0 0.0
+	Omega 635: 0.0
+	Position 636: 7.75 18.25 0.0
+	Velocity 636: 0.0 0.0 0.0
+	Omega 636: 0.0
+	Position 637: 7.75 18.75 0.0
+	Velocity 637: 0.0 0.0 0.0
+	Omega 637: 0.0
+	Position 638: 7.75 19.25 0.0
+	Velocity 638: 0.0 0.0 0.0
+	Omega 638: 0.0
+	Position 639: 7.75 19.75 0.0
+	Velocity 639: 0.0 0.0 0.0
+	Omega 639: 0.0
+	Position 640: 8.25 0.25 0.0
+	Velocity 640: 0.0 0.0 0.0
+	Omega 640: 0.0
+	Position 641: 8.25 0.75 0.0
+	Velocity 641: 0.0 0.0 0.0
+	Omega 641: 0.0
+	Position 642: 8.25 1.25 0.0
+	Velocity 642: 0.0 0.0 0.0
+	Omega 642: 0.0
+	Position 643: 8.25 1.75 0.0
+	Velocity 643: 0.0 0.0 0.0
+	Omega 643: 0.0
+	Position 644: 8.25 2.25 0.0
+	Velocity 644: 0.0 0.0 0.0
+	Omega 644: 0.0
+	Position 645: 8.25 2.75 0.0
+	Velocity 645: 0.0 0.0 0.0
+	Omega 645: 0.0
+	Position 646: 8.25 3.25 0.0
+	Velocity 646: 0.0 0.0 0.0
+	Omega 646: 0.0
+	Position 647: 8.25 3.75 0.0
+	Velocity 647: 0.0 0.0 0.0
+	Omega 647: 0.0
+	Position 648: 8.25 4.25 0.0
+	Velocity 648: 0.0 0.0 0.0
+	Omega 648: 0.0
+	Position 649: 8.25 4.75 0.0
+	Velocity 649: 0.0 0.0 0.0
+	Omega 649: 0.0
+	Position 650: 8.25 5.25 0.0
+	Velocity 650: 0.0 0.0 0.0
+	Omega 650: 0.0
+	Position 651: 8.25 5.75 0.0
+	Velocity 651: 0.0 0.0 0.0
+	Omega 651: 0.0
+	Position 652: 8.25 6.25 0.0
+	Velocity 652: 0.0 0.0 0.0
+	Omega 652: 0.0
+	Position 653: 8.25 6.75 0.0
+	Velocity 653: 0.0 0.0 0.0
+	Omega 653: 0.0
+	Position 654: 8.25 7.25 0.0
+	Velocity 654: 0.0 0.0 0.0
+	Omega 654: 0.0
+	Position 655: 8.25 7.75 0.0
+	Velocity 655: 0.0 0.0 0.0
+	Omega 655: 0.0
+	Position 656: 8.25 8.25 0.0
+	Velocity 656: 0.0 0.0 0.0
+	Omega 656: 0.0
+	Position 657: 8.25 8.75 0.0
+	Velocity 657: 0.0 0.0 0.0
+	Omega 657: 0.0
+	Position 658: 8.25 9.25 0.0
+	Velocity 658: 0.0 0.0 0.0
+	Omega 658: 0.0
+	Position 659: 8.25 9.75 0.0
+	Velocity 659: 0.0 0.0 0.0
+	Omega 659: 0.0
+	Position 660: 8.25 10.25 0.0
+	Velocity 660: 0.0 0.0 0.0
+	Omega 660: 0.0
+	Position 661: 8.25 10.75 0.0
+	Velocity 661: 0.0 0.0 0.0
+	Omega 661: 0.0
+	Position 662: 8.25 11.25 0.0
+	Velocity 662: 0.0 0.0 0.0
+	Omega 662: 0.0
+	Position 663: 8.25 11.75 0.0
+	Velocity 663: 0.0 0.0 0.0
+	Omega 663: 0.0
+	Position 664: 8.25 12.25 0.0
+	Velocity 664: 0.0 0.0 0.0
+	Omega 664: 0.0
+	Position 665: 8.25 12.75 0.0
+	Velocity 665: 0.0 0.0 0.0
+	Omega 665: 0.0
+	Position 666: 8.25 13.25 0.0
+	Velocity 666: 0.0 0.0 0.0
+	Omega 666: 0.0
+	Position 667: 8.25 13.75 0.0
+	Velocity 667: 0.0 0.0 0.0
+	Omega 667: 0.0
+	Position 668: 8.25 14.25 0.0
+	Velocity 668: 0.0 0.0 0.0
+	Omega 668: 0.0
+	Position 669: 8.25 14.75 0.0
+	Velocity 669: 0.0 0.0 0.0
+	Omega 669: 0.0
+	Position 670: 8.25 15.25 0.0
+	Velocity 670: 0.0 0.0 0.0
+	Omega 670: 0.0
+	Position 671: 8.25 15.75 0.0
+	Velocity 671: 0.0 0.0 0.0
+	Omega 671: 0.0
+	Position 672: 8.25 16.25 0.0
+	Velocity 672: 0.0 0.0 0.0
+	Omega 672: 0.0
+	Position 673: 8.25 16.75 0.0
+	Velocity 673: 0.0 0.0 0.0
+	Omega 673: 0.0
+	Position 674: 8.25 17.25 0.0
+	Velocity 674: 0.0 0.0 0.0
+	Omega 674: 0.0
+	Position 675: 8.25 17.75 0.0
+	Velocity 675: 0.0 0.0 0.0
+	Omega 675: 0.0
+	Position 676: 8.25 18.25 0.0
+	Velocity 676: 0.0 0.0 0.0
+	Omega 676: 0.0
+	Position 677: 8.25 18.75 0.0
+	Velocity 677: 0.0 0.0 0.0
+	Omega 677: 0.0
+	Position 678: 8.25 19.25 0.0
+	Velocity 678: 0.0 0.0 0.0
+	Omega 678: 0.0
+	Position 679: 8.25 19.75 0.0
+	Velocity 679: 0.0 0.0 0.0
+	Omega 679: 0.0
+	Position 680: 8.75 0.25 0.0
+	Velocity 680: 0.0 0.0 0.0
+	Omega 680: 0.0
+	Position 681: 8.75 0.75 0.0
+	Velocity 681: 0.0 0.0 0.0
+	Omega 681: 0.0
+	Position 682: 8.75 1.25 0.0
+	Velocity 682: 0.0 0.0 0.0
+	Omega 682: 0.0
+	Position 683: 8.75 1.75 0.0
+	Velocity 683: 0.0 0.0 0.0
+	Omega 683: 0.0
+	Position 684: 8.75 2.25 0.0
+	Velocity 684: 0.0 0.0 0.0
+	Omega 684: 0.0
+	Position 685: 8.75 2.75 0.0
+	Velocity 685: 0.0 0.0 0.0
+	Omega 685: 0.0
+	Position 686: 8.75 3.25 0.0
+	Velocity 686: 0.0 0.0 0.0
+	Omega 686: 0.0
+	Position 687: 8.75 3.75 0.0
+	Velocity 687: 0.0 0.0 0.0
+	Omega 687: 0.0
+	Position 688: 8.75 4.25 0.0
+	Velocity 688: 0.0 0.0 0.0
+	Omega 688: 0.0
+	Position 689: 8.75 4.75 0.0
+	Velocity 689: 0.0 0.0 0.0
+	Omega 689: 0.0
+	Position 690: 8.75 5.25 0.0
+	Velocity 690: 0.0 0.0 0.0
+	Omega 690: 0.0
+	Position 691: 8.75 5.75 0.0
+	Velocity 691: 0.0 0.0 0.0
+	Omega 691: 0.0
+	Position 692: 8.75 6.25 0.0
+	Velocity 692: 0.0 0.0 0.0
+	Omega 692: 0.0
+	Position 693: 8.75 6.75 0.0
+	Velocity 693: 0.0 0.0 0.0
+	Omega 693: 0.0
+	Position 694: 8.75 7.25 0.0
+	Velocity 694: 0.0 0.0 0.0
+	Omega 694: 0.0
+	Position 695: 8.75 7.75 0.0
+	Velocity 695: 0.0 0.0 0.0
+	Omega 695: 0.0
+	Position 696: 8.75 8.25 0.0
+	Velocity 696: 0.0 0.0 0.0
+	Omega 696: 0.0
+	Position 697: 8.75 8.75 0.0
+	Velocity 697: 0.0 0.0 0.0
+	Omega 697: 0.0
+	Position 698: 8.75 9.25 0.0
+	Velocity 698: 0.0 0.0 0.0
+	Omega 698: 0.0
+	Position 699: 8.75 9.75 0.0
+	Velocity 699: 0.0 0.0 0.0
+	Omega 699: 0.0
+	Position 700: 8.75 10.25 0.0
+	Velocity 700: 0.0 0.0 0.0
+	Omega 700: 0.0
+	Position 701: 8.75 10.75 0.0
+	Velocity 701: 0.0 0.0 0.0
+	Omega 701: 0.0
+	Position 702: 8.75 11.25 0.0
+	Velocity 702: 0.0 0.0 0.0
+	Omega 702: 0.0
+	Position 703: 8.75 11.75 0.0
+	Velocity 703: 0.0 0.0 0.0
+	Omega 703: 0.0
+	Position 704: 8.75 12.25 0.0
+	Velocity 704: 0.0 0.0 0.0
+	Omega 704: 0.0
+	Position 705: 8.75 12.75 0.0
+	Velocity 705: 0.0 0.0 0.0
+	Omega 705: 0.0
+	Position 706: 8.75 13.25 0.0
+	Velocity 706: 0.0 0.0 0.0
+	Omega 706: 0.0
+	Position 707: 8.75 13.75 0.0
+	Velocity 707: 0.0 0.0 0.0
+	Omega 707: 0.0
+	Position 708: 8.75 14.25 0.0
+	Velocity 708: 0.0 0.0 0.0
+	Omega 708: 0.0
+	Position 709: 8.75 14.75 0.0
+	Velocity 709: 0.0 0.0 0.0
+	Omega 709: 0.0
+	Position 710: 8.75 15.25 0.0
+	Velocity 710: 0.0 0.0 0.0
+	Omega 710: 0.0
+	Position 711: 8.75 15.75 0.0
+	Velocity 711: 0.0 0.0 0.0
+	Omega 711: 0.0
+	Position 712: 8.75 16.25 0.0
+	Velocity 712: 0.0 0.0 0.0
+	Omega 712: 0.0
+	Position 713: 8.75 16.75 0.0
+	Velocity 713: 0.0 0.0 0.0
+	Omega 713: 0.0
+	Position 714: 8.75 17.25 0.0
+	Velocity 714: 0.0 0.0 0.0
+	Omega 714: 0.0
+	Position 715: 8.75 17.75 0.0
+	Velocity 715: 0.0 0.0 0.0
+	Omega 715: 0.0
+	Position 716: 8.75 18.25 0.0
+	Velocity 716: 0.0 0.0 0.0
+	Omega 716: 0.0
+	Position 717: 8.75 18.75 0.0
+	Velocity 717: 0.0 0.0 0.0
+	Omega 717: 0.0
+	Position 718: 8.75 19.25 0.0
+	Velocity 718: 0.0 0.0 0.0
+	Omega 718: 0.0
+	Position 719: 8.75 19.75 0.0
+	Velocity 719: 0.0 0.0 0.0
+	Omega 719: 0.0
+	Position 720: 9.25 0.25 0.0
+	Velocity 720: 0.0 0.0 0.0
+	Omega 720: 0.0
+	Position 721: 9.25 0.75 0.0
+	Velocity 721: 0.0 0.0 0.0
+	Omega 721: 0.0
+	Position 722: 9.25 1.25 0.0
+	Velocity 722: 0.0 0.0 0.0
+	Omega 722: 0.0
+	Position 723: 9.25 1.75 0.0
+	Velocity 723: 0.0 0.0 0.0
+	Omega 723: 0.0
+	Position 724: 9.25 2.25 0.0
+	Velocity 724: 0.0 0.0 0.0
+	Omega 724: 0.0
+	Position 725: 9.25 2.75 0.0
+	Velocity 725: 0.0 0.0 0.0
+	Omega 725: 0.0
+	Position 726: 9.25 3.25 0.0
+	Velocity 726: 0.0 0.0 0.0
+	Omega 726: 0.0
+	Position 727: 9.25 3.75 0.0
+	Velocity 727: 0.0 0.0 0.0
+	Omega 727: 0.0
+	Position 728: 9.25 4.25 0.0
+	Velocity 728: 0.0 0.0 0.0
+	Omega 728: 0.0
+	Position 729: 9.25 4.75 0.0
+	Velocity 729: 0.0 0.0 0.0
+	Omega 729: 0.0
+	Position 730: 9.25 5.25 0.0
+	Velocity 730: 0.0 0.0 0.0
+	Omega 730: 0.0
+	Position 731: 9.25 5.75 0.0
+	Velocity 731: 0.0 0.0 0.0
+	Omega 731: 0.0
+	Position 732: 9.25 6.25 0.0
+	Velocity 732: 0.0 0.0 0.0
+	Omega 732: 0.0
+	Position 733: 9.25 6.75 0.0
+	Velocity 733: 0.0 0.0 0.0
+	Omega 733: 0.0
+	Position 734: 9.25 7.25 0.0
+	Velocity 734: 0.0 0.0 0.0
+	Omega 734: 0.0
+	Position 735: 9.25 7.75 0.0
+	Velocity 735: 0.0 0.0 0.0
+	Omega 735: 0.0
+	Position 736: 9.25 8.25 0.0
+	Velocity 736: 0.0 0.0 0.0
+	Omega 736: 0.0
+	Position 737: 9.25 8.75 0.0
+	Velocity 737: 0.0 0.0 0.0
+	Omega 737: 0.0
+	Position 738: 9.25 9.25 0.0
+	Velocity 738: 0.0 0.0 0.0
+	Omega 738: 0.0
+	Position 739: 9.25 9.75 0.0
+	Velocity 739: 0.0 0.0 0.0
+	Omega 739: 0.0
+	Position 740: 9.25 10.25 0.0
+	Velocity 740: 0.0 0.0 0.0
+	Omega 740: 0.0
+	Position 741: 9.25 10.75 0.0
+	Velocity 741: 0.0 0.0 0.0
+	Omega 741: 0.0
+	Position 742: 9.25 11.25 0.0
+	Velocity 742: 0.0 0.0 0.0
+	Omega 742: 0.0
+	Position 743: 9.25 11.75 0.0
+	Velocity 743: 0.0 0.0 0.0
+	Omega 743: 0.0
+	Position 744: 9.25 12.25 0.0
+	Velocity 744: 0.0 0.0 0.0
+	Omega 744: 0.0
+	Position 745: 9.25 12.75 0.0
+	Velocity 745: 0.0 0.0 0.0
+	Omega 745: 0.0
+	Position 746: 9.25 13.25 0.0
+	Velocity 746: 0.0 0.0 0.0
+	Omega 746: 0.0
+	Position 747: 9.25 13.75 0.0
+	Velocity 747: 0.0 0.0 0.0
+	Omega 747: 0.0
+	Position 748: 9.25 14.25 0.0
+	Velocity 748: 0.0 0.0 0.0
+	Omega 748: 0.0
+	Position 749: 9.25 14.75 0.0
+	Velocity 749: 0.0 0.0 0.0
+	Omega 749: 0.0
+	Position 750: 9.25 15.25 0.0
+	Velocity 750: 0.0 0.0 0.0
+	Omega 750: 0.0
+	Position 751: 9.25 15.75 0.0
+	Velocity 751: 0.0 0.0 0.0
+	Omega 751: 0.0
+	Position 752: 9.25 16.25 0.0
+	Velocity 752: 0.0 0.0 0.0
+	Omega 752: 0.0
+	Position 753: 9.25 16.75 0.0
+	Velocity 753: 0.0 0.0 0.0
+	Omega 753: 0.0
+	Position 754: 9.25 17.25 0.0
+	Velocity 754: 0.0 0.0 0.0
+	Omega 754: 0.0
+	Position 755: 9.25 17.75 0.0
+	Velocity 755: 0.0 0.0 0.0
+	Omega 755: 0.0
+	Position 756: 9.25 18.25 0.0
+	Velocity 756: 0.0 0.0 0.0
+	Omega 756: 0.0
+	Position 757: 9.25 18.75 0.0
+	Velocity 757: 0.0 0.0 0.0
+	Omega 757: 0.0
+	Position 758: 9.25 19.25 0.0
+	Velocity 758: 0.0 0.0 0.0
+	Omega 758: 0.0
+	Position 759: 9.25 19.75 0.0
+	Velocity 759: 0.0 0.0 0.0
+	Omega 759: 0.0
+	Position 760: 9.75 0.25 0.0
+	Velocity 760: 0.0 0.0 0.0
+	Omega 760: 0.0
+	Position 761: 9.75 0.75 0.0
+	Velocity 761: 0.0 0.0 0.0
+	Omega 761: 0.0
+	Position 762: 9.75 1.25 0.0
+	Velocity 762: 0.0 0.0 0.0
+	Omega 762: 0.0
+	Position 763: 9.75 1.75 0.0
+	Velocity 763: 0.0 0.0 0.0
+	Omega 763: 0.0
+	Position 764: 9.75 2.25 0.0
+	Velocity 764: 0.0 0.0 0.0
+	Omega 764: 0.0
+	Position 765: 9.75 2.75 0.0
+	Velocity 765: 0.0 0.0 0.0
+	Omega 765: 0.0
+	Position 766: 9.75 3.25 0.0
+	Velocity 766: 0.0 0.0 0.0
+	Omega 766: 0.0
+	Position 767: 9.75 3.75 0.0
+	Velocity 767: 0.0 0.0 0.0
+	Omega 767: 0.0
+	Position 768: 9.75 4.25 0.0
+	Velocity 768: 0.0 0.0 0.0
+	Omega 768: 0.0
+	Position 769: 9.75 4.75 0.0
+	Velocity 769: 0.0 0.0 0.0
+	Omega 769: 0.0
+	Position 770: 9.75 5.25 0.0
+	Velocity 770: 0.0 0.0 0.0
+	Omega 770: 0.0
+	Position 771: 9.75 5.75 0.0
+	Velocity 771: 0.0 0.0 0.0
+	Omega 771: 0.0
+	Position 772: 9.75 6.25 0.0
+	Velocity 772: 0.0 0.0 0.0
+	Omega 772: 0.0
+	Position 773: 9.75 6.75 0.0
+	Velocity 773: 0.0 0.0 0.0
+	Omega 773: 0.0
+	Position 774: 9.75 7.25 0.0
+	Velocity 774: 0.0 0.0 0.0
+	Omega 774: 0.0
+	Position 775: 9.75 7.75 0.0
+	Velocity 775: 0.0 0.0 0.0
+	Omega 775: 0.0
+	Position 776: 9.75 8.25 0.0
+	Velocity 776: 0.0 0.0 0.0
+	Omega 776: 0.0
+	Position 777: 9.75 8.75 0.0
+	Velocity 777: 0.0 0.0 0.0
+	Omega 777: 0.0
+	Position 778: 9.75 9.25 0.0
+	Velocity 778: 0.0 0.0 0.0
+	Omega 778: 0.0
+	Position 779: 9.75 9.75 0.0
+	Velocity 779: 0.0 0.0 0.0
+	Omega 779: 0.0
+	Position 780: 9.75 10.25 0.0
+	Velocity 780: 0.0 0.0 0.0
+	Omega 780: 0.0
+	Position 781: 9.75 10.75 0.0
+	Velocity 781: 0.0 0.0 0.0
+	Omega 781: 0.0
+	Position 782: 9.75 11.25 0.0
+	Velocity 782: 0.0 0.0 0.0
+	Omega 782: 0.0
+	Position 783: 9.75 11.75 0.0
+	Velocity 783: 0.0 0.0 0.0
+	Omega 783: 0.0
+	Position 784: 9.75 12.25 0.0
+	Velocity 784: 0.0 0.0 0.0
+	Omega 784: 0.0
+	Position 785: 9.75 12.75 0.0
+	Velocity 785: 0.0 0.0 0.0
+	Omega 785: 0.0
+	Position 786: 9.75 13.25 0.0
+	Velocity 786: 0.0 0.0 0.0
+	Omega 786: 0.0
+	Position 787: 9.75 13.75 0.0
+	Velocity 787: 0.0 0.0 0.0
+	Omega 787: 0.0
+	Position 788: 9.75 14.25 0.0
+	Velocity 788: 0.0 0.0 0.0
+	Omega 788: 0.0
+	Position 789: 9.75 14.75 0.0
+	Velocity 789: 0.0 0.0 0.0
+	Omega 789: 0.0
+	Position 790: 9.75 15.25 0.0
+	Velocity 790: 0.0 0.0 0.0
+	Omega 790: 0.0
+	Position 791: 9.75 15.75 0.0
+	Velocity 791: 0.0 0.0 0.0
+	Omega 791: 0.0
+	Position 792: 9.75 16.25 0.0
+	Velocity 792: 0.0 0.0 0.0
+	Omega 792: 0.0
+	Position 793: 9.75 16.75 0.0
+	Velocity 793: 0.0 0.0 0.0
+	Omega 793: 0.0
+	Position 794: 9.75 17.25 0.0
+	Velocity 794: 0.0 0.0 0.0
+	Omega 794: 0.0
+	Position 795: 9.75 17.75 0.0
+	Velocity 795: 0.0 0.0 0.0
+	Omega 795: 0.0
+	Position 796: 9.75 18.25 0.0
+	Velocity 796: 0.0 0.0 0.0
+	Omega 796: 0.0
+	Position 797: 9.75 18.75 0.0
+	Velocity 797: 0.0 0.0 0.0
+	Omega 797: 0.0
+	Position 798: 9.75 19.25 0.0
+	Velocity 798: 0.0 0.0 0.0
+	Omega 798: 0.0
+	Position 799: 9.75 19.75 0.0
+	Velocity 799: 0.0 0.0 0.0
+	Omega 799: 0.0
+	Position 800: 10.25 0.25 0.0
+	Velocity 800: 0.0 0.0 0.0
+	Omega 800: 0.0
+	Position 801: 10.25 0.75 0.0
+	Velocity 801: 0.0 0.0 0.0
+	Omega 801: 0.0
+	Position 802: 10.25 1.25 0.0
+	Velocity 802: 0.0 0.0 0.0
+	Omega 802: 0.0
+	Position 803: 10.25 1.75 0.0
+	Velocity 803: 0.0 0.0 0.0
+	Omega 803: 0.0
+	Position 804: 10.25 2.25 0.0
+	Velocity 804: 0.0 0.0 0.0
+	Omega 804: 0.0
+	Position 805: 10.25 2.75 0.0
+	Velocity 805: 0.0 0.0 0.0
+	Omega 805: 0.0
+	Position 806: 10.25 3.25 0.0
+	Velocity 806: 0.0 0.0 0.0
+	Omega 806: 0.0
+	Position 807: 10.25 3.75 0.0
+	Velocity 807: 0.0 0.0 0.0
+	Omega 807: 0.0
+	Position 808: 10.25 4.25 0.0
+	Velocity 808: 0.0 0.0 0.0
+	Omega 808: 0.0
+	Position 809: 10.25 4.75 0.0
+	Velocity 809: 0.0 0.0 0.0
+	Omega 809: 0.0
+	Position 810: 10.25 5.25 0.0
+	Velocity 810: 0.0 0.0 0.0
+	Omega 810: 0.0
+	Position 811: 10.25 5.75 0.0
+	Velocity 811: 0.0 0.0 0.0
+	Omega 811: 0.0
+	Position 812: 10.25 6.25 0.0
+	Velocity 812: 0.0 0.0 0.0
+	Omega 812: 0.0
+	Position 813: 10.25 6.75 0.0
+	Velocity 813: 0.0 0.0 0.0
+	Omega 813: 0.0
+	Position 814: 10.25 7.25 0.0
+	Velocity 814: 0.0 0.0 0.0
+	Omega 814: 0.0
+	Position 815: 10.25 7.75 0.0
+	Velocity 815: 0.0 0.0 0.0
+	Omega 815: 0.0
+	Position 816: 10.25 8.25 0.0
+	Velocity 816: 0.0 0.0 0.0
+	Omega 816: 0.0
+	Position 817: 10.25 8.75 0.0
+	Velocity 817: 0.0 0.0 0.0
+	Omega 817: 0.0
+	Position 818: 10.25 9.25 0.0
+	Velocity 818: 0.0 0.0 0.0
+	Omega 818: 0.0
+	Position 819: 10.25 9.75 0.0
+	Velocity 819: 0.0 0.0 0.0
+	Omega 819: 0.0
+	Position 820: 10.25 10.25 0.0
+	Velocity 820: 0.0 0.0 0.0
+	Omega 820: 0.0
+	Position 821: 10.25 10.75 0.0
+	Velocity 821: 0.0 0.0 0.0
+	Omega 821: 0.0
+	Position 822: 10.25 11.25 0.0
+	Velocity 822: 0.0 0.0 0.0
+	Omega 822: 0.0
+	Position 823: 10.25 11.75 0.0
+	Velocity 823: 0.0 0.0 0.0
+	Omega 823: 0.0
+	Position 824: 10.25 12.25 0.0
+	Velocity 824: 0.0 0.0 0.0
+	Omega 824: 0.0
+	Position 825: 10.25 12.75 0.0
+	Velocity 825: 0.0 0.0 0.0
+	Omega 825: 0.0
+	Position 826: 10.25 13.25 0.0
+	Velocity 826: 0.0 0.0 0.0
+	Omega 826: 0.0
+	Position 827: 10.25 13.75 0.0
+	Velocity 827: 0.0 0.0 0.0
+	Omega 827: 0.0
+	Position 828: 10.25 14.25 0.0
+	Velocity 828: 0.0 0.0 0.0
+	Omega 828: 0.0
+	Position 829: 10.25 14.75 0.0
+	Velocity 829: 0.0 0.0 0.0
+	Omega 829: 0.0
+	Position 830: 10.25 15.25 0.0
+	Velocity 830: 0.0 0.0 0.0
+	Omega 830: 0.0
+	Position 831: 10.25 15.75 0.0
+	Velocity 831: 0.0 0.0 0.0
+	Omega 831: 0.0
+	Position 832: 10.25 16.25 0.0
+	Velocity 832: 0.0 0.0 0.0
+	Omega 832: 0.0
+	Position 833: 10.25 16.75 0.0
+	Velocity 833: 0.0 0.0 0.0
+	Omega 833: 0.0
+	Position 834: 10.25 17.25 0.0
+	Velocity 834: 0.0 0.0 0.0
+	Omega 834: 0.0
+	Position 835: 10.25 17.75 0.0
+	Velocity 835: 0.0 0.0 0.0
+	Omega 835: 0.0
+	Position 836: 10.25 18.25 0.0
+	Velocity 836: 0.0 0.0 0.0
+	Omega 836: 0.0
+	Position 837: 10.25 18.75 0.0
+	Velocity 837: 0.0 0.0 0.0
+	Omega 837: 0.0
+	Position 838: 10.25 19.25 0.0
+	Velocity 838: 0.0 0.0 0.0
+	Omega 838: 0.0
+	Position 839: 10.25 19.75 0.0
+	Velocity 839: 0.0 0.0 0.0
+	Omega 839: 0.0
+	Position 840: 10.75 0.25 0.0
+	Velocity 840: 0.0 0.0 0.0
+	Omega 840: 0.0
+	Position 841: 10.75 0.75 0.0
+	Velocity 841: 0.0 0.0 0.0
+	Omega 841: 0.0
+	Position 842: 10.75 1.25 0.0
+	Velocity 842: 0.0 0.0 0.0
+	Omega 842: 0.0
+	Position 843: 10.75 1.75 0.0
+	Velocity 843: 0.0 0.0 0.0
+	Omega 843: 0.0
+	Position 844: 10.75 2.25 0.0
+	Velocity 844: 0.0 0.0 0.0
+	Omega 844: 0.0
+	Position 845: 10.75 2.75 0.0
+	Velocity 845: 0.0 0.0 0.0
+	Omega 845: 0.0
+	Position 846: 10.75 3.25 0.0
+	Velocity 846: 0.0 0.0 0.0
+	Omega 846: 0.0
+	Position 847: 10.75 3.75 0.0
+	Velocity 847: 0.0 0.0 0.0
+	Omega 847: 0.0
+	Position 848: 10.75 4.25 0.0
+	Velocity 848: 0.0 0.0 0.0
+	Omega 848: 0.0
+	Position 849: 10.75 4.75 0.0
+	Velocity 849: 0.0 0.0 0.0
+	Omega 849: 0.0
+	Position 850: 10.75 5.25 0.0
+	Velocity 850: 0.0 0.0 0.0
+	Omega 850: 0.0
+	Position 851: 10.75 5.75 0.0
+	Velocity 851: 0.0 0.0 0.0
+	Omega 851: 0.0
+	Position 852: 10.75 6.25 0.0
+	Velocity 852: 0.0 0.0 0.0
+	Omega 852: 0.0
+	Position 853: 10.75 6.75 0.0
+	Velocity 853: 0.0 0.0 0.0
+	Omega 853: 0.0
+	Position 854: 10.75 7.25 0.0
+	Velocity 854: 0.0 0.0 0.0
+	Omega 854: 0.0
+	Position 855: 10.75 7.75 0.0
+	Velocity 855: 0.0 0.0 0.0
+	Omega 855: 0.0
+	Position 856: 10.75 8.25 0.0
+	Velocity 856: 0.0 0.0 0.0
+	Omega 856: 0.0
+	Position 857: 10.75 8.75 0.0
+	Velocity 857: 0.0 0.0 0.0
+	Omega 857: 0.0
+	Position 858: 10.75 9.25 0.0
+	Velocity 858: 0.0 0.0 0.0
+	Omega 858: 0.0
+	Position 859: 10.75 9.75 0.0
+	Velocity 859: 0.0 0.0 0.0
+	Omega 859: 0.0
+	Position 860: 10.75 10.25 0.0
+	Velocity 860: 0.0 0.0 0.0
+	Omega 860: 0.0
+	Position 861: 10.75 10.75 0.0
+	Velocity 861: 0.0 0.0 0.0
+	Omega 861: 0.0
+	Position 862: 10.75 11.25 0.0
+	Velocity 862: 0.0 0.0 0.0
+	Omega 862: 0.0
+	Position 863: 10.75 11.75 0.0
+	Velocity 863: 0.0 0.0 0.0
+	Omega 863: 0.0
+	Position 864: 10.75 12.25 0.0
+	Velocity 864: 0.0 0.0 0.0
+	Omega 864: 0.0
+	Position 865: 10.75 12.75 0.0
+	Velocity 865: 0.0 0.0 0.0
+	Omega 865: 0.0
+	Position 866: 10.75 13.25 0.0
+	Velocity 866: 0.0 0.0 0.0
+	Omega 866: 0.0
+	Position 867: 10.75 13.75 0.0
+	Velocity 867: 0.0 0.0 0.0
+	Omega 867: 0.0
+	Position 868: 10.75 14.25 0.0
+	Velocity 868: 0.0 0.0 0.0
+	Omega 868: 0.0
+	Position 869: 10.75 14.75 0.0
+	Velocity 869: 0.0 0.0 0.0
+	Omega 869: 0.0
+	Position 870: 10.75 15.25 0.0
+	Velocity 870: 0.0 0.0 0.0
+	Omega 870: 0.0
+	Position 871: 10.75 15.75 0.0
+	Velocity 871: 0.0 0.0 0.0
+	Omega 871: 0.0
+	Position 872: 10.75 16.25 0.0
+	Velocity 872: 0.0 0.0 0.0
+	Omega 872: 0.0
+	Position 873: 10.75 16.75 0.0
+	Velocity 873: 0.0 0.0 0.0
+	Omega 873: 0.0
+	Position 874: 10.75 17.25 0.0
+	Velocity 874: 0.0 0.0 0.0
+	Omega 874: 0.0
+	Position 875: 10.75 17.75 0.0
+	Velocity 875: 0.0 0.0 0.0
+	Omega 875: 0.0
+	Position 876: 10.75 18.25 0.0
+	Velocity 876: 0.0 0.0 0.0
+	Omega 876: 0.0
+	Position 877: 10.75 18.75 0.0
+	Velocity 877: 0.0 0.0 0.0
+	Omega 877: 0.0
+	Position 878: 10.75 19.25 0.0
+	Velocity 878: 0.0 0.0 0.0
+	Omega 878: 0.0
+	Position 879: 10.75 19.75 0.0
+	Velocity 879: 0.0 0.0 0.0
+	Omega 879: 0.0
+	Position 880: 11.25 0.25 0.0
+	Velocity 880: 0.0 0.0 0.0
+	Omega 880: 0.0
+	Position 881: 11.25 0.75 0.0
+	Velocity 881: 0.0 0.0 0.0
+	Omega 881: 0.0
+	Position 882: 11.25 1.25 0.0
+	Velocity 882: 0.0 0.0 0.0
+	Omega 882: 0.0
+	Position 883: 11.25 1.75 0.0
+	Velocity 883: 0.0 0.0 0.0
+	Omega 883: 0.0
+	Position 884: 11.25 2.25 0.0
+	Velocity 884: 0.0 0.0 0.0
+	Omega 884: 0.0
+	Position 885: 11.25 2.75 0.0
+	Velocity 885: 0.0 0.0 0.0
+	Omega 885: 0.0
+	Position 886: 11.25 3.25 0.0
+	Velocity 886: 0.0 0.0 0.0
+	Omega 886: 0.0
+	Position 887: 11.25 3.75 0.0
+	Velocity 887: 0.0 0.0 0.0
+	Omega 887: 0.0
+	Position 888: 11.25 4.25 0.0
+	Velocity 888: 0.0 0.0 0.0
+	Omega 888: 0.0
+	Position 889: 11.25 4.75 0.0
+	Velocity 889: 0.0 0.0 0.0
+	Omega 889: 0.0
+	Position 890: 11.25 5.25 0.0
+	Velocity 890: 0.0 0.0 0.0
+	Omega 890: 0.0
+	Position 891: 11.25 5.75 0.0
+	Velocity 891: 0.0 0.0 0.0
+	Omega 891: 0.0
+	Position 892: 11.25 6.25 0.0
+	Velocity 892: 0.0 0.0 0.0
+	Omega 892: 0.0
+	Position 893: 11.25 6.75 0.0
+	Velocity 893: 0.0 0.0 0.0
+	Omega 893: 0.0
+	Position 894: 11.25 7.25 0.0
+	Velocity 894: 0.0 0.0 0.0
+	Omega 894: 0.0
+	Position 895: 11.25 7.75 0.0
+	Velocity 895: 0.0 0.0 0.0
+	Omega 895: 0.0
+	Position 896: 11.25 8.25 0.0
+	Velocity 896: 0.0 0.0 0.0
+	Omega 896: 0.0
+	Position 897: 11.25 8.75 0.0
+	Velocity 897: 0.0 0.0 0.0
+	Omega 897: 0.0
+	Position 898: 11.25 9.25 0.0
+	Velocity 898: 0.0 0.0 0.0
+	Omega 898: 0.0
+	Position 899: 11.25 9.75 0.0
+	Velocity 899: 0.0 0.0 0.0
+	Omega 899: 0.0
+	Position 900: 11.25 10.25 0.0
+	Velocity 900: 0.0 0.0 0.0
+	Omega 900: 0.0
+	Position 901: 11.25 10.75 0.0
+	Velocity 901: 0.0 0.0 0.0
+	Omega 901: 0.0
+	Position 902: 11.25 11.25 0.0
+	Velocity 902: 0.0 0.0 0.0
+	Omega 902: 0.0
+	Position 903: 11.25 11.75 0.0
+	Velocity 903: 0.0 0.0 0.0
+	Omega 903: 0.0
+	Position 904: 11.25 12.25 0.0
+	Velocity 904: 0.0 0.0 0.0
+	Omega 904: 0.0
+	Position 905: 11.25 12.75 0.0
+	Velocity 905: 0.0 0.0 0.0
+	Omega 905: 0.0
+	Position 906: 11.25 13.25 0.0
+	Velocity 906: 0.0 0.0 0.0
+	Omega 906: 0.0
+	Position 907: 11.25 13.75 0.0
+	Velocity 907: 0.0 0.0 0.0
+	Omega 907: 0.0
+	Position 908: 11.25 14.25 0.0
+	Velocity 908: 0.0 0.0 0.0
+	Omega 908: 0.0
+	Position 909: 11.25 14.75 0.0
+	Velocity 909: 0.0 0.0 0.0
+	Omega 909: 0.0
+	Position 910: 11.25 15.25 0.0
+	Velocity 910: 0.0 0.0 0.0
+	Omega 910: 0.0
+	Position 911: 11.25 15.75 0.0
+	Velocity 911: 0.0 0.0 0.0
+	Omega 911: 0.0
+	Position 912: 11.25 16.25 0.0
+	Velocity 912: 0.0 0.0 0.0
+	Omega 912: 0.0
+	Position 913: 11.25 16.75 0.0
+	Velocity 913: 0.0 0.0 0.0
+	Omega 913: 0.0
+	Position 914: 11.25 17.25 0.0
+	Velocity 914: 0.0 0.0 0.0
+	Omega 914: 0.0
+	Position 915: 11.25 17.75 0.0
+	Velocity 915: 0.0 0.0 0.0
+	Omega 915: 0.0
+	Position 916: 11.25 18.25 0.0
+	Velocity 916: 0.0 0.0 0.0
+	Omega 916: 0.0
+	Position 917: 11.25 18.75 0.0
+	Velocity 917: 0.0 0.0 0.0
+	Omega 917: 0.0
+	Position 918: 11.25 19.25 0.0
+	Velocity 918: 0.0 0.0 0.0
+	Omega 918: 0.0
+	Position 919: 11.25 19.75 0.0
+	Velocity 919: 0.0 0.0 0.0
+	Omega 919: 0.0
+	Position 920: 11.75 0.25 0.0
+	Velocity 920: 0.0 0.0 0.0
+	Omega 920: 0.0
+	Position 921: 11.75 0.75 0.0
+	Velocity 921: 0.0 0.0 0.0
+	Omega 921: 0.0
+	Position 922: 11.75 1.25 0.0
+	Velocity 922: 0.0 0.0 0.0
+	Omega 922: 0.0
+	Position 923: 11.75 1.75 0.0
+	Velocity 923: 0.0 0.0 0.0
+	Omega 923: 0.0
+	Position 924: 11.75 2.25 0.0
+	Velocity 924: 0.0 0.0 0.0
+	Omega 924: 0.0
+	Position 925: 11.75 2.75 0.0
+	Velocity 925: 0.0 0.0 0.0
+	Omega 925: 0.0
+	Position 926: 11.75 3.25 0.0
+	Velocity 926: 0.0 0.0 0.0
+	Omega 926: 0.0
+	Position 927: 11.75 3.75 0.0
+	Velocity 927: 0.0 0.0 0.0
+	Omega 927: 0.0
+	Position 928: 11.75 4.25 0.0
+	Velocity 928: 0.0 0.0 0.0
+	Omega 928: 0.0
+	Position 929: 11.75 4.75 0.0
+	Velocity 929: 0.0 0.0 0.0
+	Omega 929: 0.0
+	Position 930: 11.75 5.25 0.0
+	Velocity 930: 0.0 0.0 0.0
+	Omega 930: 0.0
+	Position 931: 11.75 5.75 0.0
+	Velocity 931: 0.0 0.0 0.0
+	Omega 931: 0.0
+	Position 932: 11.75 6.25 0.0
+	Velocity 932: 0.0 0.0 0.0
+	Omega 932: 0.0
+	Position 933: 11.75 6.75 0.0
+	Velocity 933: 0.0 0.0 0.0
+	Omega 933: 0.0
+	Position 934: 11.75 7.25 0.0
+	Velocity 934: 0.0 0.0 0.0
+	Omega 934: 0.0
+	Position 935: 11.75 7.75 0.0
+	Velocity 935: 0.0 0.0 0.0
+	Omega 935: 0.0
+	Position 936: 11.75 8.25 0.0
+	Velocity 936: 0.0 0.0 0.0
+	Omega 936: 0.0
+	Position 937: 11.75 8.75 0.0
+	Velocity 937: 0.0 0.0 0.0
+	Omega 937: 0.0
+	Position 938: 11.75 9.25 0.0
+	Velocity 938: 0.0 0.0 0.0
+	Omega 938: 0.0
+	Position 939: 11.75 9.75 0.0
+	Velocity 939: 0.0 0.0 0.0
+	Omega 939: 0.0
+	Position 940: 11.75 10.25 0.0
+	Velocity 940: 0.0 0.0 0.0
+	Omega 940: 0.0
+	Position 941: 11.75 10.75 0.0
+	Velocity 941: 0.0 0.0 0.0
+	Omega 941: 0.0
+	Position 942: 11.75 11.25 0.0
+	Velocity 942: 0.0 0.0 0.0
+	Omega 942: 0.0
+	Position 943: 11.75 11.75 0.0
+	Velocity 943: 0.0 0.0 0.0
+	Omega 943: 0.0
+	Position 944: 11.75 12.25 0.0
+	Velocity 944: 0.0 0.0 0.0
+	Omega 944: 0.0
+	Position 945: 11.75 12.75 0.0
+	Velocity 945: 0.0 0.0 0.0
+	Omega 945: 0.0
+	Position 946: 11.75 13.25 0.0
+	Velocity 946: 0.0 0.0 0.0
+	Omega 946: 0.0
+	Position 947: 11.75 13.75 0.0
+	Velocity 947: 0.0 0.0 0.0
+	Omega 947: 0.0
+	Position 948: 11.75 14.25 0.0
+	Velocity 948: 0.0 0.0 0.0
+	Omega 948: 0.0
+	Position 949: 11.75 14.75 0.0
+	Velocity 949: 0.0 0.0 0.0
+	Omega 949: 0.0
+	Position 950: 11.75 15.25 0.0
+	Velocity 950: 0.0 0.0 0.0
+	Omega 950: 0.0
+	Position 951: 11.75 15.75 0.0
+	Velocity 951: 0.0 0.0 0.0
+	Omega 951: 0.0
+	Position 952: 11.75 16.25 0.0
+	Velocity 952: 0.0 0.0 0.0
+	Omega 952: 0.0
+	Position 953: 11.75 16.75 0.0
+	Velocity 953: 0.0 0.0 0.0
+	Omega 953: 0.0
+	Position 954: 11.75 17.25 0.0
+	Velocity 954: 0.0 0.0 0.0
+	Omega 954: 0.0
+	Position 955: 11.75 17.75 0.0
+	Velocity 955: 0.0 0.0 0.0
+	Omega 955: 0.0
+	Position 956: 11.75 18.25 0.0
+	Velocity 956: 0.0 0.0 0.0
+	Omega 956: 0.0
+	Position 957: 11.75 18.75 0.0
+	Velocity 957: 0.0 0.0 0.0
+	Omega 957: 0.0
+	Position 958: 11.75 19.25 0.0
+	Velocity 958: 0.0 0.0 0.0
+	Omega 958: 0.0
+	Position 959: 11.75 19.75 0.0
+	Velocity 959: 0.0 0.0 0.0
+	Omega 959: 0.0
+	Position 960: 12.25 0.25 0.0
+	Velocity 960: 0.0 0.0 0.0
+	Omega 960: 0.0
+	Position 961: 12.25 0.75 0.0
+	Velocity 961: 0.0 0.0 0.0
+	Omega 961: 0.0
+	Position 962: 12.25 1.25 0.0
+	Velocity 962: 0.0 0.0 0.0
+	Omega 962: 0.0
+	Position 963: 12.25 1.75 0.0
+	Velocity 963: 0.0 0.0 0.0
+	Omega 963: 0.0
+	Position 964: 12.25 2.25 0.0
+	Velocity 964: 0.0 0.0 0.0
+	Omega 964: 0.0
+	Position 965: 12.25 2.75 0.0
+	Velocity 965: 0.0 0.0 0.0
+	Omega 965: 0.0
+	Position 966: 12.25 3.25 0.0
+	Velocity 966: 0.0 0.0 0.0
+	Omega 966: 0.0
+	Position 967: 12.25 3.75 0.0
+	Velocity 967: 0.0 0.0 0.0
+	Omega 967: 0.0
+	Position 968: 12.25 4.25 0.0
+	Velocity 968: 0.0 0.0 0.0
+	Omega 968: 0.0
+	Position 969: 12.25 4.75 0.0
+	Velocity 969: 0.0 0.0 0.0
+	Omega 969: 0.0
+	Position 970: 12.25 5.25 0.0
+	Velocity 970: 0.0 0.0 0.0
+	Omega 970: 0.0
+	Position 971: 12.25 5.75 0.0
+	Velocity 971: 0.0 0.0 0.0
+	Omega 971: 0.0
+	Position 972: 12.25 6.25 0.0
+	Velocity 972: 0.0 0.0 0.0
+	Omega 972: 0.0
+	Position 973: 12.25 6.75 0.0
+	Velocity 973: 0.0 0.0 0.0
+	Omega 973: 0.0
+	Position 974: 12.25 7.25 0.0
+	Velocity 974: 0.0 0.0 0.0
+	Omega 974: 0.0
+	Position 975: 12.25 7.75 0.0
+	Velocity 975: 0.0 0.0 0.0
+	Omega 975: 0.0
+	Position 976: 12.25 8.25 0.0
+	Velocity 976: 0.0 0.0 0.0
+	Omega 976: 0.0
+	Position 977: 12.25 8.75 0.0
+	Velocity 977: 0.0 0.0 0.0
+	Omega 977: 0.0
+	Position 978: 12.25 9.25 0.0
+	Velocity 978: 0.0 0.0 0.0
+	Omega 978: 0.0
+	Position 979: 12.25 9.75 0.0
+	Velocity 979: 0.0 0.0 0.0
+	Omega 979: 0.0
+	Position 980: 12.25 10.25 0.0
+	Velocity 980: 0.0 0.0 0.0
+	Omega 980: 0.0
+	Position 981: 12.25 10.75 0.0
+	Velocity 981: 0.0 0.0 0.0
+	Omega 981: 0.0
+	Position 982: 12.25 11.25 0.0
+	Velocity 982: 0.0 0.0 0.0
+	Omega 982: 0.0
+	Position 983: 12.25 11.75 0.0
+	Velocity 983: 0.0 0.0 0.0
+	Omega 983: 0.0
+	Position 984: 12.25 12.25 0.0
+	Velocity 984: 0.0 0.0 0.0
+	Omega 984: 0.0
+	Position 985: 12.25 12.75 0.0
+	Velocity 985: 0.0 0.0 0.0
+	Omega 985: 0.0
+	Position 986: 12.25 13.25 0.0
+	Velocity 986: 0.0 0.0 0.0
+	Omega 986: 0.0
+	Position 987: 12.25 13.75 0.0
+	Velocity 987: 0.0 0.0 0.0
+	Omega 987: 0.0
+	Position 988: 12.25 14.25 0.0
+	Velocity 988: 0.0 0.0 0.0
+	Omega 988: 0.0
+	Position 989: 12.25 14.75 0.0
+	Velocity 989: 0.0 0.0 0.0
+	Omega 989: 0.0
+	Position 990: 12.25 15.25 0.0
+	Velocity 990: 0.0 0.0 0.0
+	Omega 990: 0.0
+	Position 991: 12.25 15.75 0.0
+	Velocity 991: 0.0 0.0 0.0
+	Omega 991: 0.0
+	Position 992: 12.25 16.25 0.0
+	Velocity 992: 0.0 0.0 0.0
+	Omega 992: 0.0
+	Position 993: 12.25 16.75 0.0
+	Velocity 993: 0.0 0.0 0.0
+	Omega 993: 0.0
+	Position 994: 12.25 17.25 0.0
+	Velocity 994: 0.0 0.0 0.0
+	Omega 994: 0.0
+	Position 995: 12.25 17.75 0.0
+	Velocity 995: 0.0 0.0 0.0
+	Omega 995: 0.0
+	Position 996: 12.25 18.25 0.0
+	Velocity 996: 0.0 0.0 0.0
+	Omega 996: 0.0
+	Position 997: 12.25 18.75 0.0
+	Velocity 997: 0.0 0.0 0.0
+	Omega 997: 0.0
+	Position 998: 12.25 19.25 0.0
+	Velocity 998: 0.0 0.0 0.0
+	Omega 998: 0.0
+	Position 999: 12.25 19.75 0.0
+	Velocity 999: 0.0 0.0 0.0
+	Omega 999: 0.0
 

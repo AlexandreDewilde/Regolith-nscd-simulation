@@ -192,6 +192,7 @@ class Simulation:
 
         return forces
 
+    
     def step(self) -> None:
         """
         Update the positions and velocities of the particles
@@ -199,16 +200,14 @@ class Simulation:
         forces = 1/self.iM[:,np.newaxis]*self.g #+ self.compute_cohesion_force()
         #print(1/self.iM[:,np.newaxis]*self.g,self.compute_cohesion_force())
         nsub = 1
-        vmax = np.max( np.linalg.norm(self.__velocities + forces*self.dt*self.iM[:,np.newaxis],axis=1) )
-        nsub = int(max(nsub, int(np.ceil((vmax * self.dt * 8)/min(self.__radius)))))
         print("NSUB",nsub)
         for i in range(nsub):
             self.__velocities = (self.dt/nsub)*forces*self.iM[:,np.newaxis] + self.__velocities
             tic = time.time()
             if self.tree == True:
                 tree = set_tree(self.__positions)
-                print("Tree time : ",time.time()-tic)
                 return
+                print("Tree time : ",time.time()-tic)
                 tic = time.time()
                 self.contacts = detect_contacts(self.__positions, self.__velocities, self.__radius, self.lines, self.dt/nsub,tree)
                 print("Detection time : ",time.time()-tic)
