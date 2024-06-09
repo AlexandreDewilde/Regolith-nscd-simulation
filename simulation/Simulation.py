@@ -7,7 +7,7 @@ import numpy as np
 from numpy.typing import NDArray
 from scipy.spatial import KDTree
 
-from .contact import solve_contacts_jacobi, detect_contacts, detect_contacts_tree
+from .contact import solve_contacts_jacobi, detect_contacts, detect_contacts_tree, NUMBA_ACTIVATE
 
 
 class Simulation:
@@ -148,6 +148,13 @@ class Simulation:
         self.__write_precomputation()
 
     def __write_precomputation(self) -> None:
+        if self.test_perf:
+            with open(f"perf_{time.time()}.csv", "w") as f:
+                f.write("tree,numba,detect_contact,solve\n")
+                for perf in self.perfs:
+                    tree, numba, detect_contact, solve = perf.values()
+                    f.write(f"{tree},{numba},{detect_contact},{solve}\n")
+
         if self.precomputation_file is not None:
             with open(self.precomputation_file, "w") as f:
                 for t, positions, velocities, omega in zip(self.t_history, self.positions_history, self.velocities_history, self.omega_history):
@@ -248,6 +255,7 @@ class Simulation:
         """
         self.step_perf = {
             "tree": self.tree,
+            "numba": NUMBA_ACTIVATE,
         }
 
         forces = 1 / self.iM[:, np.newaxis] * self.g \
@@ -295,10 +303,11 @@ class Simulation:
 
         self.contacts = detect_contacts_tree(self.__positions, self.__radius, self.lines, ids)
 
+        end = time.time()
         if self.debug:
-            print("Detection time : ",time.time() - tic)
+            print("Detection time : ", end - tic)
         if self.test_perf:
-            self.test_perf["detect_contact"] = time.time() - tic
+            self.step_perf["detect_contact"] = end - tic
 
     def __detect_contacts_tree_2(self):
         tic = time.time()
@@ -307,17 +316,19 @@ class Simulation:
         ids = [np.array(tree.query_ball_point(self.__positions[i], self.__max_radius * 1.1 + self.__radius[i])) for i in range(len(self.__positions))]
         self.contacts = detect_contacts_tree(self.__positions, self.__radius, self.lines, ids)
 
+        end = time.time()
         if self.debug:
-            print("Tree time : ",time.time() - tic)
+            print("Tree time : ", end - tic)
         if self.test_perf:
-            self.test_perf["detect_contact"] = time.time() - tic
+            self.step_perf["detect_contact"] = end - tic
 
     def __detect_contacts(self):
         tic = time.time()
 
         self.contacts = detect_contacts(self.__positions, self.__radius, self.lines)
 
+        end = time.time()
         if self.debug:
-            print("Detection time : ",time.time() - tic)
+            print("Detection time : ", end - tic)
         if self.test_perf:
-            self.test_perf["detect_contact"] = time.time() - tic
+            self.step_perf["detect_contact"] = end - tic

@@ -2,12 +2,15 @@ import numpy as np
 from numba import jit
 from numba import int64, float64
 from numba.experimental import jitclass
-from numba.typed import List
-
+import numba
 
 CONTACT_PARTICLE_PARTICLE = 0
 CONTACT_PARTICLE_LINE = 1
 CONTACT_PARTICLE_DISK = 2
+
+NUMBA_ACTIVATE = True
+if not NUMBA_ACTIVATE:
+    numba.config.DISABLE_JIT = True
 
 @jitclass((
     ("i", int64),
