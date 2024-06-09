@@ -177,26 +177,48 @@ class Simulation:
 
     def get_meshes(self) -> list[trimesh.Trimesh]:
         return self.meshes
+    
+    def compute_cohesion_force(self):
+        forces = np.zeros_like(self.__positions)
+
+        for i in range(self.__positions.shape[0]):
+            for j in range(i + 1, self.__positions.shape[0]):
+                direction = self.__positions[j] - self.__positions[i]
+                distance = np.linalg.norm(direction)
+                force_magnitude = 10000.0 
+                force = force_magnitude * direction / distance  # Normalize the direction vector
+                forces[i] += force
+                forces[j] -= force  # Newton's third law
+
+        return forces
 
     def step(self) -> None:
         """
         Update the positions and velocities of the particles
         """
-        tic = time.time()
-        #self.__velocities += self.g*self.dt
-        if self.tree == True:
-            tree = set_tree(self.__positions)
-            print("Tree time : ",time.time()-tic)
+        forces = 1/self.iM[:,np.newaxis]*self.g #+ self.compute_cohesion_force()
+        #print(1/self.iM[:,np.newaxis]*self.g,self.compute_cohesion_force())
+        nsub = 1
+        vmax = np.max( np.linalg.norm(self.__velocities + forces*self.dt*self.iM[:,np.newaxis],axis=1) )
+        nsub = int(max(nsub, int(np.ceil((vmax * self.dt * 8)/min(self.__radius)))))
+        print("NSUB",nsub)
+        for i in range(nsub):
+            self.__velocities = (self.dt/nsub)*forces*self.iM[:,np.newaxis] + self.__velocities
             tic = time.time()
-            self.contacts = detect_contacts(self.__positions, self.__velocities, self.__radius, self.lines, self.dt,tree)
-            print("Detection time : ",time.time()-tic)
+            if self.tree == True:
+                tree = set_tree(self.__positions)
+                print("Tree time : ",time.time()-tic)
+                return
+                tic = time.time()
+                self.contacts = detect_contacts(self.__positions, self.__velocities, self.__radius, self.lines, self.dt/nsub,tree)
+                print("Detection time : ",time.time()-tic)
 
-        else :
-            self.contacts = detect_contacts(self.__positions, self.__velocities, self.__radius, self.lines, self.dt,None)
-            print("Detection time : ",time.time()-tic)
-
-        tic = time.time()
-        self.__velocities,self.__omega = solve_contacts_jacobi(self.contacts, self.__positions, self.__velocities, self.__omega, self.__radius, self.iM, self.I, self.dt)
-        print("Solving time : ",time.time()-tic)
-        self.__positions += self.__velocities * self.dt
-        self.t += self.dt
+            else :
+                self.contacts = detect_contacts(self.__positions, self.__velocities, self.__radius, self.lines, self.dt/nsub,None)
+                print("Detection time : ",time.time()-tic)
+            
+            tic = time.time()
+            self.__velocities,self.__omega = solve_contacts_jacobi(self.contacts, self.__positions, self.__velocities, self.__omega, self.__radius, self.iM, self.I, self.dt/nsub)
+            print("Solving time : ",time.time()-tic)
+            self.__positions += self.__velocities * self.dt
+            self.t += self.dt/nsub

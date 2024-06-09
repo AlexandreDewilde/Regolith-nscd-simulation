@@ -7,7 +7,7 @@ from numba.typed import List
 node_type = deferred_type()
 spec = (
     ("npoints", int64),
-    ("points", float64[:] ),
+    ("points", float64[:,:] ),
     ("center", float64[:]),
     ("length", float64),
     ("nw", optional(node_type)),
@@ -24,7 +24,7 @@ class QuadTreeNode(object):
 
     def __init__(self, center, length):
         self.max = 4   #max number of points in the node 
-        self.points = np.zeros((self.max*3))   #on note pas les sous arrays sinon numba plante
+        self.points = np.zeros((self.max,3))   #on note pas les sous arrays sinon numba plante
         self.IDs = np.zeros(self.max).astype(int64)
         self.npoints = 0
         self.center = center       #center of the node
@@ -36,47 +36,47 @@ class QuadTreeNode(object):
         self.sw = None             #bottom left node
         self.se = None             #bottom right node
 
-    """def __str__(self) -> str:
-        s = "Center : "+str(self.center)+", length : "+str(self.length)+ ", particles inside :" + str(get_points(self)) + "\n"
-        s += str(self.sw) + str(self.nw) + str(self.ne) + str(self.se) + "\n"
-        s+= "Finished center : " + str(self.center) + "\n"
-        return s"""
-
 node_type.define(QuadTreeNode.class_type.instance_type)
 
 @numba.jit()
 def add_point(node, point,i):
+    stack = List()
+    stack.append((node,point,i))
     xmin = node.center[0]-node.length/2
     xmax = node.center[0]+node.length/2
     ymin = node.center[1]-node.length/2
     ymax = node.center[1]+node.length/2
-    
-    if point[0] <= xmin or point[0]>xmax or point[1] <= ymin or point[1]>ymax:                #Check if point is outside node
-        return 
-    
-    if node.leaf == 0 :
-        return (add_point(node.nw,point,i) or add_point(node.sw,point,i) or add_point(node.ne,point,i) or add_point(node.se,point,i))
-    
-    if node.npoints < node.max:
-        node.points[3*node.npoints:3*node.npoints+3] = point
-        node.IDs[node.npoints] = i
-        node.npoints += 1
-        return 
-    
-    else :
-        set_nodes(node)
-        points_toremove,IDs = get_points(node)
-        node.npoints = 0
-        node.leaf = 0
-        for j in range(len(points_toremove)) :
-            p = points_toremove[j]
-            ID = IDs[j]
-            add_point(node,p,ID)
-        add_point(node,point,i)
-        return 
+    while len(stack):
+        node = stack[0][0]
+        point = stack[0][1]
+        i = stack[0][2]
+        stack.pop(0)
+        if point[0] <= xmin or point[0]>xmax or point[1] <= ymin or point[1]>ymax:                #Check if point is outside node
+            continue 
+        
+        if node.leaf == 0 :
+            stack.append((node.nw,point,i))
+            stack.append((node.sw,point,i))
+            stack.append((node.se,point,i))
+            stack.append((node.ne,point,i))
+        
+        elif node.npoints < node.max:
+            node.points[node.npoints] = point
+            node.IDs[node.npoints] = i
+            node.npoints += 1
+        else :
+            set_nodes(node)
+            points_toremove,IDs = get_points(node)
+            node.leaf = 0
+            for j in range(len(points_toremove)) :
+                p = points_toremove[j]
+                ID = IDs[j]
+                stack.append((node,p,ID))
+            stack.append((node,point,i))
+    return
 
-@numba.jit()
-def set_nodes(node):
+@numba.jit() #ok
+def set_nodes(node): 
     l = node.length / 2
     d = node.length / 4
 
@@ -87,20 +87,13 @@ def set_nodes(node):
 
     return l
 
-@numba.jit()
+@numba.jit() #ok
 def get_points(node):
-    if node.leaf == 0 : #not a leaf
-        return -1 
-    points = np.zeros((node.max,3))
+    points = node.points[:node.npoints]
     IDs = node.IDs[:node.npoints]
-    points[0] = node.points[:3]
-    points[1] = node.points[3:6]
-    points[2] = node.points[6:9]
-    points[3] = node.points[9:12]
-    points = points[:node.npoints]
     return points,IDs
 
-@numba.jit()
+@numba.jit() #ok
 def point_in_square(point,center,length):
     #Check if a point is in a square
     x = point[0]
@@ -114,7 +107,7 @@ def point_in_square(point,center,length):
     else :
         return False
 
-@numba.jit()
+@numba.jit() #ok
 def intersects(centerA,lengthA,centerB,lengthB):
     #Return true if rectangle A intersects rectangle B
     xminA = centerA[0] - lengthA/2
@@ -129,7 +122,7 @@ def intersects(centerA,lengthA,centerB,lengthB):
 
     return not (xmaxA<xminB or xmaxB<xminA or ymaxA < yminB or ymaxB<yminA)
 
-@numba.jit()
+#@numba.jit()
 def nodes_in_square(node,point,L,list):
     #return all the leaf nodes that touches the square of side L centered on point
     if intersects(node.center,node.length,point,L):
@@ -144,7 +137,7 @@ def nodes_in_square(node,point,L,list):
         return List()
     return list
 
-@numba.jit()
+#@numba.jit()
 def particles_in_box(node,point,L):
     #return all particles coordinates in the box of size L around point 
     nodes = List()
@@ -160,7 +153,7 @@ def particles_in_box(node,point,L):
         nparticles += nodes[i].npoints
     return particles[:nparticles],IDs[:nparticles]
 
-@numba.jit()
+#@numba.jit()
 def set_tree(points):
     xmin = np.min(points[:,0]) - 1
     xmax = np.max(points[:,0]) + 1

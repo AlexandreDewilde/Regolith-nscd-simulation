@@ -27,17 +27,35 @@ def norm_with_axis1(vector):
     for i in range(len(array)):
         array[i] = np.linalg.norm(vector[i])
     return array
+
+@jit
+def norm_with_axis2(vector):
+    array = np.zeros((vector.shape[0],vector.shape[1]))
+    for i in range(len(array)):
+        for j in range(len(array[i])):
+            array[i,j] = np.linalg.norm(vector[i,j])
+    return array
+
 @jit
 def sum_with_axis1(vector):
     array = np.zeros(vector.shape[0])
     for i in range(len(array)):
         array[i] = np.sum(vector[i])
     return array
+
+@jit
+def sum_with_axis2(vector):
+    array = np.zeros((vector.shape[0],vector.shape[1]))
+    for i in range(len(array)):
+        for j in range(len(array[i])):
+            array[i,j] = np.sum(vector[i,j])
+    return array
+
 @jit
 def solve_contacts_jacobi(contacts,positions, velocities, omega, radius, imass, inertia, dt):
     mu = 0.3
     m = 1/imass
-    itmax = 2
+    itmax = 1000
     tol = 5e-6
     if contacts[0].type == -1 :
         return velocities,omega
@@ -148,44 +166,70 @@ def solve_contacts_jacobi(contacts,positions, velocities, omega, radius, imass, 
 
     return velocities,omega
 
+@jit
 def detect_contacts(positions, velocities, radius, walls, dt,tree):
     detection_range = np.max(radius)
     contacts = List()
     empty = True
     if tree == None:
-        for i in range(len(radius)):
-            xi = positions[i]
-            for j in range(i+1,len(radius)):
-                xj = positions[j]
-                distance = np.linalg.norm(xi-xj)-radius[i]-radius[j]
-                if distance <= detection_range:
-                    c = Contact(i,j,(xi-xj)/np.linalg.norm(xi-xj),distance,0)
-                    contacts.append(c)
-                    empty = False
-            for j in range(len(walls)) :
-                wall = walls[j].astype(np.float64)
-                t = wall[1]-wall[0]
-                s = xi-wall[0]
-                st = np.dot(s,t)/np.linalg.norm(t)**2
-                n = s-st*t
-                d = np.linalg.norm(n)-radius[i]
-                if d<detection_range and 0 <= st <= 1:
-                    c = Contact(i,j,n/(np.linalg.norm(n)),d,1)
-                    contacts.append(c)
-                    empty = False
-                disk0 = wall[0]
-                disk1 = wall[1]
-                distance0 = np.linalg.norm(xi - disk0) - radius[i]
-                distance1 = np.linalg.norm(xi - disk1) - radius[i]
-                if distance0 < detection_range :
-                    contacts.append(Contact(i,j,n,d,2))
-                if distance1 < detection_range :
-                    contacts.append(Contact(i,j,n,d,2))
+        xrel = np.expand_dims(positions,1)- positions                                                            #Relative positions of all grains (duplicates included)
+        dx = norm_with_axis2(xrel)                                               #Center to center distance between each pair of grains (duplicates included)
+        norms = xrel/np.expand_dims(dx,-1)
+        shape = norms.shape
+        norms = norms.ravel()
+        norms[np.isnan(norms)] = 0
+        norms = norms.reshape(shape)
+        dx -= np.expand_dims(radius,-1) + radius                                       #Surface to surface distance between each pair of grains (duplicates included)
+        pairs = np.argwhere(dx < detection_range)                                               #Only consider pairs whose distance is lower than the alert distance
+        for i,j in pairs:                                                             
+            if i > j:                                                                   #Avoids duplicates
+                ct = Contact(i,j,norms[i,j],dx[i,j],0)                                    #Create grain-grain contact
+                contacts.append(ct)                                                         #Store contact in the contact array
+                empty = False
+
+        xs0 = np.zeros((len(walls),3))
+        ts =  np.zeros((len(walls),3))
+        for i in range(len(walls)):
+            xs0[i] = walls[i][0]
+            ts[i] = walls[i][1]-walls[i][0]
+        
+        nts = norm_with_axis1(ts)                                                 #Compute the norm of the tangential vectors
+        xts = np.expand_dims(positions,1) - xs0                                                    #Compute the vectors from each grain to the first point of each segment
+        txts = sum_with_axis2(xts*ts)/nts**2                                           #Obtain the projection of the above vectors on the tangential vectors
+        norms = xts - ts*np.expand_dims(txts,2)                                               #Obtain the normal vectors between each grain and each segment
+        dx = norm_with_axis2(norms) - np.expand_dims(radius,-1)                                    #Surface to segment distance between each grain and each segment
+        norms = norms/np.expand_dims(norm_with_axis2(norms),-1)           #Normalise the normal vectors so that their length is 1
+        shape = norms.shape
+        norms = norms.ravel()
+        norms[np.isnan(norms)] = 0
+        norms = norms.reshape(shape)
+        pairs = np.argwhere(np.logical_and(dx < detection_range, np.logical_and(txts >= 0, txts <= 1))) #Only consider grain)segment pairs whose distance is lower than the alert distance
+        for i,j in pairs:
+            ct = Contact(i,j,norms[i,j],dx[i,j],1)                                      #Create grain-segment contact
+            contacts.append(ct)                                                           #Store contact in the contact array
+            empty = False
+
+        xd = np.zeros((len(walls)*2,3))
+        for i in range(len(walls)):
+            xd[i*2] = walls[i][0]
+            xd[i*2+1] = walls[i][1]                                                                                   #Obtaining a vector containing the positions of all the disks
+        xreld = np.expand_dims(positions,1) - xd                                                   #Relative position of every grain with every disk
+        dx = norm_with_axis2(xreld)                                             #Distance between each grain and each disk
+        norms = xreld/np.expand_dims(dx,2)                                     #Associated normal vectors
+        shape = norms.shape
+        norms = norms.ravel()
+        norms[np.isnan(norms)] = 0
+        norms = norms.reshape(shape)
+        dx -= np.expand_dims(radius,1)                                                                  #Surface to disk distance for each grain and each disk
+        pairs = np.argwhere(dx < detection_range)                                               #Only consider grain-disk pairs whose distance is lower than the alert distance
+        for i,j in pairs:                                                             
+            ct = Contact(i,j,norms[i,j],dx[i,j],2)                                     #Create grain-disk contact
+            contacts.append(ct)                                                           #Store contact in the contact array
 
     else :
         for i in range(len(radius)):
             xi = positions[i]
-            particles,IDs = particles_in_box(tree,xi,detection_range*2)
+            particles,IDs = particles_in_box(tree,xi,detection_range*4)
             for j in range(len(IDs)):
                 if int(IDs[j]) <= i:
                     continue
@@ -218,4 +262,5 @@ def detect_contacts(positions, velocities, radius, walls, dt,tree):
     if empty :
         c = Contact(-1,-1,np.array([-1.0,-1.0,-1.0]),-1.0,-1)
         contacts.append(c)
+    
     return contacts

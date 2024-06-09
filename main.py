@@ -45,9 +45,9 @@ xmin = 0
 xmax = 20
 ymin = 0
 ymax = 20
-n = 100
+n = 10
 np.random.seed(1)
-positions = insert_particles(n, 1, xmin, xmax, ymin, ymax)
+positions = insert_particles(n, 1.1, xmin, xmax, ymin, ymax)
 n = len(positions)
 print(n)
 velocities = np.random.uniform(-10,10,(n,2))
@@ -63,7 +63,7 @@ sim = Simulation(
     rho,
     g,
     d3=False,
-    tree=True,
+    tree=False,
     precomputation_file="out.txt"
 )
 
@@ -71,25 +71,25 @@ sim.add_line(
     np.array([
         [xmin, ymax, 0],
         [xmax, ymax, 0],
-    ])
+    ]).astype(np.float64)
 )
 sim.add_line(
     np.array([
         [xmax, ymin, 0],
         [xmax, ymax, 0],
-    ])
+    ]).astype(np.float64)
 )
 sim.add_line(
     np.array([
         [xmin, ymin, 0],
         [xmin, ymax, 0],
-    ])
+    ]).astype(np.float64)
 )
 sim.add_line(
     np.array([
         [xmin, ymin, 0],
         [xmax, ymin, 0],
-    ])
+    ]).astype(np.float64)
 )
 
 #sim.run_sim()
