@@ -39,11 +39,11 @@ plt.plot(particles_count, [cats_df[(True, True, i)]["detect_contact"] for i in p
 plt.legend()
 plt.savefig("chart/contact_detection.pdf")
 
-plt.title("Contact solving time: KDTree vs Brute force", fontsize=16)
+plt.title("Contact solving time: numba vs no numba", fontsize=16)
 plt.ylabel("Contact solving time (s)", fontsize=14)
 plt.xlabel("Number of particles", fontsize=14)
-plt.plot(particles_count, [cats_df[(False, True, i)]["solve"] for i in particles_count], label="Brute force + Numba")
-plt.plot(particles_count, [cats_df[(True, True, i)]["solve"] for i in particles_count], label="KDTree + Numba")
+plt.plot(particles_count, [cats_df[(True, False, i)]["solve"] for i in particles_count], label="No numba")
+plt.plot(particles_count, [cats_df[(True, True, i)]["solve"] for i in particles_count], label="Numba")
 plt.legend()
 plt.savefig("chart/contact_solving.pdf")
 
