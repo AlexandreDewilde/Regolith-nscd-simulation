@@ -67,7 +67,7 @@ for i in range(100, 2001, 100):
             radius,
             rho,
             g,
-            tend=1.0,
+            tend=0.1,
             tree=tree,
             test_perf=True,
         )
