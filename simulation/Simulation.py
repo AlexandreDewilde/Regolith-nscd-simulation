@@ -271,6 +271,7 @@ class Simulation:
 
         tic = time.time()
         self.__velocities,self.__omega = solve_contacts_jacobi(
+            self.mu,
             self.contacts,
             self.__positions,
             self.__velocities,

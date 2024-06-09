@@ -58,11 +58,10 @@ def sum_with_axis2(vector):
     return array
 
 @jit(nopython = True)
-def solve_contacts_jacobi(contacts, positions, velocities, omega, radius, imass, inertia, dt):
+def solve_contacts_jacobi(mu, contacts, positions, velocities, omega, radius, imass, inertia, dt, itmax=1000, tol=1e-3):
     mu = 0.3
     m = 1/imass
-    itmax = 1000
-    tol = 1e-3
+
     if contacts[0].type == -1 :
         return velocities,omega
     it = 0
