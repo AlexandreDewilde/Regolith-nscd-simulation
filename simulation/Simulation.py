@@ -289,6 +289,15 @@ class Simulation:
         if self.debug:
             print("Detection time : ",time.time() - tic)
 
+    def __detect_contacts_tree_2(self):
+        tic = time.time()
+
+        tree = KDTree(self.__positions)
+        ids = [np.array(tree.query_ball_point(self.__positions[i], self.__max_radius * 1.1 + self.__radius[i])) for i in range(len(self.__positions))]
+        self.contacts = detect_contacts_tree(self.__positions, self.__radius, self.lines, ids)
+        if self.debug:
+            print("Tree time : ",time.time() - tic)
+
     def __detect_contacts(self):
         tic = time.time()
 
