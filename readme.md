@@ -1,7 +1,7 @@
 # NSCD simulation in 2D (and 3D) 🌟
 
 ## About
-This tool provides a way to run NSCD (Non-Specific Cell Death) simulations. It's built in Python, utilizing Numba for code optimization. The GUI is developed using PyFX, a high-level computer graphics library based on wgpu-py with WebGPU support.
+This tool provides a way to run NSCD simulations. It's built in Python, utilizing Numba for code optimization. The GUI is developed using PyFX, a high-level computer graphics library based on wgpu-py with WebGPU support.
 
 ## Installation
 To get started, follow these steps:
